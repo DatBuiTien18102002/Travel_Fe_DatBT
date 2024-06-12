@@ -1,46 +1,55 @@
+import { Fragment } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "@/global.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { DefaultLayout } from "@/layouts";
+import { Helmet } from "react-helmet";
+import { publicRoutes } from "@/routers/routers";
+import { routeProps } from "@/types/types";
 
 function App() {
-  return (
-    <>
-      <div className="wrapper w-full  mt-[var(--header-height)]">
-        <h1 className="text-xl  font-cloudy bg-[#73c2eb] w-full text-sky">
-          Blog
-        </h1>
-        <h1 className="text-xl  font-cloudy bg-[#73c2eb] w-full text-[#F0F8FF]">
-          Blog
-        </h1>
-        <h1 className="text-xl  font-cloudy bg-[#73c2eb] w-full text-[#32a6e6]">
-          Blog
-        </h1>
-        <h1 className="text-xl  font-cloudy bg-[#73c2eb] w-full text-[#027ebc]">
-          Blog
-        </h1>
-        <h1 className="text-3xl font-bold underline font-robotoBold">
-          Hello world!
-        </h1>
-        <h1 className="text-3xl font-bold underline font-signikaBold">
-          Hello world!
-        </h1>
-        <FontAwesomeIcon icon={faUser} />
-        <div className="flex gap-10 flex-wrap bg-black">
-          <div className="w-[150px] h-[150px] bg-[#09b7d6]">#87Ceeb</div>
-          <div className="w-[150px] h-[150px] bg-[#027ebc]">#87Ceeb</div>
-        </div>
+  const handleRenderRoute = (routes: routeProps[]) => {
+    return routes.map((route, index) => {
+      let Layout = DefaultLayout;
+      const Page = route.page;
 
-        <input type="text" />
-        <button>Hi Loods</button>
-        <a href="/">Hello</a>
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-        </ul>
-      </div>
-    </>
+      if (route.layout) {
+        Layout = route.layout;
+      }
+
+      return (
+        <Route
+          key={index}
+          path={route.path}
+          element={
+            route.layout === null ? (
+              <Fragment>
+                <Helmet>
+                  <title>{route.title}</title>
+                </Helmet>
+                <Page />
+              </Fragment>
+            ) : (
+              <Layout>
+                <Helmet>
+                  <title>{route.title}</title>
+                </Helmet>
+                <Page />
+              </Layout>
+            )
+          }
+        />
+      );
+    });
+  };
+
+  return (
+    <div className="max-w-[1600px] mx-auto">
+      <Routes>
+        <Route path="/home" element={<Navigate to="/" />} />
+
+        {[...handleRenderRoute(publicRoutes)]}
+      </Routes>
+    </div>
   );
 }
 

@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
-
 import React from "react";
 import { Footer, Header } from "@/layouts/components";
+import { layoutProps } from "@/types/types";
 
-const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
+const DefaultLayout: React.FC<layoutProps> = ({ children }) => {
   return (
     <>
       <Header />
@@ -12,10 +11,6 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
       <Footer />
     </>
   );
-};
-
-DefaultLayout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default DefaultLayout;
