@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --header-height: 70px;
+    --wrapper-width: 1440px;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    @apply box-border list-none p-0 m-0 scroll-smooth;
+  }
+
+  body {
+    @apply min-h-screen font-robotoRegular text-black leading-[140%] tracking-tighter text-[1rem] overflow-y-auto overflow-x-hidden;
+  }
+
+  input,
+  button,
+  [tabindex] {
+    @apply outline-none border-none;
+  }
+
+  section {
+    @apply scroll-mt-[var(--header-height)];
+  }
+
+  img {
+    @apply w-full h-full object-cover;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    /* background-color: rgb(216, 216, 216); */
+    background-color: #32a6e6;
+    border-radius: 40px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  @font-face {
+    font-family: "RobotoRegular";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(@/assets/fonts/Roboto/Roboto-Regular.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: "RobotoBold";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(@/assets/fonts/Roboto/Roboto-Bold.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: "SignikaBold";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(@/assets/fonts/Signika/Signika-Bold.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: "Cloudy";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(@/assets/fonts/Cloudy-0W244.ttf) format("truetype");
+  }
+}
+
+@layer components {
+  .wrapper {
+    @apply mx-auto my-0 md:px-[2rem] px-[1rem] w-full h-full max-w-[var(--wrapper-width)];
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-row-between {
+    @apply flex justify-between items-center;
+  }
+
+  .flex-col-between {
+    @apply flex flex-col items-between justify-center;
+  }
+
+  .flex-start {
+    @apply flex justify-start items-center;
+  }
+}
