@@ -2,6 +2,7 @@ import React from "react";
 
 interface layoutProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface routeProps {
@@ -11,4 +12,42 @@ interface routeProps {
   layout?: React.FC | null;
 }
 
-export type { routeProps, layoutProps };
+// Header
+
+interface headerMenuProps {
+  title: string;
+  onBack?: React.FC;
+}
+
+interface menuItemProps {
+  data: {
+    separate?: boolean;
+    to?: string;
+    icon?: React.ReactNode;
+    title?: string;
+    onClick?: () => void;
+  };
+}
+
+interface userMenuProps {
+  children: React.ReactElement;
+  items: menuItemProps["data"][];
+  hideOnClick?: boolean;
+}
+
+interface barsButtonProps {
+  open: boolean;
+  // setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: () => void;
+  color: string;
+}
+// ***********************
+
+export type {
+  routeProps,
+  layoutProps,
+  headerMenuProps,
+  menuItemProps,
+  userMenuProps,
+  barsButtonProps,
+};

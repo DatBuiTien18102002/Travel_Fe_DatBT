@@ -4,8 +4,10 @@
 
 @layer base {
   :root {
-    --header-height: 70px;
+    --header-height: 60px;
     --wrapper-width: 1440px;
+    --section-h: calc(100vh - var(--header-height));
+    --max-section-h: 700px;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -14,11 +16,11 @@
   }
 
   * {
-    @apply box-border list-none p-0 m-0 scroll-smooth;
+    @apply box-border list-none p-0 m-0 scroll-smooth font-robotoRegular snap-y;
   }
 
   body {
-    @apply min-h-screen font-robotoRegular text-black leading-[140%] tracking-tighter text-[1rem] overflow-y-auto overflow-x-hidden;
+    @apply min-h-screen h-[100000px]  text-black leading-[140%] tracking-tighter text-[1rem] overflow-y-auto overflow-x-hidden;
   }
 
   input,
@@ -28,7 +30,7 @@
   }
 
   section {
-    @apply scroll-mt-[var(--header-height)];
+    @apply scroll-mt-[var(--header-height)] snap-start;
   }
 
   img {
@@ -39,8 +41,7 @@
     width: 8px;
   }
   ::-webkit-scrollbar-thumb {
-    /* background-color: rgb(216, 216, 216); */
-    background-color: #32a6e6;
+    background-color: rgb(216, 216, 216);
     border-radius: 40px;
   }
   ::-webkit-scrollbar-track {
@@ -75,11 +76,66 @@
     font-display: swap;
     src: url(@/assets/fonts/Cloudy-0W244.ttf) format("truetype");
   }
+  @font-face {
+    font-family: "Logo";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(@/assets/fonts/Caveat-VariableFont_wght.ttf) format("truetype");
+  }
+
+  input::placeholder {
+    color: #888; /* Màu xám nhạt */
+  }
+
+  input::-webkit-input-placeholder {
+    color: #888; /* Màu xám nhạt cho WebKit (Chrome, Safari) */
+  }
+
+  input::-moz-placeholder {
+    color: #888; /* Màu xám nhạt cho Firefox */
+  }
+
+  input:-ms-input-placeholder {
+    color: #888; /* Màu xám nhạt cho Internet Explorer 10+ */
+  }
+
+  input::-ms-input-placeholder {
+    color: #888; /* Màu xám nhạt cho Microsoft Edge */
+  }
 }
 
 @layer components {
   .wrapper {
     @apply mx-auto my-0 md:px-[2rem] px-[1rem] w-full h-full max-w-[var(--wrapper-width)];
+  }
+
+  .section-height {
+    height: calc(100vh - var(--header-height));
+  }
+
+  .input__search {
+    @apply w-0   lg:group-hover:w-[200px] lg:focus:w-[200px] max-lg:group-hover:w-[120px] max-lg:focus:w-[120px] font-medium transition-all duration-1000 bg-transparent  text-black text-sm focus:pr-[25px] group-hover:pr-[25px];
+  }
+
+  .button__search {
+    @apply text-sky py-[5px] pr-[10px] !w-auto !h-auto;
+  }
+
+  .input__search:not(:placeholder-shown) ~ .button__search {
+    @apply text-sky-dark;
+  }
+
+  .custom-select-introduce {
+    @apply h-[14.4444px];
+  }
+
+  .custom-select-introduce .ant-select-selector {
+    @apply !outline-none !border-none !text-xs !shadow-none;
+  }
+
+  .custom-select-introduce .ant-select-selection-placeholder {
+    @apply text-[#888];
   }
 }
 
@@ -98,5 +154,9 @@
 
   .flex-start {
     @apply flex justify-start items-center;
+  }
+
+  .position-center {
+    @apply top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%];
   }
 }

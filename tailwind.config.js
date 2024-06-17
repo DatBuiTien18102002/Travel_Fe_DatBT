@@ -29,19 +29,35 @@ export default {
     },
 
     extend: {
+      boxShadow: {
+        "menuShadow": "rgb(0 0 0 / 12%) 0px 2px 12px",
+        "searchDetail": "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px"
+      },
+
+      backgroundImage: {
+        "hero": "url('/banner4.webp')",
+      },
+
       colors: {
         "black": "#161823",
+        // "header": "rgba(0,0,0,0.6)",
+        "header": "rgba(37, 155, 217, 0.6)",
+        "grayHover": "#16182308",
         "white": "#fff",
         "gray": "#0000001f",
         "water": "#32a6e6",
-        "sky": "#73c2eb",
-        "sky-dark": "027ebc",
+        "orange": "#fea415",
+        "dark-cloud": "#515458",
+        "sunny": "#ffff70",
+        "sky": "#259bd9",
+        "sky-dark": "#29539f",
       },
       fontFamily: {
         robotoRegular: ['RobotoRegular', 'sans-serif'],
         robotoBold: ['RobotoBold', 'sans-serif'],
         signikaBold: ['SignikaBold', 'sans-serif'],
         cloudy: ['Cloudy', 'sans-serif'],
+        logo: ['Logo', 'sans-serif'],
       },
     },
   },

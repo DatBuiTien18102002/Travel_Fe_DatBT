@@ -6,8 +6,7 @@ const DefaultLayout: React.FC<layoutProps> = ({ children }) => {
   return (
     <>
       <Header />
-
-      <div className="mt-[var(--header-height)">{children}</div>
+      <div>{children}</div>
       <Footer />
     </>
   );
