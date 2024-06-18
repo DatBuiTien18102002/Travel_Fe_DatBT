@@ -127,15 +127,19 @@
   }
 
   .custom-select-introduce {
-    @apply h-[14.4444px];
+    @apply h-[14.4444px] w-full;
   }
 
   .custom-select-introduce .ant-select-selector {
-    @apply !outline-none !border-none !text-xs !shadow-none;
+    @apply !outline-none !border-none !text-xs !shadow-none w-full;
   }
 
   .custom-select-introduce .ant-select-selection-placeholder {
     @apply text-[#888];
+  }
+
+  .title {
+    @apply text-4xl font-signikaBold;
   }
 }
 

@@ -35,10 +35,10 @@ const SearchDetail = () => {
   };
 
   return (
-    <div className="flex py-3 shadow-searchDetail rounded-full w-fit lg:mt-[-100px] md:mt-[-75px] md:mb-3 max-md:mt-5 border-[1px]  border-sky max-sm:flex-col max-sm:w-fit max-sm:rounded-lg max-sm:gap-3">
+    <div className="flex py-3 shadow-searchDetail rounded-full w-fit lg:mt-[-100px] md:mt-[-75px] md:mb-3 max-md:mt-5 border-[1px]  border-sky max-sm:flex-col max-sm:w-[60%] max-sm:rounded-lg max-sm:gap-3">
       <div className="flex-center gap-[11px] px-4 max-sm:justify-start">
         <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5 text-sky" />
-        <div className="max-w-[90px]">
+        <div className="sm:max-w-[90px] max-sm:w-full">
           <div className="font-robotoBold text-sm">Điểm khởi hành</div>
           <input
             type="text"
@@ -52,7 +52,7 @@ const SearchDetail = () => {
 
       <div className="flex-center gap-[11px] px-4  border-sky sm:border-l-[1px] sm:border-r-[1px] max-sm:justify-start">
         <FontAwesomeIcon icon={faLocationDot} className="w-5 h-5 text-sky" />
-        <div className="max-w-[75px]">
+        <div className="sm:max-w-[75px] max-sm:w-full">
           <div className="font-robotoBold text-sm">Điểm du lịch</div>
           <input
             type="text"
@@ -66,13 +66,12 @@ const SearchDetail = () => {
 
       <div className="flex-center px-4 max-sm:justify-start">
         <FontAwesomeIcon icon={faClock} className="w-5 h-5 text-sky" />
-        <div>
+        <div className="max-sm:w-full">
           <div className="font-robotoBold text-sm pl-[11px]">
             Thời gian du lịch
           </div>
           <Select
             placeholder="Chọn thời gian"
-            style={{ width: 120 }}
             onChange={handleChangeSelect}
             options={[
               { value: "1N", label: "1 ngày" },
