@@ -3,7 +3,7 @@ import { whyUs } from "@/constants";
 
 const WhyUs = () => {
   return (
-    <section className="bg-bgSection py-7">
+    <section className="bg-bgSection py-[40px]">
       <div className="wrapper">
         <div className="title text-white text-center">
           Hãy đồng hành cùng <br className="sm:hidden" />

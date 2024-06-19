@@ -31,7 +31,9 @@ export default {
     extend: {
       boxShadow: {
         "menuShadow": "rgb(0 0 0 / 12%) 0px 2px 12px",
-        "searchDetail": "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px"
+        "searchDetail": "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
+        "tourCard": "0 1px 2px rgba(0, 0, 0, 0.1)",
+        "tourCardHover": "0 5px 8px rgba(0, 0, 0, 0.05)"
       },
 
       backgroundImage: {

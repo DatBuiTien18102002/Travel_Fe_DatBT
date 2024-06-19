@@ -9,6 +9,8 @@
     --section-h: calc(100vh - var(--header-height));
     --max-section-h: 700px;
 
+    --primary-color: #259bd9;
+
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -140,6 +142,14 @@
 
   .title {
     @apply text-4xl font-signikaBold;
+  }
+
+  .text-overflow {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

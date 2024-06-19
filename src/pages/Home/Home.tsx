@@ -1,5 +1,10 @@
-import { Hero, Introduce, WhyUs } from "@/pages/Home/components";
-import React from "react";
+import {
+  Comment,
+  Discover,
+  Hero,
+  Introduce,
+  WhyUs,
+} from "@/pages/Home/components";
 
 const Home = () => {
   return (
@@ -7,6 +12,8 @@ const Home = () => {
       <Hero />
       <Introduce />
       <WhyUs />
+      <Discover />
+      <Comment />
     </div>
   );
 };
