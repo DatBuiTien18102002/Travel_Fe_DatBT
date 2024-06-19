@@ -10,9 +10,9 @@ const Hero = () => {
         <p className="font-logo font-bold max-md:text-xl md:text-2xl">
           DAT Travel
         </p>
-        <p className="max-md:text-3xl md:text-5xl font-signikaBold font-bold ">
+        <h1 className="max-md:text-3xl md:text-5xl font-signikaBold font-bold ">
           Thế Giới Trong Tầm Tay
-        </p>
+        </h1>
         <p className="text-center w-[570px]  max-sm:w-[300px] max-md:text-base md:text-lg">
           Khám phá vẻ đẹp thiên nhiên, văn hóa đa dạng và trải nghiệm không thể
           quên. <br /> Bắt đầu hành trình của bạn ngay hôm nay.

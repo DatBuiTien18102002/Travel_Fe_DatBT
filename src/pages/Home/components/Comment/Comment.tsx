@@ -37,7 +37,7 @@ const Comment = () => {
     <section className="comment bg-bgSection pt-[40px] w-full pb-[60px]">
       <div className="wrapper">
         <div className="text-center">
-          <div className="title text-white">Khách hàng đánh giá</div>
+          <h2 className="title text-white">Khách hàng đánh giá</h2>
           <p className="text-gray">
             Mục tiêu hàng đầu của chúng tôi là sự hài lòng của khách hàng
           </p>

@@ -5,10 +5,10 @@ const WhyUs = () => {
   return (
     <section className="bg-bgSection py-[40px]">
       <div className="wrapper">
-        <div className="title text-white text-center">
+        <h2 className="title text-white text-center">
           Hãy đồng hành cùng <br className="sm:hidden" />
           <span className="font-logo text-sunny"> DAT Travel</span>
-        </div>
+        </h2>
 
         <div className="mt-[40px]  flex justify-center">
           <div className="flex gap-[30px] justify-between max-md:flex-col w-fit">

@@ -8,9 +8,9 @@ const Introduce = () => {
           <div className="text- font-logo px-3 py-2 bg-sky rounded-full w-fit text-white">
             Về Chúng Tôi
           </div>
-          <div className="text-4xl font-signikaBold">
+          <h2 className="text-4xl font-signikaBold">
             Mang Thế Giới <br /> Đến Gần Bạn Hơn
-          </div>
+          </h2>
           <div>
             Được thành lập với sứ mệnh kết nối con người và khám phá thế giới,
             chúng tôi cam kết cung cấp các dịch vụ du lịch chất lượng cao, từ

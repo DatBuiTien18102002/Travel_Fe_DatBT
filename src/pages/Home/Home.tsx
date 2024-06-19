@@ -1,6 +1,7 @@
 import {
   Comment,
   Discover,
+  Gallery,
   Hero,
   Introduce,
   WhyUs,
@@ -14,6 +15,7 @@ const Home = () => {
       <WhyUs />
       <Discover />
       <Comment />
+      <Gallery />
     </div>
   );
 };

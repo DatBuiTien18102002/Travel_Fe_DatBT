@@ -48,7 +48,7 @@ const Discover = () => {
       >
         <div className="flex items-center justify-between mb-[50px]">
           <div>
-            <div className="title">Tour du lịch phổ biến</div>
+            <h2 className="title">Tour du lịch phổ biến</h2>
             <div className="text-gray">
               Hơn 1.000 tour đa dạng giá hời có hạn
             </div>
