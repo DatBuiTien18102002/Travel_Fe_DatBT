@@ -12,7 +12,7 @@ const Gallery = () => {
         </div>
 
         <div className="mt-[30px]">
-          <div className="grid grid-rows-8 grid-cols-4 gap-4 md:w-[80%] max-md:w-full h-[800px] m-auto">
+          <div className="grid grid-rows-7 grid-cols-4 gap-4 md:w-[80%] max-md:w-full h-[800px] m-auto">
             <div className="col-span-2 row-span-4 rounded-2xl overflow-hidden border-[2px] border-sky">
               <img src="/gallery-04.jpg" alt="" />
             </div>

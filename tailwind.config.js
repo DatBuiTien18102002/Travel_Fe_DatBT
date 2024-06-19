@@ -50,7 +50,7 @@ export default {
         "water": "#32a6e6",
         "orange": "#fea415",
         "dark-cloud": "#515458",
-        "sunny": "#ffff70",
+        "sunny": "#ff4300",
         "bgSection": "rgba(37, 155, 217, 0.2)",
         "sky": "#259bd9",
         "sky-dark": "#29539f",

@@ -6,7 +6,7 @@ const WhyUs = () => {
     <section className="bg-bgSection py-[40px]">
       <div className="wrapper">
         <h2 className="title text-white text-center">
-          Hãy đồng hành cùng <br className="sm:hidden" />
+          Lý do bạn nên chọn <br className="sm:hidden" />
           <span className="font-logo text-sunny"> DAT Travel</span>
         </h2>
 

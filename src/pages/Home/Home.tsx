@@ -4,6 +4,7 @@ import {
   Gallery,
   Hero,
   Introduce,
+  Partner,
   WhyUs,
 } from "@/pages/Home/components";
 
@@ -16,6 +17,7 @@ const Home = () => {
       <Discover />
       <Comment />
       <Gallery />
+      <Partner />
     </div>
   );
 };
