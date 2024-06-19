@@ -2,9 +2,9 @@ import { SearchDetail } from "@/components";
 
 const Introduce = () => {
   return (
-    <section className="max-md:h-fit md:h-[var(--section-h)] md:max-h-[var(--max-section-h)] flex flex-col wrapper max-md:py-5 max-md:items-center">
-      <div className="flex md:gap-10 max-md:gap-5 w-full md:h-full max-md:h-fit max-md:flex-col">
-        <div className="md:w-[40%] flex flex-col justify-center gap-5 ">
+    <section className="relative h-fit flex flex-col wrapper max-md:py-5 max-md:items-center py-[30px]">
+      <div className="flex md:gap-10 max-md:gap-5 w-full md:h-full max-md:h-fit max-md:flex-col ">
+        <div className="md:w-[40%] flex flex-col justify-start gap-5 ">
           <div className="text- font-logo px-3 py-2 bg-sky rounded-full w-fit text-white">
             Về Chúng Tôi
           </div>
@@ -25,7 +25,7 @@ const Introduce = () => {
           </button>
         </div>
 
-        <div className="md:w-[60%] max-md:h-fit flex justify-between items-center">
+        <div className="md:w-[60%] max-md:h-fit flex justify-between items-start">
           <div className="md:h-[350px] max-md:h-[200px] rounded-3xl border-solid border-2 border-sky w-[30%] overflow-hidden">
             <img src="/introduce3.jpg" alt="" />
           </div>
@@ -38,7 +38,9 @@ const Introduce = () => {
         </div>
       </div>
 
-      <SearchDetail />
+      <div className="md:absolute md:bottom-[30px]">
+        <SearchDetail />
+      </div>
     </section>
   );
 };
