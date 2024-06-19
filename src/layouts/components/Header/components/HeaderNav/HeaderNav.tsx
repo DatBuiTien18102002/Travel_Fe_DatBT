@@ -63,7 +63,7 @@ const HeaderNav = () => {
                     <a
                       key={index}
                       href={item.href}
-                      className="px-5 py-[10px] text-sm font-robotoBold font-bold text-black hover:bg-grayHover"
+                      className="px-5 py-[10px] text-sm font-robotoBold font-bold text-black hover:bg-greyHover"
                     >
                       {item.title}
                     </a>

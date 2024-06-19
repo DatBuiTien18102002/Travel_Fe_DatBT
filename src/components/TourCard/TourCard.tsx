@@ -19,7 +19,7 @@ const TourCard = () => {
       />
 
       <div className="p-[10px] flex flex-col gap-2">
-        <div className="flex gap-1 text-xs text-gray">
+        <div className="flex gap-1 text-xs text-grey">
           <FontAwesomeIcon icon={faLocationDot} />
           <p>
             Khởi hành từ:{" "}
@@ -35,19 +35,19 @@ const TourCard = () => {
           <div className="font-robotoBold text-sky flex items-end leading-none">
             1.150.000đ
           </div>
-          <div className="text-xs text-gray line-through flex items-end leading-none">
+          <div className="text-xs text-grey line-through flex items-end leading-none">
             1.700.000đ
           </div>
         </div>
 
-        <div className="flex gap-1 text-xs text-gray">
+        <div className="flex gap-1 text-xs text-grey">
           <FontAwesomeIcon icon={faClock} />
           <p>
             Thời gian: <span className="text-sky font-robotoBold">2N1Đ</span>
           </p>
         </div>
 
-        <div className="flex gap-1 text-xs text-gray">
+        <div className="flex gap-1 text-xs text-grey">
           <FontAwesomeIcon icon={faUsers} />
           <p>
             Số chỗ còn: <span className="text-sky font-robotoBold">12</span>

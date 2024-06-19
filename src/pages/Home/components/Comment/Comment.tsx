@@ -38,7 +38,7 @@ const Comment = () => {
       <div className="wrapper">
         <div className="text-center">
           <h2 className="title text-white">Khách hàng đánh giá</h2>
-          <p className="text-gray">
+          <p className="text-grey">
             Mục tiêu hàng đầu của chúng tôi là sự hài lòng của khách hàng
           </p>
         </div>

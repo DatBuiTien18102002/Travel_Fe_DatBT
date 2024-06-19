@@ -42,7 +42,7 @@ const Search = () => {
       render={(attrs) => (
         <div tabIndex={-1} {...attrs}>
           <Wrapper>
-            <h4 className="px-3 py-[5px] text-sm font-semibold text-gray">
+            <h4 className="px-3 py-[5px] text-sm font-semibold text-grey">
               Tours
             </h4>
             {/* {searchProducts?.data.map((result, index) => (

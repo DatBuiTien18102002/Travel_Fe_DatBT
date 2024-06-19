@@ -25,7 +25,7 @@ const WhyUs = () => {
                 </div>
                 <div className="md:text-center">
                   <div className="font-robotoBold">{item.title}</div>
-                  <div className="text-gray text-sm md:max-w-[180px] max-md:max-w-[300px]">
+                  <div className="text-grey text-sm md:max-w-[180px] max-md:max-w-[300px]">
                     {item.desc}
                   </div>
                 </div>

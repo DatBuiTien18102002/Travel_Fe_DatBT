@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { menuItemProps } from "@/types/types";
 
 function MenuItem({ data }: menuItemProps) {
-  const classes = `text-sm text-black py-[11px] px-[16px] hover:bg-grayHover hover:bg-grayHover w-full leading-7 font-robotoBold ${
+  const classes = `text-sm text-black py-[11px] px-[16px] hover:bg-greyHover hover:bg-greyHover w-full leading-7 font-robotoBold ${
     data.separate && "border-solid border-t-[2px] border-[#1618231e]"
   }`;
 

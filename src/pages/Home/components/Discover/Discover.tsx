@@ -49,7 +49,7 @@ const Discover = () => {
         <div className="flex items-center justify-between mb-[50px]">
           <div>
             <h2 className="title">Tour du lịch phổ biến</h2>
-            <div className="text-gray">
+            <div className="text-grey">
               Hơn 1.000 tour đa dạng giá hời có hạn
             </div>
           </div>
