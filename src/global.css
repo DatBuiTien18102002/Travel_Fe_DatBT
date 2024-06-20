@@ -22,7 +22,7 @@
   }
 
   body {
-    @apply min-h-screen h-[100000px]  text-black leading-[140%] tracking-tighter text-[1rem] overflow-y-auto overflow-x-hidden;
+    @apply min-h-screen text-black leading-[140%] tracking-tighter text-[1rem] overflow-y-auto overflow-x-hidden;
   }
 
   input,
@@ -172,5 +172,9 @@
 
   .position-center {
     @apply top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%];
+  }
+
+  .clip-path-around {
+    clip-path: ellipse(95% 100% at 50% 100%);
   }
 }

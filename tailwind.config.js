@@ -38,6 +38,7 @@ export default {
 
       backgroundImage: {
         "hero": "url('/banner.webp')",
+        "footer": "url('/footer3.jpg')",
       },
 
       colors: {
