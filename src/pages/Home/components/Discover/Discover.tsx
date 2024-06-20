@@ -44,7 +44,7 @@ const Discover = () => {
     <section className="py-[40px] w-full ">
       <div
         className="wrapper bg-center bg-cover"
-        style={{ backgroundImage: "url(/background-cus-review.webp)" }}
+        style={{ backgroundImage: "url(/background-discover.webp)" }}
       >
         <div className="flex items-center justify-between mb-[50px]">
           <div>
