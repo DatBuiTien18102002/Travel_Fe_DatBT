@@ -43,6 +43,15 @@ interface barsButtonProps {
 }
 // ***********************
 
+// form
+interface contactValueForm {
+  name: string;
+  email: string;
+  message: string;
+}
+
+// ***********************
+
 export type {
   routeProps,
   layoutProps,
@@ -50,4 +59,5 @@ export type {
   menuItemProps,
   userMenuProps,
   barsButtonProps,
+  contactValueForm,
 };

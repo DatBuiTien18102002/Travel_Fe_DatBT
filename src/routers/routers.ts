@@ -1,5 +1,5 @@
 import config from "@/config";
-import { AboutUsPage, HomePage } from "@/pages";
+import { AboutUsPage, ContactUsPage, HomePage } from "@/pages";
 import { routeProps } from "@/types/types";
 
 const publicRoutes: routeProps[] = [
@@ -8,6 +8,11 @@ const publicRoutes: routeProps[] = [
     path: config.routes.aboutUs,
     page: AboutUsPage,
     title: config.titles.aboutUs,
+  },
+  {
+    path: config.routes.contact,
+    page: ContactUsPage,
+    title: config.titles.contact,
   },
 ];
 
