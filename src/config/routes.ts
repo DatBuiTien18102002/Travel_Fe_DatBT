@@ -3,7 +3,7 @@ const routes = {
   home: "/",
   profile: "/profile",
   aboutUs: "/about-us",
-  tour: "/tours",
+  tours: "/tours",
   blog: "/blog",
   contact: "/contact",
   cart: "/cart",

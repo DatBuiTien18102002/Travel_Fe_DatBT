@@ -5,10 +5,17 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { Rate } from "antd";
+import { useLocation } from "react-router-dom";
 
 const TourCard = () => {
+  const { pathname } = useLocation();
+
   return (
-    <div className="relative rounded-[10px] bg-white shadow-tourCard transition-all will-change-transform cursor-pointer scale-[0.9] hover:scale-95 hover:shadow-tourCardHover w-full border-[2px] border-sky">
+    <div
+      className={`relative rounded-[10px] bg-white shadow-tourCard transition-all will-change-transform cursor-pointer hover:shadow-tourCardHover w-full border-[2px] border-sky ${
+        pathname === "/" ? "scale-[0.9] hover:scale-95 " : "hover:scale-105"
+      }`}
+    >
       <div className="absolute top-[10px] left-[10px] py-1 px-4 rounded-full bg-sky-dark text-white text-xs">
         20%
       </div>
@@ -18,16 +25,18 @@ const TourCard = () => {
         style={{ backgroundImage: `url(/introduce1.jpg)` }}
       />
 
-      <div className="p-[10px] flex flex-col gap-2">
+      <div className="p-[10px] flex flex-col gap-1">
         <div className="flex gap-1 text-xs text-grey">
           <FontAwesomeIcon icon={faLocationDot} />
           <p>
             Khởi hành từ:{" "}
-            <span className="text-sky font-robotoBold">Hồ Chí Minh</span>
+            <span className="text-sky font-robotoBold">Đà Nẵng</span>
           </p>
         </div>
 
-        <div className="font-robotoBold text-overflow">HCM - Đà Lạt</div>
+        <div className="font-robotoBold text-overflow text-lg">
+          HCM - Đà Lạt
+        </div>
 
         <Rate disabled defaultValue={4} className="text-sm text-sky" />
 
@@ -40,14 +49,14 @@ const TourCard = () => {
           </div>
         </div>
 
-        <div className="flex gap-1 text-xs text-grey">
+        <div className="flex gap-1 text-sm text-grey">
           <FontAwesomeIcon icon={faClock} />
           <p>
             Thời gian: <span className="text-sky font-robotoBold">2N1Đ</span>
           </p>
         </div>
 
-        <div className="flex gap-1 text-xs text-grey">
+        <div className="flex gap-1 text-sm text-grey">
           <FontAwesomeIcon icon={faUsers} />
           <p>
             Số chỗ còn: <span className="text-sky font-robotoBold">12</span>

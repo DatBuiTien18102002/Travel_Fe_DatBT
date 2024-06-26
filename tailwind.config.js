@@ -33,7 +33,8 @@ export default {
         "menuShadow": "rgb(0 0 0 / 12%) 0px 2px 12px",
         "searchDetail": "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
         "tourCard": "0 1px 2px rgba(0, 0, 0, 0.1)",
-        "tourCardHover": "0 5px 8px rgba(0, 0, 0, 0.05)"
+        "tourCardHover": "0 5px 8px rgba(0, 0, 0, 0.05)",
+        "authForm": "25px 30px 55px #555"
       },
 
       backgroundImage: {
@@ -47,6 +48,7 @@ export default {
         "header": "rgba(37, 155, 217, 0.6)",
         "greyHover": "#16182308",
         "white": "#fff",
+        "greyLight": "#d2d6df",
         "grey": "#76809B",
         "water": "#32a6e6",
         "orange": "#fea415",
@@ -63,6 +65,21 @@ export default {
         cloudy: ['Cloudy', 'sans-serif'],
         logo: ['Logo', 'sans-serif'],
       },
+      keyframes: {
+        showForm: {
+          "0% , 50%": {
+            opacity: 0,
+            zIndex: 1,
+          },
+          "50.1% , 100%": {
+            opacity: 1,
+            zIndex: 5,
+          },
+        }
+      },
+      animation: {
+        showForm: `showForm 0.2s ease-in-out`
+      }
     },
   },
   plugins: [],

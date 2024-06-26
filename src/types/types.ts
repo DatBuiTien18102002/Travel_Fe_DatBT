@@ -50,6 +50,17 @@ interface contactValueForm {
   message: string;
 }
 
+interface signInValueForm {
+  email: string;
+  password: string;
+}
+
+interface signUpValueForm {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 // ***********************
 
 export type {
@@ -60,4 +71,6 @@ export type {
   userMenuProps,
   barsButtonProps,
   contactValueForm,
+  signInValueForm,
+  signUpValueForm,
 };

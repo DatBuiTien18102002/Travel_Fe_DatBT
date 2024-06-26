@@ -6,4 +6,22 @@ const contactSchema = z.object({
   message: z.string().min(1, { message: "Tin nhắn không được để trống" }),
 });
 
-export { contactSchema };
+const signInSchema = z.object({
+  email: z.string().email({ message: "Email không được để trống" }),
+  password: z.string().min(1, { message: "Mật khẩu không được để trống" }),
+});
+
+const signUpSchema = z
+  .object({
+    email: z.string().email({ message: "Email không được để trống" }),
+    password: z.string().min(1, { message: "Mật khẩu không được để trống" }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: "Mật khẩu không được để trống" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Mật khẩu nhập lại không trùng khớp",
+    path: ["confirmPassword"],
+  });
+
+export { contactSchema, signInSchema, signUpSchema };

@@ -3,7 +3,7 @@ const titles = {
   home: "Trang chủ",
   profile: "Thông tin cá nhân",
   aboutUs: "Về chúng tôi",
-  tour: "Danh sách Tour",
+  tours: "Danh sách Tour",
   contact: "Liên lạc",
   order: "Thanh toán",
   myOrders: "Đơn hàng của tôi",

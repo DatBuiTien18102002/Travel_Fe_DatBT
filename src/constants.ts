@@ -12,7 +12,7 @@ export const headerPage = [
   },
   {
     title: "Tours",
-    href: "/tour",
+    href: "/tours",
   },
   {
     title: "Contact",

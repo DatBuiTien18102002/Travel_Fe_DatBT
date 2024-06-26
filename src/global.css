@@ -151,6 +151,63 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .overlay-panel {
+    @apply absolute flex items-center justify-center flex-col px-[40px] text-center h-full w-[300px];
+  }
+
+  .showSignUp ~ .authForm .overlay-container {
+    @apply translate-x-[-150%];
+  }
+
+  .showSignUp ~ .authForm .overlay {
+    @apply translate-x-[50%];
+  }
+
+  .showSignUp ~ .authForm .overlay-left {
+    @apply translate-x-[25%];
+  }
+
+  .showSignUp ~ .authForm .overlay-right {
+    @apply translate-x-[35%];
+  }
+
+  .showSignUp ~ .authForm .sign-in-container {
+    @apply opacity-0;
+  }
+
+  .showSignUp ~ .authForm .sign-up-container {
+    @apply opacity-100 z-[5];
+  }
+
+  .showSignUp ~ .authForm .sign-in-transform {
+    @apply translate-x-[20%];
+  }
+
+  .showSignUp ~ .authForm .sign-up-transform {
+    @apply translate-x-[66.7%] animate-showForm;
+  }
+
+  .transition-form {
+    @apply transition-all duration-1000 ease-in-out z-[2];
+  }
+
+  /* Tours page */
+  .tours-sidebar-title {
+    @apply flex items-center gap-1 mb-[10px] py-3 border-b-[1px] border-b-sky font-robotoBold text-lg;
+  }
+
+  .tours-sidebar-item {
+    @apply relative my-[10px] pl-0 transition-all duration-100 ease-linear cursor-pointer hover:pl-[15px] hover:text-sky hover:before:block;
+  }
+
+  .tours-sidebar-item.active {
+    @apply pl-[15px] text-sky before:block;
+  }
+
+  .tours-sidebar-item::before {
+    @apply absolute top-1/2 left-0 hidden border-[6px] border-t-transparent border-r-transparent border-b-transparent border-l-sky translate-y-[-50%];
+  }
 }
 
 @layer utilities {
