@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { signUpValueForm } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -68,6 +68,12 @@ const SignUpForm = () => {
           className="flex flex-col w-full "
           form={form}
         >
+          <FormItem control={control} name="email">
+            <Input
+              placeholder="Tên của bạn"
+              prefix={<FontAwesomeIcon icon={faUser} className="text-sky" />}
+            />
+          </FormItem>
           <FormItem control={control} name="email">
             <Input
               placeholder="Email"

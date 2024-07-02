@@ -6,7 +6,8 @@ import { Helmet } from "react-helmet";
 import { publicRoutes } from "@/routers/routers";
 import { routeProps } from "@/types/types";
 import AuthLayout from "@/layouts/AuthLayout/AuthLayout";
-import { SignInForm, SignUpForm } from "@/forms";
+import { AdminPage } from "@/pages";
+import config from "@/config";
 
 function App() {
   const handleRenderRoute = (routes: routeProps[]) => {
@@ -45,16 +46,32 @@ function App() {
   };
 
   return (
-    <div className="max-w-[1600px] mx-auto">
+    <div>
+      <div className="max-w-[1600px] mx-auto">
+        <Routes>
+          <Route path="/home" element={<Navigate to="/" />} />
+
+          {[...handleRenderRoute(publicRoutes)]}
+
+          <Route element={<AuthLayout />}>
+            <Route path="/sign-in" />
+            <Route path="/sign-up" />
+          </Route>
+        </Routes>
+      </div>
+
       <Routes>
-        <Route path="/home" element={<Navigate to="/" />} />
-
-        {[...handleRenderRoute(publicRoutes)]}
-
-        <Route element={<AuthLayout />}>
-          <Route path="/sign-in" />
-          <Route path="/sign-up" />
-        </Route>
+        <Route
+          path={config.routes.admin}
+          element={
+            <Fragment>
+              <Helmet>
+                <title>{config.titles.admin}</title>
+              </Helmet>
+              <AdminPage />
+            </Fragment>
+          }
+        />
       </Routes>
     </div>
   );

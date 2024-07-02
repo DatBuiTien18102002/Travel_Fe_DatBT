@@ -12,7 +12,7 @@ const TourCard = () => {
 
   return (
     <div
-      className={`relative rounded-[10px] bg-white shadow-tourCard transition-all will-change-transform cursor-pointer hover:shadow-tourCardHover w-full border-[2px] border-sky ${
+      className={`relative rounded-[10px] bg-white shadow-card transition-all will-change-transform cursor-pointer hover:shadow-tourCardHover w-full border-[2px] border-sky ${
         pathname === "/" ? "scale-[0.9] hover:scale-95 " : "hover:scale-105"
       }`}
     >

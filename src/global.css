@@ -7,9 +7,15 @@
     --header-height: 60px;
     --wrapper-width: 1440px;
     --section-h: calc(100vh - var(--header-height));
+    --sticky-top: calc(var(--header-height) + 10px);
     --max-section-h: 700px;
+    --sidebar-admin-w: 220px;
+    --small-sidebar-admin-w: 64px;
+    --content-admin-w: calc(100vw - var(--sidebar-admin-w));
+    --large-content-admin-w: calc(100vw - var(--small-sidebar-admin-w));
 
     --primary-color: #259bd9;
+    --white: #fff;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -144,14 +150,6 @@
     @apply text-4xl font-signikaBold;
   }
 
-  .text-overflow {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   .overlay-panel {
     @apply absolute flex items-center justify-center flex-col px-[40px] text-center h-full w-[300px];
   }
@@ -208,6 +206,43 @@
   .tours-sidebar-item::before {
     @apply absolute top-1/2 left-0 hidden border-[6px] border-t-transparent border-r-transparent border-b-transparent border-l-sky translate-y-[-50%];
   }
+
+  /* Amin page */
+  .active.admin-sidebar-btn {
+    @apply text-sky bg-white;
+  }
+
+  .active.admin-sidebar-btn::before,
+  .admin-sidebar-btn:hover::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -40px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 25px 25px 0 10px var(--white);
+    pointer-events: none;
+  }
+
+  .active.admin-sidebar-btn::after,
+  .admin-sidebar-btn:hover::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 25px -25px 0 10px var(--white);
+    pointer-events: none;
+  }
+
+  .admin-wrapper-card {
+    @apply border-[2px] border-sky rounded-[10px] shadow-adminCard p-4;
+  }
 }
 
 @layer utilities {
@@ -233,5 +268,19 @@
 
   .clip-path-around {
     clip-path: ellipse(95% 100% at 50% 100%);
+  }
+
+  .text-overflow-1-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .text-overflow-2-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

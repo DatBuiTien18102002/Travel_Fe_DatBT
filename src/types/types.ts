@@ -56,12 +56,37 @@ interface signInValueForm {
 }
 
 interface signUpValueForm {
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
+interface userAdminForm {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+  address: string;
+}
+
 // ***********************
+
+//Admin
+interface sideBarAdminProps {
+  activeBtn: string;
+  handleActiveBtnSidebar: (element: EventTarget) => void;
+}
+
+interface userAdminColumn extends Record<string, unknown> {
+  key: string;
+  id: string;
+  email: string;
+  tour: string;
+  totalPrice: number;
+  status: string;
+}
 
 export type {
   routeProps,
@@ -73,4 +98,7 @@ export type {
   contactValueForm,
   signInValueForm,
   signUpValueForm,
+  sideBarAdminProps,
+  userAdminColumn,
+  userAdminForm,
 };

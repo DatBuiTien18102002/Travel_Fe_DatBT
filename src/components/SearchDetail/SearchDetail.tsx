@@ -35,7 +35,7 @@ const SearchDetail = () => {
   };
 
   return (
-    <div className="flex py-3 shadow-searchDetail rounded-full w-fit max-md:mt-5 border-[1px]  border-sky max-sm:flex-col max-sm:w-full max-sm:rounded-lg max-sm:gap-3">
+    <div className="flex py-3 px-2 shadow-searchDetail rounded-full w-fit max-md:mt-5 border-[1px]  border-sky max-sm:flex-col max-sm:w-full max-sm:rounded-lg max-sm:gap-3">
       <div className="flex-center gap-[11px] px-4 max-sm:justify-start">
         <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5 text-sky" />
         <div className="sm:max-w-[90px] max-sm:w-full">
