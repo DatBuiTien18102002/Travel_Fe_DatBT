@@ -1,9 +1,11 @@
 import config from "@/config";
 import {
   AboutUsPage,
-  AdminPage,
+  BookingPage,
+  BookingSuccessPage,
   ContactUsPage,
   HomePage,
+  ProfilePage,
   TourDetailPage,
   ToursPage,
 } from "@/pages";
@@ -31,12 +33,21 @@ const publicRoutes: routeProps[] = [
     page: TourDetailPage,
     title: config.titles.tourDetail,
   },
-  // {
-  //   path: config.routes.admin,
-  //   page: AdminPage,
-  //   title: config.titles.admin,
-  //   layout: null,
-  // },
+  {
+    path: config.routes.profile,
+    page: ProfilePage,
+    title: config.titles.profile,
+  },
+  {
+    path: config.routes.booking,
+    page: BookingPage,
+    title: config.titles.booking,
+  },
+  {
+    path: config.routes.bookingSuccess,
+    page: BookingSuccessPage,
+    title: config.titles.bookingSuccess,
+  },
 ];
 
 export { publicRoutes };

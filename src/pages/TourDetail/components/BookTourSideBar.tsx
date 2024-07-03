@@ -6,8 +6,11 @@ import {
   faCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const BookTourSideBar = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="w-full bg-bgSection rounded-[10px] p-4 flex flex-col gap-1 lg:sticky lg:top-[var(--sticky-top)] max-lg:w-full">
       <div className="text-sky text-xl font-robotoBold ">
@@ -111,10 +114,16 @@ const BookTourSideBar = () => {
       </div>
 
       <div className="flex gap-4">
-        <Button className="px-2 py-5 flex-1 font-robotoBold border-[2px] border-sky text-sky hover:!text-white hover:!bg-sky">
+        <Button
+          onClick={() => navigate("/contact")}
+          className="px-2 py-5 flex-1 font-robotoBold border-[2px] border-sky text-sky hover:!text-white hover:!bg-sky"
+        >
           Liên hệ tư vấn
         </Button>
-        <Button className="px-2 py-5 flex-1 font-robotoBold border-[2px] border-transparent bg-sky text-white hover:!bg">
+        <Button
+          onClick={() => navigate("/booking")}
+          className="px-2 py-5 flex-1 font-robotoBold border-[2px] border-transparent bg-sky text-white hover:!bg"
+        >
           Đặt Tour ngay
         </Button>
       </div>

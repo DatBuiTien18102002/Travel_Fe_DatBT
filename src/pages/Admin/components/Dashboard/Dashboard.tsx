@@ -121,7 +121,7 @@ const Dashboard = () => {
   return (
     <div>
       <div className="flex gap-4 flex-wrap justify-between my-[20px]">
-        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-adminCard rounded-[10px] flex justify-between items-center gap-[30px]">
+        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">100</div>
             <div className="text-grey text-sm">Tour</div>
@@ -132,7 +132,7 @@ const Dashboard = () => {
           />
         </div>
 
-        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-adminCard rounded-[10px] flex justify-between items-center gap-[30px]">
+        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">500</div>
             <div className="text-grey text-sm">Khách hàng</div>
@@ -143,7 +143,7 @@ const Dashboard = () => {
           />
         </div>
 
-        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-adminCard rounded-[10px] flex justify-between items-center gap-[30px]">
+        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">600</div>
             <div className="text-grey text-sm">Đơn đặt Tour</div>
@@ -154,7 +154,7 @@ const Dashboard = () => {
           />
         </div>
 
-        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-adminCard rounded-[10px] flex justify-between items-center gap-[30px]">
+        <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">
               ${convertVNDToUSD(125500000)}

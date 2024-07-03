@@ -8,6 +8,8 @@ const titles = {
   order: "Thanh toán",
   myOrders: "Đơn hàng của tôi",
   tourDetail: "Chi tiết tour",
+  booking: "Đặt tour",
+  bookingSuccess: "Đặt tour thành công",
 };
 
 export default titles;

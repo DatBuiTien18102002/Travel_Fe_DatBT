@@ -241,7 +241,7 @@
   }
 
   .admin-wrapper-card {
-    @apply border-[2px] border-sky rounded-[10px] shadow-adminCard p-4;
+    @apply border-[2px] border-sky rounded-[10px] shadow-card p-4;
   }
 }
 

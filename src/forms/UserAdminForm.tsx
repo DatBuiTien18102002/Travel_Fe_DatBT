@@ -3,16 +3,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormItem } from "react-hook-form-antd";
 import { useState } from "react";
-import { userAdminForm } from "@/types/types";
+import { booleanSetStateProps, userAdminForm } from "@/types/types";
 import { userAdminSchema } from "@/forms/validateSchemas";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 
-interface ChildComponentProps {
-  setIsOpenForm: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const UserAdminForm: React.FC<ChildComponentProps> = ({ setIsOpenForm }) => {
+const UserAdminForm: React.FC<booleanSetStateProps> = ({ setIsOpenForm }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const defaultValues = {

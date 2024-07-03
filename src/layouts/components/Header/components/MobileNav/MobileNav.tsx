@@ -66,7 +66,7 @@ const MobileNav = ({ toggleSideBar }: { toggleSideBar: () => void }) => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Link to={config.routes.aboutUs} key={item.href}>
+          <Link to={item.href} key={item.href}>
             <div
               className={`font-cloudy font-bold ${
                 item.href === pathname && "text-orange"

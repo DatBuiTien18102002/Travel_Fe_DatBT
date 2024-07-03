@@ -4,3 +4,6 @@ export { default as ContactUsPage } from "@/pages/ContactUs/ContactUs.tsx";
 export { default as ToursPage } from "@/pages/Tours/Tours.tsx";
 export { default as TourDetailPage } from "@/pages/TourDetail/TourDetail.tsx";
 export { default as AdminPage } from "@/pages/Admin/Admin.tsx";
+export { default as ProfilePage } from "@/pages/Profile/Profile.tsx";
+export { default as BookingPage } from "@/pages/Booking/Booking.tsx";
+export { default as BookingSuccessPage } from "@/pages/BookingSuccess/BookingSuccess.tsx";

@@ -62,15 +62,6 @@ interface signUpValueForm {
   confirmPassword: string;
 }
 
-interface userAdminForm {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  phone: string;
-  address: string;
-}
-
 // ***********************
 
 //Admin
@@ -88,6 +79,39 @@ interface userAdminColumn extends Record<string, unknown> {
   status: string;
 }
 
+interface userAdminForm {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+  address: string;
+}
+
+interface profileForm {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+interface updatePasswordForm {
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+interface booleanSetStateProps {
+  setIsOpenForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+//Profile
+interface bookingForm {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
 export type {
   routeProps,
   layoutProps,
@@ -101,4 +125,8 @@ export type {
   sideBarAdminProps,
   userAdminColumn,
   userAdminForm,
+  profileForm,
+  updatePasswordForm,
+  booleanSetStateProps,
+  bookingForm,
 };
