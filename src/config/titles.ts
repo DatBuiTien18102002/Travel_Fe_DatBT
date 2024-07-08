@@ -10,6 +10,8 @@ const titles = {
   tourDetail: "Chi tiết tour",
   booking: "Đặt tour",
   bookingSuccess: "Đặt tour thành công",
+  bookingHistory: "Lịch sử đặt tour",
+  bookingHistoryDetail: "Chi tiết đặt tour",
 };
 
 export default titles;

@@ -11,6 +11,8 @@ const routes = {
   order: "/order",
   myOrders: "/my-orders",
   bookingSuccess: "/bookingSuccess",
+  bookingHistory: "/bookingHistory",
+  bookingHistoryDetail: "/bookingHistoryDetail",
 };
 
 export default routes;

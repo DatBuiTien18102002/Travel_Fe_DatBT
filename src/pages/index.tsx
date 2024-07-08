@@ -7,3 +7,5 @@ export { default as AdminPage } from "@/pages/Admin/Admin.tsx";
 export { default as ProfilePage } from "@/pages/Profile/Profile.tsx";
 export { default as BookingPage } from "@/pages/Booking/Booking.tsx";
 export { default as BookingSuccessPage } from "@/pages/BookingSuccess/BookingSuccess.tsx";
+export { default as BookingHistoryPage } from "@/pages/BookingHistory/BookingHistory.tsx";
+export { default as BookingHistoryDetailPage } from "@/pages/BookingHistoryDetail/BookingHistoryDetail.tsx";

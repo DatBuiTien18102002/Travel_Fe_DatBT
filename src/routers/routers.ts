@@ -8,6 +8,8 @@ import {
   ProfilePage,
   TourDetailPage,
   ToursPage,
+  BookingHistoryPage,
+  BookingHistoryDetailPage,
 } from "@/pages";
 import { routeProps } from "@/types/types";
 
@@ -47,6 +49,16 @@ const publicRoutes: routeProps[] = [
     path: config.routes.bookingSuccess,
     page: BookingSuccessPage,
     title: config.titles.bookingSuccess,
+  },
+  {
+    path: config.routes.bookingHistory,
+    page: BookingHistoryPage,
+    title: config.titles.bookingHistory,
+  },
+  {
+    path: config.routes.bookingHistoryDetail,
+    page: BookingHistoryDetailPage,
+    title: config.titles.bookingHistoryDetail,
   },
 ];
 

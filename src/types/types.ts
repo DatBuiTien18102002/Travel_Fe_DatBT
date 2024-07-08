@@ -112,6 +112,33 @@ interface bookingForm {
   address: string;
 }
 
+//History Tour
+
+interface bookingHistoryColumn extends Record<string, unknown> {
+  key: string;
+  id: string;
+  nameTour: string;
+  status: string;
+  totalPrice: number;
+  createAt: string;
+}
+
+//
+
+//API Response
+interface refreshTokenApi {
+  err?: string;
+  newAccess_Token?: string;
+  [key: string]: unknown; // Các thuộc tính khác của phản hồi, nếu có
+}
+
+interface jwtDecodeType {
+  exp?: number;
+  iat?: number;
+  sub?: string;
+  [key: string]: unknown; // Cho phép thêm các thuộc tính khác nếu có
+}
+
 export type {
   routeProps,
   layoutProps,
@@ -129,4 +156,7 @@ export type {
   updatePasswordForm,
   booleanSetStateProps,
   bookingForm,
+  bookingHistoryColumn,
+  refreshTokenApi,
+  jwtDecodeType,
 };
