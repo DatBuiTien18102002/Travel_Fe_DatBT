@@ -3,22 +3,25 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormItem } from "react-hook-form-antd";
 import { useState } from "react";
-import { profileForm } from "@/types/types";
+import { profileForm, userType } from "@/types/types";
 import { profileSchema } from "@/forms/validateSchemas";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import { UpdatePassWordForm } from "@/forms";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [form] = Form.useForm();
+  const loginUser = useSelector((state: { user: userType }) => state.user);
+  console.log("login user", loginUser);
   const defaultValues = {
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
+    name: loginUser?.name ? loginUser?.name : "",
+    email: loginUser?.email ? loginUser?.email : "",
+    phone: loginUser?.phone ? loginUser?.phone : "",
+    address: loginUser?.address ? loginUser?.address : "",
   };
 
   const formReactHook = useForm<profileForm>({

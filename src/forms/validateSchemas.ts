@@ -13,6 +13,7 @@ const signInSchema = z.object({
 
 const signUpSchema = z
   .object({
+    name: z.string().min(1, { message: "Tên không được để trống" }),
     email: z.string().email({ message: "Email không được để trống" }),
     password: z.string().min(1, { message: "Mật khẩu không được để trống" }),
     confirmPassword: z

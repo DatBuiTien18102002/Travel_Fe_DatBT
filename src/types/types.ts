@@ -73,10 +73,11 @@ interface sideBarAdminProps {
 interface userAdminColumn extends Record<string, unknown> {
   key: string;
   id: string;
+  avatar: string;
+  name: string;
   email: string;
-  tour: string;
-  totalPrice: number;
-  status: string;
+  phone: string;
+  address: string;
 }
 
 interface userAdminForm {
@@ -123,20 +124,57 @@ interface bookingHistoryColumn extends Record<string, unknown> {
   createAt: string;
 }
 
-//
+//Redux
+interface userType {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  avatar: string;
+  access_token: string;
+  refresh_token: string;
+  ggId: string;
+  fbId: string;
+  provider: string;
+  isAdmin: boolean;
+  _id: string;
+}
 
 //API Response
 interface refreshTokenApi {
   err?: string;
   newAccess_Token?: string;
-  [key: string]: unknown; // Các thuộc tính khác của phản hồi, nếu có
 }
 
-interface jwtDecodeType {
+interface responseType<dataType> {
+  status: number;
+  message?: string;
+  data?: dataType;
+}
+
+interface signUpResData {
+  createdAt: string;
+  email: string;
+  isAdmin: boolean;
+  name: string;
+  password: string;
+  updatedAt: string;
+  _v: number;
+  _id: string;
+}
+
+interface signInResData {
+  access_token: string;
+  refresh_token: string;
+}
+
+interface decodedType {
   exp?: number;
-  iat?: number;
-  sub?: string;
-  [key: string]: unknown; // Cho phép thêm các thuộc tính khác nếu có
+  iat?: string;
+  payload?: {
+    id: string;
+    isAdmin: boolean;
+  };
 }
 
 export type {
@@ -158,5 +196,9 @@ export type {
   bookingForm,
   bookingHistoryColumn,
   refreshTokenApi,
-  jwtDecodeType,
+  userType,
+  responseType,
+  signUpResData,
+  signInResData,
+  decodedType,
 };

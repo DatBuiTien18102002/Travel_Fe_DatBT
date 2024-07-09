@@ -6,67 +6,45 @@ import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import useSearchTable from "@/hooks/useSearchTable";
-import { userAdminColumn } from "@/types/types";
+import { userAdminColumn, userType } from "@/types/types";
 import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import UserAdminForm from "@/forms/UserAdminForm";
 import { useState } from "react";
-
-const data: userAdminColumn[] = [
-  {
-    key: "1",
-    id: "1",
-    email: "tatBui@gmail.com.vn",
-    tour: "HCM-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 6240000,
-    status: "Đã Thanh Toán",
-  },
-  {
-    key: "2",
-    id: "2",
-    email: "datBui@gmail.com.vn",
-    tour: "ĐN-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 7240000,
-    status: "Chưa Thanh Toán",
-  },
-  {
-    key: "3",
-    id: "3",
-    email: "catBui@gmail.com.vn",
-    tour: "HN-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 4240000,
-    status: "Đã Thanh Toán",
-  },
-  {
-    key: "4",
-    id: "4",
-    email: "zatBui@gmail.com.vn",
-    tour: "HN-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 2240000,
-    status: "Chưa Thanh Toán",
-  },
-  {
-    key: "5",
-    id: "5",
-    email: "iatBui@gmail.com.vn",
-    tour: "HCM-Đà Lạt - Kì Co - Hội An",
-    totalPrice: 8240000,
-    status: "Đã Thanh Toán",
-  },
-  {
-    key: "6",
-    id: "6",
-    email: "patBui@gmail.com.vn",
-    tour: "ĐN-Đà Lạt - Kì Co  -Hội An",
-    totalPrice: 7240000,
-    status: "Đã Thanh Toán",
-  },
-];
+import { useGetAllUser } from "@/react-query/userQuery";
+import handleDecoded from "@/utils/jwtDecode";
 
 const UserAdmin = () => {
+  const { storageData } = handleDecoded();
+  const { data: allUser } = useGetAllUser(storageData || "");
+
   const { getColumnSearchProps } = useSearchTable<userAdminColumn>();
   const [isOpenForm, setIsOpenForm] = useState(false);
 
   const columns: TableProps<userAdminColumn>["columns"] = [
+    {
+      title: "Avatar",
+      dataIndex: "avatar",
+      key: "avatar",
+      render: (params) => {
+        return (
+          <img
+            onError={(event) => {
+              const target = event.target as HTMLImageElement;
+              target.src = "/avatar.jpg";
+            }}
+            className="w-[40px] h-[40px] rounded-full"
+            src={params.row?.avatar ? params.row?.avatar : "/avatar.jpg"}
+          />
+        );
+      },
+    },
+    {
+      title: "Tên",
+      dataIndex: "name",
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      ellipsis: true,
+    },
     {
       title: "Email",
       dataIndex: "email",
@@ -76,43 +54,20 @@ const UserAdmin = () => {
       ellipsis: true,
       ...getColumnSearchProps("email"),
     },
+
     {
-      title: "Tour",
-      dataIndex: "tour",
-      key: "tour",
-      sorter: (a, b) => a.tour.localeCompare(b.tour),
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+      render: (text) => <a>{text}</a>,
       ellipsis: true,
     },
     {
-      title: "Tổng tiền",
-      dataIndex: "totalPrice",
-      key: "totalPrice",
-      render: (text) => <a>{text + " VND"}</a>,
-      sorter: (a, b) => a.totalPrice - b.totalPrice,
-      ellipsis: true,
-    },
-    {
-      title: "Trạng thái",
-      key: "status",
-      dataIndex: "status",
-      sorter: (a, b) => a.status.localeCompare(b.status),
-      render: (_, { status }) => {
-        let color;
-
-        if (status === "Đã Thanh Toán") {
-          color = "green";
-        }
-
-        if (status === "Chưa Thanh Toán") {
-          color = "red";
-        }
-
-        return (
-          <Tag color={color} className="w-[100px] text-center">
-            {status}
-          </Tag>
-        );
-      },
+      title: "Địa chỉ",
+      key: "address",
+      dataIndex: "address",
+      sorter: (a, b) => a.address.localeCompare(b.address),
+      render: (text) => <a>{text}</a>,
       ellipsis: true,
     },
     {
@@ -169,6 +124,19 @@ const UserAdmin = () => {
     console.log("Delete", id);
   };
 
+  const newAllUsers = allUser?.data.map((item: userType, index: number) => {
+    index += 1;
+    const { avatar, name, email, phone, address } = item;
+    return {
+      key: index,
+      avatar: avatar ? avatar : "",
+      name: name ? name : "",
+      email: email ? email : "",
+      phone: phone ? phone : "",
+      address: address ? phone : "",
+    };
+  });
+
   return (
     <>
       <div className="my-[20px]">
@@ -188,7 +156,7 @@ const UserAdmin = () => {
 
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={newAllUsers || []}
             pagination={{ pageSize: 4 }}
             scroll={{ x: "max-content" }}
           />

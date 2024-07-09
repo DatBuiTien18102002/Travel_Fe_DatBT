@@ -2,17 +2,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { signInValueForm } from "@/types/types";
+import {
+  decodedType,
+  responseType,
+  signInResData,
+  signInValueForm,
+} from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "@/forms/validateSchemas";
-import { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { FormItem } from "react-hook-form-antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUser } from "@/react-query/userQuery";
+import message from "@/utils/message";
+import { jwtDecode } from "jwt-decode";
+import { userApi } from "@/services";
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/redux/slice/userSlice";
 
 const SignInForm = () => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
+  const { mutateAsync: loginUser, isPending: loadingSignIn } = useLoginUser();
 
   const defaultValues = {
     email: "",
@@ -26,9 +38,54 @@ const SignInForm = () => {
 
   const { control, handleSubmit } = formReactHook;
 
-  const handleSubmitForm = (values: signInValueForm) => {
-    // setLoading(true);
-    console.log(values);
+  const handleSubmitForm = async (values: signInValueForm) => {
+    try {
+      const res: responseType<signInResData> = await loginUser({
+        ...values,
+      });
+      console.log("login", res);
+
+      if (res.message && res.data) {
+        const status = res.status.toString();
+        if (status === "200") {
+          message("success", res.message);
+          const decoded: decodedType = jwtDecode(res.data.access_token);
+
+          if (decoded.payload?.id) {
+            console.log("id", decoded.payload.id);
+            console.log("token", res.data?.access_token);
+
+            const userDetail = await userApi.getDetailUser(
+              decoded.payload.id,
+              res.data?.access_token
+            );
+            console.log("user detail", userDetail);
+            if (userDetail.data) {
+              dispatch(
+                updateUser({
+                  refresh_token: res.data?.refresh_token,
+                  access_token: res.data?.access_token,
+                  ...userDetail.data,
+                })
+              );
+              localStorage.setItem(
+                "refresh_token",
+                JSON.stringify(res.data?.refresh_token)
+              );
+              localStorage.setItem(
+                "access_token",
+                JSON.stringify(res.data?.access_token)
+              );
+              navigate("/");
+            }
+          }
+        } else {
+          message("error", res.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -89,7 +146,7 @@ const SignInForm = () => {
               htmlType="submit"
               className="!bg-sky w-full h-[46px]"
             >
-              {loading === true ? "Loading..." : "Đăng nhập"}
+              {loadingSignIn === true ? "Loading..." : "Đăng nhập"}
             </Button>
           </div>
         </Form>

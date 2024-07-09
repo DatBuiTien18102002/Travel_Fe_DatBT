@@ -6,6 +6,7 @@ import { userApi } from "@/services";
 import { refreshTokenApi } from "@/types/types";
 
 const handleCreateAxios = () => {
+  console.log(import.meta.env.VITE_REACT_API_URL);
   return axios.create({
     baseURL: import.meta.env.VITE_REACT_API_URL,
     headers: {
@@ -24,31 +25,32 @@ const axiosAuthClient = handleCreateAxios();
 axiosAuthClient.interceptors.request.use(
   async function (config) {
     const storageRefreshToken = localStorage.getItem("refresh_token");
-    const refreshToken = JSON.parse(storageRefreshToken || "");
+    if (storageRefreshToken) {
+      const refreshToken = JSON.parse(storageRefreshToken || "");
 
-    const currentTime = new Date();
-    const { decoded } = handleDecoded();
+      const currentTime = new Date();
+      const { decoded } = handleDecoded();
+      if (decoded?.exp && decoded.exp < currentTime.getTime() / 1000) {
+        try {
+          const response: AxiosResponse<refreshTokenApi> =
+            await userApi.refreshToken(refreshToken);
 
-    if (decoded?.exp && decoded.exp < currentTime.getTime() / 1000) {
-      try {
-        const response: AxiosResponse<refreshTokenApi> =
-          await userApi.refreshToken(refreshToken);
-        const data = response.data;
-        console.log("refresh Token", response);
-        if (data?.err === "jwt expired") {
-          throw new Error("Refresh Token hết hạn");
+          if (response?.data.err === "jwt expired") {
+            throw new Error("Refresh Token hết hạn");
+          }
+          localStorage.setItem(
+            "access_token",
+            JSON.stringify(response?.data?.newAccess_Token)
+          );
+
+          config.headers["token"] = `Bearer ${response?.data?.newAccess_Token}`;
+        } catch (error) {
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          message("error", "Phiên đăng nhập hết hạn");
+          message("info", "Bạn cần đăng nhập lại");
+          setTimeout(() => (window.location.href = "/"), 3000);
         }
-
-        localStorage.setItem(
-          "access_token",
-          JSON.stringify(data?.newAccess_Token)
-        );
-      } catch (error) {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        message("error", "Refresh Token hết hạn");
-        message("info", "Bạn cần đăng nhập lại");
-        setTimeout(() => (window.location.href = "/"), 3000);
       }
     }
 
@@ -59,21 +61,21 @@ axiosAuthClient.interceptors.request.use(
   }
 );
 
-// const axiosList = [axiosClient, axiosAuthClient];
+const axiosList = [axiosClient, axiosAuthClient];
 
-// axiosList.forEach((axiosItem) => {
-//   axiosItem.interceptors.response.use(
-//     (response) => {
-//       if (response && response.data) {
-//         return response.data;
-//       }
-//       return response;
-//     },
+axiosList.forEach((axiosItem) => {
+  axiosItem.interceptors.response.use(
+    (response) => {
+      if (response && response.data) {
+        return response.data;
+      }
+      return response;
+    },
 
-//     (error) => {
-//       throw error;
-//     }
-//   );
-// });
+    (error) => {
+      throw error;
+    }
+  );
+});
 
 export { axiosClient, axiosAuthClient };

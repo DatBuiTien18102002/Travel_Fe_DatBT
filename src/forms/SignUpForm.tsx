@@ -2,21 +2,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { signUpValueForm } from "@/types/types";
+import { responseType, signUpResData, signUpValueForm } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "@/forms/validateSchemas";
-import { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { FormItem } from "react-hook-form-antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCreateUser } from "@/react-query/userQuery";
+import message from "@/utils/message";
 
 const SignUpForm = () => {
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [form] = Form.useForm();
+  const { mutateAsync: createUser, isPending: loadingSignUp } = useCreateUser();
 
   const defaultValues = {
+    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
 
   const formReactHook = useForm<signUpValueForm>({
@@ -26,9 +30,24 @@ const SignUpForm = () => {
 
   const { control, handleSubmit } = formReactHook;
 
-  const handleSubmitForm = (values: signUpValueForm) => {
-    // setLoading(true);
-    console.log(values);
+  const handleSubmitForm = async (values: signUpValueForm) => {
+    try {
+      const res: responseType<signUpResData> = await createUser({
+        ...values,
+      });
+
+      if (res.message) {
+        const status = res.status.toString();
+        if (status === "200") {
+          message("success", res.message);
+          navigate("/sign-in");
+        } else {
+          message("error", res.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -68,7 +87,7 @@ const SignUpForm = () => {
           className="flex flex-col w-full "
           form={form}
         >
-          <FormItem control={control} name="email">
+          <FormItem control={control} name="name">
             <Input
               placeholder="Tên của bạn"
               prefix={<FontAwesomeIcon icon={faUser} className="text-sky" />}
@@ -101,7 +120,7 @@ const SignUpForm = () => {
               htmlType="submit"
               className="!bg-sky w-full h-[46px]"
             >
-              {loading === true ? "Loading..." : "Đăng ký"}
+              {loadingSignUp === true ? "Loading..." : "Đăng ký"}
             </Button>
           </div>
         </Form>

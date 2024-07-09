@@ -1,9 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Menu } from "@/components";
+import { useDispatch, useSelector } from "react-redux";
+import { menuItemProps, userType } from "@/types/types";
+import { resetUser } from "@/redux/slice/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const HeaderUser = () => {
-  const MENU_ITEMS = [
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loginUser = useSelector((state: { user: userType }) => state.user);
+  const MENU_ITEMS: menuItemProps["data"][] = [
     {
       title: "Đăng nhập",
       to: "/sign-in",
@@ -14,12 +21,9 @@ const HeaderUser = () => {
     },
   ];
 
-  //Lọc item null hoặc undefined
-  const USER_MENU = [
-    {
-      title: "Manage System",
-      to: "/admin",
-    },
+  console.log("login user", loginUser);
+
+  const USER_MENU: menuItemProps["data"][] = [
     {
       title: "View profile",
       to: "/profile",
@@ -33,22 +37,47 @@ const HeaderUser = () => {
       onClick: handleLogOut,
       separate: true,
     },
-  ].filter((item) => item);
+  ];
+
+  const getMenu = () => {
+    if (loginUser._id) {
+      if (loginUser.isAdmin) {
+        USER_MENU.unshift({
+          title: "Manage System",
+          to: "/admin",
+        });
+      }
+      return USER_MENU;
+    } else {
+      return MENU_ITEMS;
+    }
+  };
 
   function handleLogOut() {
     // logoutUser();
     // if (currentUser?.provider) {
     //   logoutSocialMedia();
     // }
-    // dispatch(resetUser());
-    // localStorage.removeItem("access_token");
-    // localStorage.removeItem("refresh_token");
-    // navigate("/");
+    dispatch(resetUser());
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    navigate("/");
   }
 
   return (
-    <Menu items={MENU_ITEMS}>
-      <FontAwesomeIcon icon={faUser} />
+    <Menu items={getMenu()}>
+      {loginUser._id ? (
+        <img
+          onError={(event) => {
+            const target = event.target as HTMLImageElement;
+            target.src = "/avatar.jpg";
+          }}
+          className="w-[32px] h-[32px] rounded-full"
+          src={loginUser.avatar ? loginUser.avatar : "/avatar.jpg"}
+        />
+      ) : (
+        <FontAwesomeIcon icon={faUser} />
+      )}
     </Menu>
   );
 };
