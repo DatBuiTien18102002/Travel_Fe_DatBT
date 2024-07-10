@@ -24,8 +24,6 @@ function App() {
     token: storageData || "",
   });
 
-  console.log("data", detailUser);
-
   const handleRenderRoute = (routes: routeProps[]) => {
     return routes.map((route, index) => {
       let Layout = DefaultLayout;

@@ -243,6 +243,11 @@
   .admin-wrapper-card {
     @apply border-[2px] border-sky rounded-[10px] shadow-card p-4;
   }
+
+  /* custom utils */
+  .custom-avatar-antd .ant-upload-list.ant-upload-list-text {
+    display: none !important;
+  }
 }
 
 @layer utilities {

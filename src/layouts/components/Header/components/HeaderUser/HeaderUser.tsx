@@ -21,8 +21,6 @@ const HeaderUser = () => {
     },
   ];
 
-  console.log("login user", loginUser);
-
   const USER_MENU: menuItemProps["data"][] = [
     {
       title: "View profile",
@@ -72,7 +70,7 @@ const HeaderUser = () => {
             const target = event.target as HTMLImageElement;
             target.src = "/avatar.jpg";
           }}
-          className="w-[32px] h-[32px] rounded-full"
+          className="w-[36px] h-[36px] border-[2px] border-sky-dark rounded-full"
           src={loginUser.avatar ? loginUser.avatar : "/avatar.jpg"}
         />
       ) : (

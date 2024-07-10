@@ -45,9 +45,9 @@ const SignInForm = () => {
       });
       console.log("login", res);
 
-      if (res.message && res.data) {
+      if (res.message) {
         const status = res.status.toString();
-        if (status === "200") {
+        if (status === "200" && res.data) {
           message("success", res.message);
           const decoded: decodedType = jwtDecode(res.data.access_token);
 

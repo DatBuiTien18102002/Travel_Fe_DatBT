@@ -2,14 +2,26 @@ import { Button, Form, Input } from "antd";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormItem } from "react-hook-form-antd";
-import { useState } from "react";
-import { booleanSetStateProps, updatePasswordForm } from "@/types/types";
+import {
+  booleanSetStateProps,
+  responseType,
+  updatePasswordForm,
+  updateResData,
+  userType,
+} from "@/types/types";
 import { updatePasswordSchema } from "@/forms/validateSchemas";
+import { useUpdateUser } from "@/react-query/userQuery";
+import { useSelector } from "react-redux";
+import handleDecoded from "@/utils/jwtDecode";
+import message from "@/utils/message";
 
 const UpdatePasswordForm: React.FC<booleanSetStateProps> = ({
   setIsOpenForm,
 }) => {
-  const [loading, setLoading] = useState(false);
+  const loginUser = useSelector((state: { user: userType }) => state.user);
+  const { mutateAsync: updateProfile, isPending: loadingUpdate } =
+    useUpdateUser();
+
   const [form] = Form.useForm();
   const defaultValues = {
     oldPassword: "",
@@ -24,8 +36,27 @@ const UpdatePasswordForm: React.FC<booleanSetStateProps> = ({
 
   const { control, handleSubmit } = formReactHook;
 
-  const handleSubmitForm = (values: updatePasswordForm) => {
+  const handleSubmitForm = async (values: updatePasswordForm) => {
     console.log("Cập nhật mật khẩu", values);
+    const { storageData } = handleDecoded();
+
+    const res: responseType<updateResData> = await updateProfile({
+      ...values,
+      _id: loginUser?._id,
+      access_token: storageData || "",
+    });
+
+    console.log(res);
+
+    if (res.message) {
+      const status = res.status.toString();
+      if (status !== "200") {
+        message("error", res?.message);
+      } else {
+        message("success", res?.message);
+        setIsOpenForm(false);
+      }
+    }
   };
 
   return (
@@ -61,7 +92,7 @@ const UpdatePasswordForm: React.FC<booleanSetStateProps> = ({
           </Button>
 
           <Button type="primary" htmlType="submit">
-            {loading === true ? "Loading..." : "Cập nhật"}
+            {loadingUpdate === true ? "Loading..." : "Cập nhật"}
           </Button>
         </div>
       </Form>

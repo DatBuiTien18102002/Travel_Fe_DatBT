@@ -1,4 +1,4 @@
-import { signInValueForm, signUpValueForm } from "@/types/types";
+import { signInValueForm, signUpValueForm, userType } from "@/types/types";
 import { axiosClient, axiosAuthClient } from "@/utils/httpRequest";
 
 const resourceName = "/user";
@@ -10,6 +10,18 @@ const userApi = {
 
   loginUser: (data: signInValueForm) => {
     return axiosClient.post(`${resourceName}/sign-in`, data);
+  },
+
+  updateUser: (data: userType) => {
+    const { access_token, _id, ...detailUser } = data;
+
+    console.log("api id", _id);
+
+    return axiosAuthClient.put(`${resourceName}/update/${_id}`, detailUser, {
+      headers: {
+        token: `Bearer ${access_token}`,
+      },
+    });
   },
 
   getDetailUser: (id: string, access_token: string) => {

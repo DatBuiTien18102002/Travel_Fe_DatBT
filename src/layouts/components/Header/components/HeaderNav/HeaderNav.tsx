@@ -41,7 +41,7 @@ const HeaderNav = () => {
           className="fixed top-0 left-0 bottom-0 w-[70%] bg-white z-[999]"
           variants={sideBarAnimate()}
         >
-          <MobileNav toggleSideBar={toggleSideBar} />
+          <MobileNav setOpen={setOpen} />
         </motion.div>
         <BarsButton open={open} setOpen={toggleSideBar} color="#259bd9" />
       </motion.div>

@@ -126,18 +126,18 @@ interface bookingHistoryColumn extends Record<string, unknown> {
 
 //Redux
 interface userType {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  avatar: string;
-  access_token: string;
-  refresh_token: string;
-  ggId: string;
-  fbId: string;
-  provider: string;
-  isAdmin: boolean;
-  _id: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  avatar?: string;
+  access_token?: string;
+  refresh_token?: string;
+  ggId?: string;
+  fbId?: string;
+  provider?: string;
+  isAdmin?: boolean;
+  _id?: string;
 }
 
 //API Response
@@ -166,6 +166,19 @@ interface signUpResData {
 interface signInResData {
   access_token: string;
   refresh_token: string;
+}
+
+interface updateResData {
+  address: string;
+  createdAt: string;
+  email: string;
+  isAdmin: boolean;
+  name: string;
+  password: string;
+  phone: string;
+  updatedAt: string;
+  _v: number;
+  _id: string;
 }
 
 interface decodedType {
@@ -201,4 +214,5 @@ export type {
   signUpResData,
   signInResData,
   decodedType,
+  updateResData,
 };

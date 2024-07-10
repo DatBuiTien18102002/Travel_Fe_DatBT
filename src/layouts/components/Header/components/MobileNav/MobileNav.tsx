@@ -1,16 +1,19 @@
 import config from "@/config";
 import { headerPage, sectionMenu } from "@/constants";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { delayItemAnimate, slideToRight } from "@/utils/animation";
 
-const MobileNav = ({ toggleSideBar }: { toggleSideBar: () => void }) => {
+const MobileNav = ({
+  setOpen,
+}: {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const { pathname, hash } = useLocation();
-  console.log(hash);
 
   useEffect(() => {
-    toggleSideBar();
+    setOpen(false);
   }, [pathname, hash]);
 
   return (

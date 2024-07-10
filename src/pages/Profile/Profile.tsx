@@ -1,22 +1,37 @@
-import { Button, Form, Input, message, Upload } from "antd";
+import { Button, Form, Input, Upload } from "antd";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormItem } from "react-hook-form-antd";
-import { useState } from "react";
-import { profileForm, userType } from "@/types/types";
+import { useEffect, useState } from "react";
+import {
+  profileForm,
+  responseType,
+  updateResData,
+  userType,
+} from "@/types/types";
 import { profileSchema } from "@/forms/validateSchemas";
 import { UploadOutlined } from "@ant-design/icons";
-import type { UploadProps } from "antd";
 import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import { UpdatePassWordForm } from "@/forms";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useUpdateUser } from "@/react-query/userQuery";
+import handleDecoded from "@/utils/jwtDecode";
+import message from "@/utils/message";
+import { updateUser } from "@/redux/slice/userSlice";
+import getBase64 from "@/utils/getBase64";
+import { RcFile } from "antd/es/upload";
+import { UploadFile } from "antd/es/upload/interface";
 
 const Profile = () => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [form] = Form.useForm();
   const loginUser = useSelector((state: { user: userType }) => state.user);
-  console.log("login user", loginUser);
+  const [avatar, setAvatar] = useState(loginUser.avatar);
+
+  const { mutateAsync: updateProfile, isPending: loadingUpdate } =
+    useUpdateUser();
+
   const defaultValues = {
     name: loginUser?.name ? loginUser?.name : "",
     email: loginUser?.email ? loginUser?.email : "",
@@ -29,28 +44,54 @@ const Profile = () => {
     resolver: zodResolver(profileSchema),
   });
 
-  const { control, handleSubmit } = formReactHook;
+  const { control, handleSubmit, reset } = formReactHook;
 
-  const handleSubmitForm = (values: profileForm) => {
-    console.log("profile form", values);
+  useEffect(() => {
+    setAvatar(loginUser?.avatar);
+    reset({
+      name: loginUser?.name ? loginUser?.name : "",
+      email: loginUser?.email ? loginUser?.email : "",
+      phone: loginUser?.phone ? loginUser?.phone : "",
+      address: loginUser?.address ? loginUser?.address : "",
+    });
+  }, [loginUser, reset]);
+
+  const handleSubmitForm = async (values: profileForm) => {
+    const { storageData } = handleDecoded();
+
+    const res: responseType<updateResData> = await updateProfile({
+      ...values,
+      avatar: avatar,
+      _id: loginUser?._id,
+      access_token: storageData || "",
+    });
+
+    if (res.message && res.data) {
+      const status = res.status.toString();
+      if (status !== "200") {
+        message("error", res?.message);
+      } else {
+        message("success", res?.message);
+        dispatch(updateUser(res.data));
+      }
+    }
   };
 
-  const props: UploadProps = {
-    name: "file",
-    action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-    headers: {
-      authorization: "authorization-text",
-    },
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
+  const handleChangeAvatar = async ({
+    fileList,
+  }: {
+    fileList: UploadFile<RcFile>[];
+  }) => {
+    const file = fileList[0];
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as RcFile);
+    }
+
+    setAvatar(file.preview || "");
+  };
+
+  const beforeUpload = () => {
+    return false;
   };
 
   return (
@@ -62,12 +103,16 @@ const Profile = () => {
           </div>
 
           <div className="flex gap-[20px] max-sm:flex-col">
-            <div className="flex gap-[20px]  items-center sm:flex-col">
+            <div className="custom-avatar-antd flex gap-[20px]  items-center flex-col">
               <div className="max-sm:w-[75px] max-sm:h-[75px] w-[125px] h-[125px] rounded-full overflow-hidden border-[3px] border-sky">
-                <img src="/avatar.jpg" alt="" />
+                <img src={avatar ? avatar : "/avatar.jpg"} alt="avatar" />
               </div>
 
-              <Upload {...props} maxCount={1}>
+              <Upload
+                onChange={handleChangeAvatar}
+                maxCount={1}
+                beforeUpload={beforeUpload}
+              >
                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
               </Upload>
             </div>
@@ -102,7 +147,7 @@ const Profile = () => {
               </div>
 
               <Button type="primary" htmlType="submit" className="w-full">
-                {loading === true ? "Loading..." : "Cập nhật thông tin"}
+                {loadingUpdate === true ? "Loading..." : "Cập nhật thông tin"}
               </Button>
             </Form>
           </div>
