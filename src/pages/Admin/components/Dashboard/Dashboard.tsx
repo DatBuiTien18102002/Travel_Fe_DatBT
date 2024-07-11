@@ -141,7 +141,7 @@ const Dashboard = () => {
         <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">
-              {allUser?.data.length}
+              {allUser?.data.length || "0"}
             </div>
             <div className="text-grey text-sm">Khách hàng</div>
           </div>

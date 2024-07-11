@@ -248,6 +248,10 @@
   .custom-avatar-antd .ant-upload-list.ant-upload-list-text {
     display: none !important;
   }
+
+  .custom-multi-date {
+    @apply py-2 px-3 border-[2px] border-grey border-solid;
+  }
 }
 
 @layer utilities {

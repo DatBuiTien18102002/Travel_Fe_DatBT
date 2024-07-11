@@ -1,4 +1,5 @@
 import React from "react";
+import { Value } from "react-multi-date-picker";
 
 interface layoutProps {
   children: React.ReactNode;
@@ -211,6 +212,11 @@ interface decodedType {
   };
 }
 
+interface multiDatePickerProps {
+  // selectedDates: Value[];
+  onDatesChange: React.Dispatch<React.SetStateAction<Value[]>>;
+}
+
 export type {
   routeProps,
   layoutProps,
@@ -238,4 +244,5 @@ export type {
   decodedType,
   userResData,
   booleanSetStateProps,
+  multiDatePickerProps,
 };
