@@ -9,6 +9,9 @@ import {
 
 import { Table, Tag } from "antd";
 import type { TableProps } from "antd";
+import { useGetAllUser } from "@/react-query/userQuery";
+import handleDecoded from "@/utils/jwtDecode";
+import { userType } from "@/types/types";
 
 interface DataType {
   key: string;
@@ -113,6 +116,9 @@ const data: DataType[] = [
 ];
 
 const Dashboard = () => {
+  const { storageData } = handleDecoded();
+  const { data: allUser } = useGetAllUser(storageData || "");
+
   function convertVNDToUSD(amountVND: number) {
     const amountUSD = Math.round(amountVND / 25000);
     return new Intl.NumberFormat("en-US").format(amountUSD);
@@ -134,7 +140,9 @@ const Dashboard = () => {
 
         <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
-            <div className="font-robotoBold text-sky text-3xl">500</div>
+            <div className="font-robotoBold text-sky text-3xl">
+              {allUser?.data.length}
+            </div>
             <div className="text-grey text-sm">Khách hàng</div>
           </div>
           <FontAwesomeIcon
@@ -197,70 +205,22 @@ const Dashboard = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto flex flex-col gap-2">
-            <div className="flex gap-2 items-center">
-              <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
-                <img src="/avatar.jpg" alt="" />
-              </div>
-
-              <div>
-                <div className="font-robotoBold text-overflow-1-line">
-                  DatBui
+            {allUser?.data.map((item: userType) => (
+              <div key={item._id} className="flex gap-2 items-center">
+                <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
+                  <img src={item.avatar ? item.avatar : "/avatar.jpg"} alt="" />
                 </div>
-                <div className="text-grey text-xs text-overflow-1-line">
-                  datbui@gmail.com
+
+                <div>
+                  <div className="font-robotoBold text-overflow-1-line">
+                    {item.name}
+                  </div>
+                  <div className="text-grey text-xs text-overflow-1-line">
+                    {item.email}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
-                <img src="/avatar.jpg" alt="" />
-              </div>
-
-              <div>
-                <div className="font-robotoBold">DatBui</div>
-                <div className="text-grey text-xs">datbui@gmail.com</div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
-                <img src="/avatar.jpg" alt="" />
-              </div>
-
-              <div>
-                <div className="font-robotoBold">DatBui</div>
-                <div className="text-grey text-xs">datbui@gmail.com</div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
-                <img src="/avatar.jpg" alt="" />
-              </div>
-
-              <div>
-                <div className="font-robotoBold">DatBui</div>
-                <div className="text-grey text-xs">datbui@gmail.com</div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
-                <img src="/avatar.jpg" alt="" />
-              </div>
-
-              <div>
-                <div className="font-robotoBold">DatBui</div>
-                <div className="text-grey text-xs">datbui@gmail.com</div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
-                <img src="/avatar.jpg" alt="" />
-              </div>
-
-              <div>
-                <div className="font-robotoBold">DatBui</div>
-                <div className="text-grey text-xs">datbui@gmail.com</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 

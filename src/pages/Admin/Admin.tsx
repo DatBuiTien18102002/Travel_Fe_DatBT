@@ -14,10 +14,13 @@ import SideBarAdmin from "@/pages/Admin/components/SidebarAdmin/SideBarAdmin";
 import UserAdmin from "@/pages/Admin/components/UserAdmin/UserAdmin";
 import TourAdmin from "@/pages/Admin/components/TourAdmin/TourAdmin";
 import BookingAdmin from "@/pages/Admin/components/BookingAdmin/BookingAdmin";
+import { useSelector } from "react-redux";
+import { userType } from "@/types/types";
 
 const Admin = () => {
   const [activeBtn, setActiveBtn] = useState("dashboard");
   const [openSidebar, setOpenSidebar] = useState(true);
+  const loginUser = useSelector((state: { user: userType }) => state.user);
 
   const toggleSideBar = () => {
     setOpenSidebar((prev) => !prev);
@@ -93,7 +96,10 @@ const Admin = () => {
             to="/profile"
             className="w-[40px] h-[40px] rounded-full overflow-hidden"
           >
-            <img src="/avatar.jpg" className="" alt="" />
+            <img
+              src={loginUser.avatar ? loginUser.avatar : "/avatar.jpg"}
+              alt="avatar"
+            />
           </Link>
         </div>
 

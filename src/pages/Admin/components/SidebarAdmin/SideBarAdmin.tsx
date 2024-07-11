@@ -6,13 +6,29 @@ import {
   faTicket,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { sideBarAdminProps } from "@/types/types";
+import { useDispatch } from "react-redux";
+import { resetUser } from "@/redux/slice/userSlice";
 
 const SideBarAdmin = ({
   activeBtn,
   handleActiveBtnSidebar,
 }: sideBarAdminProps) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleLogOut() {
+    // logoutUser();
+    // if (currentUser?.provider) {
+    //   logoutSocialMedia();
+    // }
+    dispatch(resetUser());
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    navigate("/");
+  }
+
   return (
     <div
       className={` bg-sky border-l-[10px] border-l-sky py-[25px] w-full h-full`}
@@ -84,8 +100,8 @@ const SideBarAdmin = ({
           <p className="font-robotoBold">Quản lý đặt Tour</p>
         </button>
 
-        <Link
-          to="/sign-in"
+        <button
+          onClick={() => handleLogOut()}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap`}
         >
           <FontAwesomeIcon
@@ -94,7 +110,7 @@ const SideBarAdmin = ({
           />
 
           <p className="font-robotoBold ">Đăng xuất</p>
-        </Link>
+        </button>
       </div>
     </div>
   );

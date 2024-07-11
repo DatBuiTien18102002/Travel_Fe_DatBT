@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import {
   profileForm,
   responseType,
-  updateResData,
+  userResData,
   userType,
 } from "@/types/types";
 import { profileSchema } from "@/forms/validateSchemas";
@@ -59,7 +59,7 @@ const Profile = () => {
   const handleSubmitForm = async (values: profileForm) => {
     const { storageData } = handleDecoded();
 
-    const res: responseType<updateResData> = await updateProfile({
+    const res: responseType<userResData> = await updateProfile({
       ...values,
       avatar: avatar,
       _id: loginUser?._id,

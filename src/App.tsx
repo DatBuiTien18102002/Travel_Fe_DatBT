@@ -81,8 +81,22 @@ function App() {
 
           {[...handleRenderRoute(publicRoutes)]}
 
-          <Route path="/sign-in" element={<AuthLayout />} />
-          <Route path="/sign-up" element={<AuthLayout />} />
+          {!loginUser._id && <Route path="/sign-up" element={<AuthLayout />} />}
+          {!loginUser._id && <Route path="/sign-in" element={<AuthLayout />} />}
+
+          {loginUser?.isAdmin && (
+            <Route
+              path={config.routes.admin}
+              element={
+                <Fragment>
+                  <Helmet>
+                    <title>{config.titles.admin}</title>
+                  </Helmet>
+                  <AdminPage />
+                </Fragment>
+              }
+            />
+          )}
         </Routes>
       </div>
 

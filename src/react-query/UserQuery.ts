@@ -65,3 +65,18 @@ export const useGetDetailUser = (data: { id: string; token: string }) => {
     enabled: !!data.token || !!data.id,
   });
 };
+
+export const useDeleteUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { id: string; token: string }) => {
+      return userApi.deleteUser(data);
+    },
+    onSuccess: () => {
+      const { storageData } = handleDecoded();
+      queryClient.invalidateQueries({
+        queryKey: [userKeys.GET_ALL_USER, storageData],
+      });
+    },
+  });
+};

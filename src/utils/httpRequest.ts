@@ -38,6 +38,7 @@ axiosAuthClient.interceptors.request.use(
           if (response?.data.err === "jwt expired") {
             throw new Error("Refresh Token hết hạn");
           }
+
           localStorage.setItem(
             "access_token",
             JSON.stringify(response?.data?.newAccess_Token)

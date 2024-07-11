@@ -33,7 +33,19 @@ const userApi = {
   },
 
   getAllUser: (access_token: string) => {
-    return axiosClient.get(`${resourceName}/get-all`);
+    return axiosClient.get(`${resourceName}/get-all`, {
+      headers: {
+        token: `Bearer ${access_token}`,
+      },
+    });
+  },
+
+  deleteUser: (data: { id: string; token: string }) => {
+    return axiosAuthClient.delete(`${resourceName}/delete/${data.id}`, {
+      headers: {
+        token: `Bearer ${data.token}`,
+      },
+    });
   },
 
   refreshToken: (refreshToken: string) => {

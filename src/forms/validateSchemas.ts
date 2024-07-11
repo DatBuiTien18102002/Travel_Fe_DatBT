@@ -2,19 +2,28 @@ import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().min(1, { message: "Tên không được để trống" }),
-  email: z.string().email({ message: "Email không được để trống" }),
+  email: z
+    .string()
+    .min(1, { message: "Email không được để trống" })
+    .email({ message: "Email không đúng cấu trúc" }),
   message: z.string().min(1, { message: "Tin nhắn không được để trống" }),
 });
 
 const signInSchema = z.object({
-  email: z.string().email({ message: "Email không được để trống" }),
+  email: z
+    .string()
+    .min(1, { message: "Email không được để trống" })
+    .email({ message: "Email không đúng cấu trúc" }),
   password: z.string().min(1, { message: "Mật khẩu không được để trống" }),
 });
 
 const signUpSchema = z
   .object({
     name: z.string().min(1, { message: "Tên không được để trống" }),
-    email: z.string().email({ message: "Email không được để trống" }),
+    email: z
+      .string()
+      .min(1, { message: "Email không được để trống" })
+      .email({ message: "Email không đúng cấu trúc" }),
     password: z.string().min(1, { message: "Mật khẩu không được để trống" }),
     confirmPassword: z
       .string()
@@ -25,10 +34,13 @@ const signUpSchema = z
     path: ["confirmPassword"],
   });
 
-const userAdminSchema = z
+const userCreateAdminSchema = z
   .object({
     name: z.string().min(1, { message: "Tên không được để trống" }),
-    email: z.string().email({ message: "Email không được để trống" }),
+    email: z
+      .string()
+      .min(1, { message: "Email không được để trống" })
+      .email({ message: "Email không đúng cấu trúc" }),
     password: z.string().min(1, { message: "Mật khẩu không được để trống" }),
     confirmPassword: z
       .string()
@@ -41,9 +53,22 @@ const userAdminSchema = z
     path: ["confirmPassword"],
   });
 
+const userUpdateAdminSchema = z.object({
+  name: z.string().min(1, { message: "Tên không được để trống" }),
+  email: z
+    .string()
+    .min(1, { message: "Email không được để trống" })
+    .email({ message: "Email không đúng cấu trúc" }),
+  phone: z.string(),
+  address: z.string(),
+});
+
 const profileSchema = z.object({
   name: z.string().min(1, { message: "Tên không được để trống" }),
-  email: z.string().email({ message: "Email không được để trống" }),
+  email: z
+    .string()
+    .min(1, { message: "Email không được để trống" })
+    .email({ message: "Email không đúng cấu trúc" }),
   phone: z.string(),
   address: z.string(),
 });
@@ -67,7 +92,10 @@ const updatePasswordSchema = z
 
 const bookingSchema = z.object({
   name: z.string().min(1, { message: "Tên không được để trống" }),
-  email: z.string().email({ message: "Email không được để trống" }),
+  email: z
+    .string()
+    .min(1, { message: "Email không được để trống" })
+    .email({ message: "Email không đúng cấu trúc" }),
   phone: z.string().min(1, { message: "Số điện thoại không được để trống" }),
   address: z.string().min(1, { message: "Địa chỉ không được để trống" }),
 });
@@ -76,7 +104,8 @@ export {
   contactSchema,
   signInSchema,
   signUpSchema,
-  userAdminSchema,
+  userCreateAdminSchema,
+  userUpdateAdminSchema,
   profileSchema,
   updatePasswordSchema,
   bookingSchema,

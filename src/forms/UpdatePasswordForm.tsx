@@ -6,7 +6,7 @@ import {
   booleanSetStateProps,
   responseType,
   updatePasswordForm,
-  updateResData,
+  userResData,
   userType,
 } from "@/types/types";
 import { updatePasswordSchema } from "@/forms/validateSchemas";
@@ -40,7 +40,7 @@ const UpdatePasswordForm: React.FC<booleanSetStateProps> = ({
     console.log("Cập nhật mật khẩu", values);
     const { storageData } = handleDecoded();
 
-    const res: responseType<updateResData> = await updateProfile({
+    const res: responseType<userResData> = await updateProfile({
       ...values,
       _id: loginUser?._id,
       access_token: storageData || "",

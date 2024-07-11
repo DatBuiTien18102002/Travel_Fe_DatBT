@@ -60,6 +60,9 @@ interface signUpValueForm {
   email: string;
   password: string;
   confirmPassword: string;
+  phone?: string;
+  address?: string;
+  avatar?: string;
 }
 
 // ***********************
@@ -80,11 +83,18 @@ interface userAdminColumn extends Record<string, unknown> {
   address: string;
 }
 
-interface userAdminForm {
+interface userCreateAdminForm {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
+  phone: string;
+  address: string;
+}
+
+interface userUpdateAdminForm {
+  name: string;
+  email: string;
   phone: string;
   address: string;
 }
@@ -99,6 +109,13 @@ interface updatePasswordForm {
   oldPassword: string;
   newPassword: string;
   confirmNewPassword: string;
+}
+
+interface userAdminFormProps {
+  setIsOpenForm: React.Dispatch<React.SetStateAction<boolean>>;
+  type: string;
+  defaultValue: userResData;
+  setIsActionAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface booleanSetStateProps {
@@ -168,17 +185,21 @@ interface signInResData {
   refresh_token: string;
 }
 
-interface updateResData {
-  address: string;
-  createdAt: string;
-  email: string;
-  isAdmin: boolean;
-  name: string;
-  password: string;
-  phone: string;
-  updatedAt: string;
-  _v: number;
-  _id: string;
+interface userResData {
+  avatar?: string;
+  address?: string;
+  createdAt?: string;
+  email?: string;
+  isAdmin?: boolean;
+  name?: string;
+  password?: string;
+  phone?: string;
+  updatedAt?: string;
+  ggId?: string;
+  fbId?: string;
+  provider?: string;
+  _v?: number;
+  _id?: string;
 }
 
 interface decodedType {
@@ -202,10 +223,11 @@ export type {
   signUpValueForm,
   sideBarAdminProps,
   userAdminColumn,
-  userAdminForm,
+  userCreateAdminForm,
+  userUpdateAdminForm,
   profileForm,
   updatePasswordForm,
-  booleanSetStateProps,
+  userAdminFormProps,
   bookingForm,
   bookingHistoryColumn,
   refreshTokenApi,
@@ -214,5 +236,6 @@ export type {
   signUpResData,
   signInResData,
   decodedType,
-  updateResData,
+  userResData,
+  booleanSetStateProps,
 };
