@@ -8,7 +8,7 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import SideBarAdmin from "@/pages/Admin/components/SidebarAdmin/SideBarAdmin";
 import UserAdmin from "@/pages/Admin/components/UserAdmin/UserAdmin";
@@ -18,7 +18,9 @@ import { useSelector } from "react-redux";
 import { userType } from "@/types/types";
 
 const Admin = () => {
-  const [activeBtn, setActiveBtn] = useState("dashboard");
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [activeBtn, setActiveBtn] = useState(pathname.split("/")[2]);
   const [openSidebar, setOpenSidebar] = useState(true);
   const loginUser = useSelector((state: { user: userType }) => state.user);
 
@@ -44,23 +46,31 @@ const Admin = () => {
     }
   }, []);
 
-  const renderContent = () => {
-    switch (activeBtn) {
-      case "dashboard":
-        return <Dashboard />;
-      case "user":
-        return <UserAdmin />;
-      case "tour":
-        return <TourAdmin />;
-      case "booked":
-        return <BookingAdmin />;
-      default:
-        return;
-    }
-  };
+  useEffect(() => {
+    const renderContent = () => {
+      switch (activeBtn) {
+        case "dashboard":
+          navigate("/admin/dashboard");
+          return;
+        case "manager-user":
+          navigate("/admin/manager-user");
+          return;
+        case "manager-tour":
+          navigate("/admin/manager-tour");
+          return;
+        case "manager-booking":
+          navigate("/admin/manager-booking");
+          return;
+        default:
+          return;
+      }
+    };
+
+    renderContent();
+  }, [activeBtn, navigate]);
 
   return (
-    <div className="relative w-[100vw] min-h-[100vh]">
+    <div className="relative w-[100vw] min-h-[100vh] ">
       <div
         className={`fixed top-0 left-0 bottom-0 w-[var(--sidebar-admin-w)] max-md:w-full overflow-hidden transition-[0.5s] z-[10] ${
           !openSidebar === true ? "!w-[var(--small-sidebar-admin-w)]" : ""
@@ -103,7 +113,7 @@ const Admin = () => {
           </Link>
         </div>
 
-        {renderContent()}
+        <Outlet />
       </div>
     </div>
   );

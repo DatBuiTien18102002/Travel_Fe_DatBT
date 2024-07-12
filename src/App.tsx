@@ -1,9 +1,9 @@
 import { Fragment, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import "@/global.css";
 import { DefaultLayout } from "@/layouts";
 import { Helmet } from "react-helmet";
-import { publicRoutes } from "@/routers/routers";
+import { adminRoutes, publicRoutes } from "@/routers/routers";
 import { routeProps, userType } from "@/types/types";
 import AuthLayout from "@/layouts/AuthLayout/AuthLayout";
 import { AdminPage, HomePage } from "@/pages";
@@ -16,6 +16,8 @@ import { updateUser } from "@/redux/slice/userSlice";
 function App() {
   const dispatch = useDispatch();
   const loginUser = useSelector((state: { user: userType }) => state.user);
+  const { pathname } = useLocation();
+  console.log(pathname.split("/")[1]);
 
   const { storageData, decoded } = handleDecoded();
 
@@ -75,9 +77,14 @@ function App() {
 
   return (
     <div>
-      <div className="max-w-[1600px] mx-auto">
+      <div
+        className={`${
+          pathname.split("/")[1] !== "admin" ? "max-w-[1600px]" : ""
+        } mx-auto`}
+      >
         <Routes>
           <Route path="/home" element={<Navigate to="/" />} />
+          {/* <Route path="/admin" element={<Navigate to="/admin/dashboard" />} /> */}
 
           {[...handleRenderRoute(publicRoutes)]}
 
@@ -85,34 +92,25 @@ function App() {
           {!loginUser._id && <Route path="/sign-in" element={<AuthLayout />} />}
 
           {loginUser?.isAdmin && (
-            <Route
-              path={config.routes.admin}
-              element={
-                <Fragment>
-                  <Helmet>
-                    <title>{config.titles.admin}</title>
-                  </Helmet>
-                  <AdminPage />
-                </Fragment>
-              }
-            />
+            // <Route
+            //   path={config.routes.admin}
+            //   element={
+            //     <Fragment>
+            //       <Helmet>
+            //         <title>{config.titles.admin}</title>
+            //       </Helmet>
+            //       <AdminPage />
+            //     </Fragment>
+            //   }
+            // />
+
+            <Route path="/admin" element={<AdminPage />}>
+              {[...handleRenderRoute(adminRoutes)]}
+              <Route index element={<Navigate to="dashboard" replace />} />
+            </Route>
           )}
         </Routes>
       </div>
-
-      {/* <Routes>
-        <Route
-          path={config.routes.admin}
-          element={
-            <Fragment>
-              <Helmet>
-                <title>{config.titles.admin}</title>
-              </Helmet>
-              <AdminPage />
-            </Fragment>
-          }
-        />
-      </Routes> */}
     </div>
   );
 }

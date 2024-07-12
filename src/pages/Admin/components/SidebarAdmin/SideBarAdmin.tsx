@@ -56,10 +56,10 @@ const SideBarAdmin = ({
         </button>
 
         <button
-          name="user"
+          name="manager-user"
           onClick={(e) => handleActiveBtnSidebar(e.target)}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap ${
-            activeBtn === "user" && "active"
+            activeBtn === "manager-user" && "active"
           }`}
         >
           <FontAwesomeIcon
@@ -71,10 +71,10 @@ const SideBarAdmin = ({
         </button>
 
         <button
-          name="tour"
+          name="manager-tour"
           onClick={(e) => handleActiveBtnSidebar(e.target)}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap ${
-            activeBtn === "tour" && "active"
+            activeBtn === "manager-tour" && "active"
           }`}
         >
           <FontAwesomeIcon
@@ -86,10 +86,10 @@ const SideBarAdmin = ({
         </button>
 
         <button
-          name="booked"
+          name="manager-booking"
           onClick={(e) => handleActiveBtnSidebar(e.target)}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap ${
-            activeBtn === "booked" && "active"
+            activeBtn === "manager-booking" && "active"
           }`}
         >
           <FontAwesomeIcon

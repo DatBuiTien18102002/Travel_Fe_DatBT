@@ -1,5 +1,9 @@
 const titles = {
   admin: "Admin",
+  dashboard: "Bảng điều khiển",
+  userManage: "Quản lý người dùng",
+  tourManage: "Quản lý tour",
+  bookingManage: "Quản lý đặt tour",
   home: "Trang chủ",
   profile: "Thông tin cá nhân",
   aboutUs: "Về chúng tôi",

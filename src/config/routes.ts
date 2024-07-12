@@ -1,5 +1,9 @@
 const routes = {
   admin: "/admin",
+  dashboard: "dashboard",
+  userManage: "manager-user",
+  tourManage: "manager-tour",
+  bookingManage: "/admin/manager-booking",
   home: "/",
   profile: "/profile",
   aboutUs: "/about-us",

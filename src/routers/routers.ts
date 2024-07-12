@@ -11,6 +11,12 @@ import {
   BookingHistoryPage,
   BookingHistoryDetailPage,
 } from "@/pages";
+import {
+  BookingAdmin,
+  Dashboard,
+  TourAdmin,
+  UserAdmin,
+} from "@/pages/Admin/components";
 import { routeProps } from "@/types/types";
 
 const publicRoutes: routeProps[] = [
@@ -62,4 +68,31 @@ const publicRoutes: routeProps[] = [
   },
 ];
 
-export { publicRoutes };
+const adminRoutes: routeProps[] = [
+  {
+    path: config.routes.dashboard,
+    page: Dashboard,
+    title: config.titles.dashboard,
+    layout: null,
+  },
+  {
+    path: config.routes.tourManage,
+    page: TourAdmin,
+    title: config.titles.tourManage,
+    layout: null,
+  },
+  {
+    path: config.routes.userManage,
+    page: UserAdmin,
+    title: config.titles.userManage,
+    layout: null,
+  },
+  {
+    path: config.routes.bookingManage,
+    page: BookingAdmin,
+    title: config.titles.bookingManage,
+    layout: null,
+  },
+];
+
+export { publicRoutes, adminRoutes };
