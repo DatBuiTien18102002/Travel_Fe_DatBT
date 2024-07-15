@@ -37,6 +37,7 @@ export default {
         "tourInfo": "0 4px 4px 0 rgba(0, 0, 0, 0.05)",
         "authForm": "25px 30px 55px #555",
         "card": "0 7px 25px rgba(0,0,0,0.08)",
+        "input": "0 0 0 2px rgba(5, 145, 255, 0.1)",
       },
 
       backgroundImage: {
@@ -51,7 +52,7 @@ export default {
         "white": "#fff",
         "greyLight": "#d2d6df",
         "grey": "#76809B",
-        "border-form": "#d9d9d9",
+        "form-border": "#d9d9d9",
         "water": "#32a6e6",
         "orange": "#fea415",
         "dark-cloud": "#515458",
