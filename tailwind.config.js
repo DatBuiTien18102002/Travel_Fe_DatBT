@@ -46,12 +46,12 @@ export default {
 
       colors: {
         "black": "#161823",
-        // "header": "rgba(0,0,0,0.6)",
         "header": "rgba(37, 155, 217, 0.6)",
         "greyHover": "#16182308",
         "white": "#fff",
         "greyLight": "#d2d6df",
         "grey": "#76809B",
+        "border-form": "#d9d9d9",
         "water": "#32a6e6",
         "orange": "#fea415",
         "dark-cloud": "#515458",

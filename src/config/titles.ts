@@ -3,6 +3,7 @@ const titles = {
   dashboard: "Bảng điều khiển",
   userManage: "Quản lý người dùng",
   tourManage: "Quản lý tour",
+  newTourAdmin: "Tạo tour",
   bookingManage: "Quản lý đặt tour",
   home: "Trang chủ",
   profile: "Thông tin cá nhân",

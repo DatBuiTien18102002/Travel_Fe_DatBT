@@ -1,4 +1,5 @@
 import config from "@/config";
+
 import {
   AboutUsPage,
   BookingPage,
@@ -81,6 +82,7 @@ const adminRoutes: routeProps[] = [
     title: config.titles.tourManage,
     layout: null,
   },
+
   {
     path: config.routes.userManage,
     page: UserAdmin,

@@ -123,6 +123,32 @@ interface booleanSetStateProps {
   setIsOpenForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface tourAdminForm {
+  name?: string;
+  photo?: string;
+  price?: number;
+  discount?: number;
+  maxSeat?: number;
+
+  depart?: string;
+  destination?: string;
+  dateStart?: string[];
+  transport?: string;
+  timeTravel?: string;
+  desc?: {
+    introduce: string;
+    overview: string;
+    topic: string;
+  };
+  schedule: {
+    title: string;
+    desc: {
+      timeOfDate: string;
+      detail: string;
+    }[];
+  }[];
+}
+
 //Profile
 interface bookingForm {
   name: string;
@@ -245,4 +271,5 @@ export type {
   userResData,
   booleanSetStateProps,
   multiDatePickerProps,
+  tourAdminForm,
 };

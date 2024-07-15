@@ -252,6 +252,14 @@
   .custom-multi-date {
     @apply py-2 px-3 border-[2px] border-grey border-solid;
   }
+
+  .custom-admin-upload .ant-upload {
+    @apply w-full;
+  }
+
+  .label-form {
+    @apply font-robotoBold text-2xl;
+  }
 }
 
 @layer utilities {

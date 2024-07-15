@@ -30,7 +30,6 @@ const UserAdminForm: React.FC<userAdminFormProps> = ({
   defaultValue,
   setIsActionAllowed,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState(defaultValue.avatar);
   const [form] = Form.useForm();
   const { mutateAsync: createUser, isPending: loadingCreate } = useCreateUser();

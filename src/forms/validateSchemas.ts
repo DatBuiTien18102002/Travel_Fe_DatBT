@@ -100,6 +100,39 @@ const bookingSchema = z.object({
   address: z.string().min(1, { message: "Địa chỉ không được để trống" }),
 });
 
+const DescSchema = z.object({
+  introduce: z.string().min(1, { message: "Giới thiệu không được để trống" }),
+  overview: z.string().min(1, { message: "Tổng quan không được để trống" }),
+  topic: z.string().min(1, { message: "Chủ đề không được để trống" }),
+});
+
+const ScheduleDescSchema = z.object({
+  timeOfDate: z.string(),
+  detail: z.string(),
+});
+
+const ScheduleSchema = z.object({
+  title: z.string(),
+  desc: z.array(ScheduleDescSchema),
+});
+
+const tourAdminSchema = z.object({
+  name: z.string().min(1, { message: "Tên không được để trống" }),
+  price: z
+    .number({ message: "Bạn phải nhập số" })
+    .min(1, { message: "Giá không được để trống" }),
+  discount: z.number(),
+  maxSeat: z.number().min(1, { message: "Số chỗ không được để trống" }),
+  depart: z.string().min(1, { message: "Điểm khởi hành không được để trống" }),
+  destination: z.string().min(1, { message: "Điểm đến không được để trống" }),
+  transport: z.string().min(1, { message: "Phương tiện không được để trống" }),
+  timeTravel: z
+    .string()
+    .min(1, { message: "Thời gian du lịch không được để trống" }),
+  desc: DescSchema,
+  schedule: z.array(ScheduleSchema),
+});
+
 export {
   contactSchema,
   signInSchema,
@@ -109,4 +142,5 @@ export {
   profileSchema,
   updatePasswordSchema,
   bookingSchema,
+  tourAdminSchema,
 };

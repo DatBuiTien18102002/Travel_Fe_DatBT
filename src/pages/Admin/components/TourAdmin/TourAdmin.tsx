@@ -6,8 +6,12 @@ import { Value } from "react-multi-date-picker";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import config from "@/config";
 
 const TourAdmin = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="my-[20px]">
       <div className="col-span-4 row-span-3 md:row-span-2 xl:col-span-3 xl:row-span-4 overflow-hidden admin-wrapper-card">
@@ -17,10 +21,9 @@ const TourAdmin = () => {
           </div>
 
           <button
-            // onClick={() => {
-            //   setTypeForm("create");
-            //   setIsOpenForm(true);
-            // }}
+            onClick={() => {
+              navigate(config.routes.newTourAdmin);
+            }}
             className="w-[70px] h-[70px] rounded-[10px] flex-center border-dashed border-sky border-[3px] bg-bgSection text-sky mb-[20px]"
           >
             <FontAwesomeIcon icon={faPlus} className="w-[25px] h-[25px]" />

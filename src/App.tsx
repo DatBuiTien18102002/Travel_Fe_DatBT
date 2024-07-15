@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import handleDecoded from "@/utils/jwtDecode";
 import { useGetDetailUser } from "@/react-query/userQuery";
 import { updateUser } from "@/redux/slice/userSlice";
+import TourAdminForm from "@/forms/TourAdminForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -92,22 +93,24 @@ function App() {
           {!loginUser._id && <Route path="/sign-in" element={<AuthLayout />} />}
 
           {loginUser?.isAdmin && (
-            // <Route
-            //   path={config.routes.admin}
-            //   element={
-            //     <Fragment>
-            //       <Helmet>
-            //         <title>{config.titles.admin}</title>
-            //       </Helmet>
-            //       <AdminPage />
-            //     </Fragment>
-            //   }
-            // />
+            <>
+              <Route path="/admin/*" element={<AdminPage />}>
+                {[...handleRenderRoute(adminRoutes)]}
+                <Route index element={<Navigate to="dashboard" replace />} />
+              </Route>
 
-            <Route path="/admin" element={<AdminPage />}>
-              {[...handleRenderRoute(adminRoutes)]}
-              <Route index element={<Navigate to="dashboard" replace />} />
-            </Route>
+              <Route
+                path={config.routes.newTourAdmin}
+                element={
+                  <Fragment>
+                    <Helmet>
+                      <title>{config.titles.newTourAdmin}</title>
+                    </Helmet>
+                    <TourAdminForm />
+                  </Fragment>
+                }
+              />
+            </>
           )}
         </Routes>
       </div>
