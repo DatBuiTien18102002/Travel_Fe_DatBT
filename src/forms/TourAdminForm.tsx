@@ -1,11 +1,11 @@
-import { Button, Form, Input, InputNumber, Space, Upload } from "antd";
+import { Button, Form, Input, InputNumber, Select, Space, Upload } from "antd";
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile } from "antd";
 import { RcFile } from "antd/es/upload";
 import getBase64 from "@/utils/getBase64";
 import { useFieldArray, useForm } from "react-hook-form";
-import { tourAdminForm } from "@/types/types";
+import { responseType, tourAdminForm, tourType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { tourAdminSchema } from "@/forms/validateSchemas";
 import { FormItem } from "react-hook-form-antd";
@@ -13,11 +13,17 @@ import TextArea from "antd/es/input/TextArea";
 import NestedDescTourForm from "@/forms/NestedDescTourForm";
 import { MultiDatePicker } from "@/components";
 import { Value } from "react-multi-date-picker";
+import { useCreateTour } from "@/react-query/tourQuery";
+import message from "@/utils/message";
+import { useNavigate } from "react-router-dom";
 
 const TourAdminForm = () => {
   const [photo, setPhoto] = useState("");
+  const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [departDate, setDepartDate] = useState<Value[]>([]);
+  const [dateStart, setDateStart] = useState<Value[]>([]);
+  const [transport, setTransport] = useState("plane");
+  const { mutateAsync: createTour, isPending: loadingCreate } = useCreateTour();
 
   const defaultValues = {
     name: "",
@@ -26,7 +32,6 @@ const TourAdminForm = () => {
     maxSeat: undefined,
     depart: "",
     destination: "",
-    transport: "",
     timeTravel: "",
     desc: {
       introduce: "",
@@ -62,8 +67,28 @@ const TourAdminForm = () => {
     name: "schedule",
   });
 
-  const handleSubmitForm = (values: tourAdminForm) => {
-    console.log(values);
+  const handleSubmitForm = async (values: tourAdminForm) => {
+    const tourInfo = {
+      ...values,
+      photo,
+      dateStart,
+      transport,
+      availableSeat: values.maxSeat,
+    } as tourType;
+
+    console.log(tourInfo);
+    const res: responseType<tourType> = await createTour(tourInfo);
+    console.log("Response", res);
+
+    if (res.message) {
+      const status = res.status.toString();
+      if (status === "200") {
+        message("success", res.message);
+        navigate("/admin/manager-tour");
+      } else {
+        message("error", res.message);
+      }
+    }
   };
 
   const handleChangeAvatar = async ({
@@ -81,6 +106,10 @@ const TourAdminForm = () => {
 
   const beforeUpload = () => {
     return false;
+  };
+
+  const handleChange = (value: string) => {
+    setTransport(value);
   };
 
   return (
@@ -165,15 +194,8 @@ const TourAdminForm = () => {
               >
                 <Input />
               </FormItem>
-              {/* <FormItem
-                label={<label className="label-form">Ngày khởi hành:</label>}
-                control={control}
-                name="name"
-              >
-                <Input />
-              </FormItem> */}
               <div className="label-form mb-[8px]">Ngày khởi hành</div>
-              <MultiDatePicker onDatesChange={setDepartDate} />
+              <MultiDatePicker onDatesChange={setDateStart} />
               <FormItem
                 label={<label className="label-form">Thời gian du lịch:</label>}
                 control={control}
@@ -181,15 +203,20 @@ const TourAdminForm = () => {
               >
                 <Input />
               </FormItem>
-              <FormItem
-                label={
-                  <label className="label-form">Phương tiện di chuyển:</label>
-                }
-                control={control}
-                name="transport"
-              >
-                <Input />
-              </FormItem>
+              <div>
+                <div className="label-form mb-2">Phương tiện di chuyển:</div>
+                <Select
+                  defaultValue="plane"
+                  style={{ width: "100%" }}
+                  onChange={handleChange}
+                  options={[
+                    { value: "plane", label: "Máy bay" },
+                    { value: "boat", label: "Tàu thủy" },
+                    { value: "train", label: "Tàu hỏa" },
+                    { value: "coach", label: "Xe buýt du lịch" },
+                  ]}
+                />
+              </div>
             </div>
             <div className="w-[60%] flex flex-col">
               <FormItem
@@ -219,24 +246,6 @@ const TourAdminForm = () => {
           <div className="w-full">
             <div className="mb-[8px] flex justify-between items-center">
               <label className="label-form">Lịch trình</label>
-
-              <div className="flex items-center gap-2">
-                <Button type="dashed" onClick={() => remove(0)}>
-                  Xóa lịch trình
-                </Button>
-
-                <Button
-                  type="dashed"
-                  onClick={() =>
-                    appendSchedule({
-                      title: "",
-                      desc: [{ timeOfDate: "", detail: "" }],
-                    })
-                  }
-                >
-                  Thêm lịch trình
-                </Button>
-              </div>
             </div>
             <Form.Item>
               {scheduleFields.map((scheduleItem, scheduleIndex) => {
@@ -268,11 +277,29 @@ const TourAdminForm = () => {
                   </div>
                 );
               })}
+
+              <div className="flex items-center gap-2 justify-end">
+                <Button type="dashed" onClick={() => remove(0)}>
+                  Xóa lịch trình
+                </Button>
+
+                <Button
+                  type="dashed"
+                  onClick={() =>
+                    appendSchedule({
+                      title: "",
+                      desc: [{ timeOfDate: "", detail: "" }],
+                    })
+                  }
+                >
+                  Thêm lịch trình
+                </Button>
+              </div>
             </Form.Item>
           </div>
 
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button type="primary" htmlType="submit" className="w-full">
+            Tạo tour
           </Button>
         </Form>
       </div>

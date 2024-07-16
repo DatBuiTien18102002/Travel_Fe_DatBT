@@ -133,7 +133,6 @@ interface tourAdminForm {
   depart?: string;
   destination?: string;
   dateStart?: string[];
-  transport?: string;
   timeTravel?: string;
   desc?: {
     introduce: string;
@@ -182,6 +181,40 @@ interface userType {
   provider?: string;
   isAdmin?: boolean;
   _id?: string;
+}
+
+interface tourType {
+  name?: string;
+  photo?: string;
+  price?: number;
+  discount?: number;
+  maxSeat?: number;
+  transport?: string;
+  depart?: string;
+  destination?: string;
+  dateStart?: string[];
+  timeTravel?: string;
+  desc?: {
+    introduce: string;
+    overview: string;
+    topic: string;
+  };
+  schedule?: {
+    title: string;
+    desc: {
+      timeOfDate: string;
+      detail: string;
+    }[];
+  }[];
+  rating?: number;
+  numRate?: number;
+  availableSeat?: number;
+  review?: {
+    reviewId: string;
+    userName: string;
+    reviewText?: string;
+    rating: number;
+  };
 }
 
 //API Response
@@ -264,6 +297,7 @@ export type {
   bookingHistoryColumn,
   refreshTokenApi,
   userType,
+  tourType,
   responseType,
   signUpResData,
   signInResData,

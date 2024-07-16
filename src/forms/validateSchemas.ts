@@ -125,7 +125,6 @@ const tourAdminSchema = z.object({
   maxSeat: z.number().min(1, { message: "Số chỗ không được để trống" }),
   depart: z.string().min(1, { message: "Điểm khởi hành không được để trống" }),
   destination: z.string().min(1, { message: "Điểm đến không được để trống" }),
-  transport: z.string().min(1, { message: "Phương tiện không được để trống" }),
   timeTravel: z
     .string()
     .min(1, { message: "Thời gian du lịch không được để trống" }),

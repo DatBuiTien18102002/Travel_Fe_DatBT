@@ -22,24 +22,6 @@ const NestedDescTourForm = ({
     <div>
       <div className="mb-[8px] flex justify-between items-center">
         <label className="label-form-medium">Hoạt động</label>
-
-        <div className="flex items-center gap-2">
-          <Button type="dashed" onClick={() => remove(0)}>
-            Xóa hoạt động
-          </Button>
-
-          <Button
-            type="dashed"
-            onClick={() =>
-              append({
-                timeOfDate: "",
-                detail: "",
-              })
-            }
-          >
-            Thêm hoạt động
-          </Button>
-        </div>
       </div>
 
       {fields.map((descItem, descIndex) => (
@@ -65,6 +47,24 @@ const NestedDescTourForm = ({
           </div>
         </React.Fragment>
       ))}
+
+      <div className="flex items-center gap-2 justify-start">
+        <Button type="dashed" onClick={() => remove(0)}>
+          Xóa hoạt động
+        </Button>
+
+        <Button
+          type="dashed"
+          onClick={() =>
+            append({
+              timeOfDate: "",
+              detail: "",
+            })
+          }
+        >
+          Thêm hoạt động
+        </Button>
+      </div>
     </div>
   );
 };
