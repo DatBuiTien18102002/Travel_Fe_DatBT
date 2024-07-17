@@ -120,11 +120,20 @@ const tourAdminSchema = z.object({
   name: z.string().min(1, { message: "Tên không được để trống" }),
   price: z
     .number({ message: "Bạn phải nhập số" })
-    .min(1, { message: "Giá không được để trống" }),
-  discount: z.number(),
-  maxSeat: z.number().min(1, { message: "Số chỗ không được để trống" }),
+    .refine((value) => value !== 0, {
+      message: "Giá phải lớn hơn 0",
+    }),
+  discount: z.number({ message: "Bạn phải nhập số" }),
+  maxSeat: z
+    .number({ message: "Bạn phải nhập số" })
+    .refine((value) => value !== 0, {
+      message: "Số người phải lớn hơn 0",
+    }),
   depart: z.string().min(1, { message: "Điểm khởi hành không được để trống" }),
   destination: z.string().min(1, { message: "Điểm đến không được để trống" }),
+  dateStart: z
+    .array(z.string(), { message: "Ngày khởi hành không được rỗng" })
+    .nonempty("Ngày khởi hành không được rỗng"),
   timeTravel: z
     .string()
     .min(1, { message: "Thời gian du lịch không được để trống" }),

@@ -1,10 +1,10 @@
 import { Button, Form, Input, InputNumber, Select, Space, Upload } from "antd";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile } from "antd";
 import { RcFile } from "antd/es/upload";
 import getBase64 from "@/utils/getBase64";
-import { useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { responseType, tourAdminForm, tourType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { tourAdminSchema } from "@/forms/validateSchemas";
@@ -12,18 +12,30 @@ import { FormItem } from "react-hook-form-antd";
 import TextArea from "antd/es/input/TextArea";
 import NestedDescTourForm from "@/forms/NestedDescTourForm";
 import { MultiDatePicker } from "@/components";
-import { Value } from "react-multi-date-picker";
 import { useCreateTour } from "@/react-query/tourQuery";
 import message from "@/utils/message";
 import { useNavigate } from "react-router-dom";
+import { ErrorMessage } from "@hookform/error-message";
+
+interface CustomError extends Error {
+  response?: {
+    data?: {
+      err?: string;
+    };
+  };
+}
 
 const TourAdminForm = () => {
   const [photo, setPhoto] = useState("");
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [dateStart, setDateStart] = useState<Value[]>([]);
+  // const [dateStart, setDateStart] = useState<Value[]>([]);
   const [transport, setTransport] = useState("plane");
-  const { mutateAsync: createTour, isPending: loadingCreate } = useCreateTour();
+  const {
+    mutateAsync: createTour,
+    isPending: loadingCreate,
+    error,
+  } = useCreateTour();
 
   const defaultValues = {
     name: "",
@@ -32,6 +44,7 @@ const TourAdminForm = () => {
     maxSeat: undefined,
     depart: "",
     destination: "",
+    dateStart: [],
     timeTravel: "",
     desc: {
       introduce: "",
@@ -56,7 +69,27 @@ const TourAdminForm = () => {
     resolver: zodResolver(tourAdminSchema),
   });
 
-  const { control, handleSubmit } = formReactHook;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = formReactHook;
+
+  const createTourError: CustomError = error as CustomError;
+
+  useEffect(() => {
+    if (
+      createTourError &&
+      createTourError?.response?.data?.err?.startsWith(
+        'The value of "offset" is out of range.'
+      )
+    ) {
+      message(
+        "error",
+        "Hình ảnh có kích thước quá lớn, vui lòng chọn ảnh khác"
+      );
+    }
+  }, [error]);
 
   const {
     fields: scheduleFields,
@@ -68,17 +101,14 @@ const TourAdminForm = () => {
   });
 
   const handleSubmitForm = async (values: tourAdminForm) => {
+    console.log("Values", values);
     const tourInfo = {
       ...values,
       photo,
-      dateStart,
       transport,
-      availableSeat: values.maxSeat,
     } as tourType;
 
-    console.log(tourInfo);
     const res: responseType<tourType> = await createTour(tourInfo);
-    console.log("Response", res);
 
     if (res.message) {
       const status = res.status.toString();
@@ -111,6 +141,8 @@ const TourAdminForm = () => {
   const handleChange = (value: string) => {
     setTransport(value);
   };
+
+  console.log("Error form", errors);
 
   return (
     <div className="wrapper my-[30px] max-w-[1200px] ">
@@ -195,7 +227,28 @@ const TourAdminForm = () => {
                 <Input />
               </FormItem>
               <div className="label-form mb-[8px]">Ngày khởi hành</div>
-              <MultiDatePicker onDatesChange={setDateStart} />
+              {/* <MultiDatePicker onDatesChange={setDateStart} /> */}
+
+              <Controller
+                name="dateStart"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <MultiDatePicker
+                      onDatesChange={(dates) => field.onChange(dates)}
+                      error={errors?.dateStart?.message || ""}
+                    />
+                    <div className="text-[#FF4D4F] h-[26px]">
+                      <ErrorMessage
+                        errors={errors}
+                        name="dateStart"
+                        render={({ message }) => <p>{message}</p>}
+                      />
+                    </div>
+                  </>
+                )}
+              />
+
               <FormItem
                 label={<label className="label-form">Thời gian du lịch:</label>}
                 control={control}
@@ -299,7 +352,7 @@ const TourAdminForm = () => {
           </div>
 
           <Button type="primary" htmlType="submit" className="w-full">
-            Tạo tour
+            {loadingCreate ? "Loading..." : "Tạo Tour"}
           </Button>
         </Form>
       </div>

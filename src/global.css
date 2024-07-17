@@ -250,7 +250,7 @@
   }
 
   .custom-multi-date {
-    @apply py-[7px] px-[11px] w-full mb-[26px] border-[1px] border-form-border border-solid rounded-[8px] hover:border-[#4096ff] focus:border-[#4096ff] focus:shadow-input;
+    @apply py-[7px] px-[11px] w-full border-[1px] border-form-border border-solid rounded-[8px] hover:border-[#4096ff] focus:border-[#4096ff] focus:shadow-input;
   }
 
   .custom-admin-upload .ant-upload {

@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { tourKeys } from "./queryKeys";
-import tourApi from "@/services/tourApi";
+import { tourApi } from "@/services";
 import handleDecoded from "@/utils/jwtDecode";
 import { tourType } from "@/types/types";
 
@@ -15,5 +15,12 @@ export const useCreateTour = () => {
         queryKey: [tourKeys.GET_ALL_TOUR, storageData],
       });
     },
+  });
+};
+
+export const useGetAllTour = () => {
+  return useQuery({
+    queryKey: [tourKeys.GET_ALL_TOUR],
+    queryFn: () => tourApi.getAllTour(),
   });
 };

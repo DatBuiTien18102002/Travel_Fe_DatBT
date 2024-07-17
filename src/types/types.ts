@@ -84,6 +84,22 @@ interface userAdminColumn extends Record<string, unknown> {
   address: string;
 }
 
+interface tourAdminColumn extends Record<string, unknown> {
+  key: string;
+  id: string;
+  avatar: string;
+  name: string;
+  price: number;
+  discount: number;
+  depart: string;
+  destination: string;
+  transport: string;
+  timeTravel: string;
+  maxSeat: number;
+  currentSeat: number;
+  dateStart: string[];
+}
+
 interface userCreateAdminForm {
   name: string;
   email: string;
@@ -129,10 +145,9 @@ interface tourAdminForm {
   price?: number;
   discount?: number;
   maxSeat?: number;
-
   depart?: string;
   destination?: string;
-  dateStart?: string[];
+  dateStart?: (string | Value)[];
   timeTravel?: string;
   desc?: {
     introduce: string;
@@ -274,6 +289,7 @@ interface decodedType {
 interface multiDatePickerProps {
   // selectedDates: Value[];
   onDatesChange: React.Dispatch<React.SetStateAction<Value[]>>;
+  error: string;
 }
 
 export type {
@@ -288,6 +304,7 @@ export type {
   signUpValueForm,
   sideBarAdminProps,
   userAdminColumn,
+  tourAdminColumn,
   userCreateAdminForm,
   userUpdateAdminForm,
   profileForm,

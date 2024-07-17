@@ -104,7 +104,7 @@ const Admin = () => {
 
           <Link
             to="/profile"
-            className="w-[40px] h-[40px] rounded-full overflow-hidden"
+            className="w-[40px] h-[40px] rounded-full overflow-hidden border-[2px] border-sky-dark"
           >
             <img
               src={loginUser.avatar ? loginUser.avatar : "/avatar.jpg"}
