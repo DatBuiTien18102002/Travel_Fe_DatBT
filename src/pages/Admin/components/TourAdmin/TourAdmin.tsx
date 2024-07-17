@@ -21,10 +21,11 @@ import currencyFormat from "@/utils/currencyFormat";
 const TourAdmin = () => {
   const navigate = useNavigate();
   const { data: allTour, isLoading: loadingGetAllTour } = useGetAllTour();
-  console.log("all tour", allTour);
 
   const { getColumnSearchProps } = useSearchTable<tourAdminColumn>();
-  const handleEditTour = (id: string) => {};
+  const handleEditTour = (id: string) => {
+    navigate(`/admin/manager-tour/update/${id}`);
+  };
 
   const handleDeleteTour = (id: string) => {};
 
@@ -50,7 +51,6 @@ const TourAdmin = () => {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      width: 200,
       sorter: (a, b) => a.name.localeCompare(b.name),
       ellipsis: true,
       ...getColumnSearchProps("name"),

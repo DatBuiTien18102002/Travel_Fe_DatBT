@@ -18,6 +18,14 @@ export const useCreateTour = () => {
   });
 };
 
+export const useGetDetailTour = (id: string) => {
+  return useQuery({
+    queryKey: [tourKeys.GET_TOUR_DETAIL, id],
+    queryFn: () => tourApi.getTourDetail(id),
+    enabled: !!id,
+  });
+};
+
 export const useGetAllTour = () => {
   return useQuery({
     queryKey: [tourKeys.GET_ALL_TOUR],

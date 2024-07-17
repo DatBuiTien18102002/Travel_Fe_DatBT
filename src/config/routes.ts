@@ -4,6 +4,7 @@ const routes = {
   userManage: "manager-user",
   tourManage: "manager-tour",
   newTourAdmin: "/admin/manager-tour/new",
+  updateTourAdmin: "/admin/manager-tour/update/:id",
   bookingManage: "manager-booking",
   home: "/",
   profile: "/profile",

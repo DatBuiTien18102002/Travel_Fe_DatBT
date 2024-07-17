@@ -12,9 +12,9 @@ import { FormItem } from "react-hook-form-antd";
 import TextArea from "antd/es/input/TextArea";
 import NestedDescTourForm from "@/forms/NestedDescTourForm";
 import { MultiDatePicker } from "@/components";
-import { useCreateTour } from "@/react-query/tourQuery";
+import { useCreateTour, useGetDetailTour } from "@/react-query/tourQuery";
 import message from "@/utils/message";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 
 interface CustomError extends Error {
@@ -25,12 +25,15 @@ interface CustomError extends Error {
   };
 }
 
-const TourAdminForm = () => {
+const TourAdminForm = ({ type }: { type: string }) => {
   const [photo, setPhoto] = useState("");
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  // const [dateStart, setDateStart] = useState<Value[]>([]);
-  const [transport, setTransport] = useState("plane");
+  const [transport, setTransport] = useState("Máy bay");
+  const { id } = useParams();
+  const { data: res } = useGetDetailTour(id || "");
+
+  const tourDetail: tourType = res?.data as tourType;
   const {
     mutateAsync: createTour,
     isPending: loadingCreate,
@@ -38,20 +41,20 @@ const TourAdminForm = () => {
   } = useCreateTour();
 
   const defaultValues = {
-    name: "",
-    price: undefined,
-    discount: undefined,
-    maxSeat: undefined,
-    depart: "",
-    destination: "",
-    dateStart: [],
-    timeTravel: "",
-    desc: {
+    name: tourDetail?.name || "",
+    price: tourDetail?.price || undefined,
+    discount: tourDetail?.discount || 0,
+    maxSeat: tourDetail?.maxSeat || undefined,
+    depart: tourDetail?.depart || "",
+    destination: tourDetail?.destination || "",
+    dateStart: tourDetail?.dateStart || [],
+    timeTravel: tourDetail?.timeTravel || "",
+    desc: tourDetail?.desc || {
       introduce: "",
       overview: "",
       topic: "",
     },
-    schedule: [
+    schedule: tourDetail?.schedule || [
       {
         title: "",
         desc: [
@@ -72,10 +75,16 @@ const TourAdminForm = () => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = formReactHook;
 
   const createTourError: CustomError = error as CustomError;
+
+  useEffect(() => {
+    setPhoto(tourDetail?.photo || "");
+    reset(defaultValues);
+  }, [res, reset]);
 
   useEffect(() => {
     if (
@@ -101,7 +110,6 @@ const TourAdminForm = () => {
   });
 
   const handleSubmitForm = async (values: tourAdminForm) => {
-    console.log("Values", values);
     const tourInfo = {
       ...values,
       photo,
@@ -141,8 +149,6 @@ const TourAdminForm = () => {
   const handleChange = (value: string) => {
     setTransport(value);
   };
-
-  console.log("Error form", errors);
 
   return (
     <div className="wrapper my-[30px] max-w-[1200px] ">
@@ -227,7 +233,6 @@ const TourAdminForm = () => {
                 <Input />
               </FormItem>
               <div className="label-form mb-[8px]">Ngày khởi hành</div>
-              {/* <MultiDatePicker onDatesChange={setDateStart} /> */}
 
               <Controller
                 name="dateStart"
@@ -235,6 +240,7 @@ const TourAdminForm = () => {
                 render={({ field }) => (
                   <>
                     <MultiDatePicker
+                      defaultData={tourDetail?.dateStart}
                       onDatesChange={(dates) => field.onChange(dates)}
                       error={errors?.dateStart?.message || ""}
                     />
@@ -259,14 +265,14 @@ const TourAdminForm = () => {
               <div>
                 <div className="label-form mb-2">Phương tiện di chuyển:</div>
                 <Select
-                  defaultValue="plane"
+                  defaultValue="Máy bay"
                   style={{ width: "100%" }}
                   onChange={handleChange}
                   options={[
-                    { value: "plane", label: "Máy bay" },
-                    { value: "boat", label: "Tàu thủy" },
-                    { value: "train", label: "Tàu hỏa" },
-                    { value: "coach", label: "Xe buýt du lịch" },
+                    { value: "Máy bay", label: "Máy bay" },
+                    { value: "Tàu thủy", label: "Tàu thủy" },
+                    { value: "Tàu hỏa", label: "Tàu hỏa" },
+                    { value: "Xe buýt du lịch", label: "Xe buýt du lịch" },
                   ]}
                 />
               </div>

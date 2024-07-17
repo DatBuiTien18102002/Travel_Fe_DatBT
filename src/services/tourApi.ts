@@ -7,8 +7,11 @@ const tourApi = {
   createTour: (data: tourType) => {
     return axiosClient.post(`${resourceName}/create`, data);
   },
+  getTourDetail: (id: string) => {
+    return axiosClient.get(`${resourceName}/get-tour/${id}`);
+  },
   getAllTour: () => {
-    return axiosClient.get(`${resourceName}/getTours`);
+    return axiosClient.get(`${resourceName}/get-tours`);
   },
 };
 

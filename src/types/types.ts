@@ -288,6 +288,7 @@ interface decodedType {
 
 interface multiDatePickerProps {
   // selectedDates: Value[];
+  defaultData?: string[];
   onDatesChange: React.Dispatch<React.SetStateAction<Value[]>>;
   error: string;
 }

@@ -18,7 +18,6 @@ function App() {
   const dispatch = useDispatch();
   const loginUser = useSelector((state: { user: userType }) => state.user);
   const { pathname } = useLocation();
-  console.log(pathname.split("/")[1]);
 
   const { storageData, decoded } = handleDecoded();
 
@@ -106,7 +105,19 @@ function App() {
                     <Helmet>
                       <title>{config.titles.newTourAdmin}</title>
                     </Helmet>
-                    <TourAdminForm />
+                    <TourAdminForm type="create" />
+                  </Fragment>
+                }
+              />
+
+              <Route
+                path={config.routes.updateTourAdmin}
+                element={
+                  <Fragment>
+                    <Helmet>
+                      <title>{config.titles.updateTourAdmin}</title>
+                    </Helmet>
+                    <TourAdminForm type="update" />
                   </Fragment>
                 }
               />

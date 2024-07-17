@@ -4,6 +4,7 @@ const titles = {
   userManage: "Quản lý người dùng",
   tourManage: "Quản lý tour",
   newTourAdmin: "Tạo tour",
+  updateTourAdmin: "Cập nhật tour",
   bookingManage: "Quản lý đặt tour",
   home: "Trang chủ",
   profile: "Thông tin cá nhân",

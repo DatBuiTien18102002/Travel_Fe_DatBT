@@ -1,16 +1,32 @@
 import { multiDatePickerProps } from "@/types/types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker, { DateObject, Value } from "react-multi-date-picker";
+
+const convertToDateObject = (dateStrings: string[]): DateObject[] => {
+  return dateStrings.map((dateString) => {
+    const [day, month, year] = dateString.split("/").map(Number);
+    return new DateObject({ day, month, year });
+  });
+};
 
 const MultiDatePicker = ({
   // selectedDates,
+  defaultData,
   error,
   onDatesChange,
 }: multiDatePickerProps) => {
-  // const [dates, setDates] = useState(selectedDates);
-  const [dates, setDates] = useState<Value[]>([]);
+  const [dates, setDates] = useState<Value[]>(
+    defaultData ? convertToDateObject(defaultData) : []
+  );
+
+  useEffect(() => {
+    if (defaultData?.length !== 0) {
+      setDates(convertToDateObject(defaultData || []));
+    }
+  }, [defaultData]);
+
   const today = new Date();
-  console.log("multidate", error);
+
   const convertToDateString = (newDates: DateObject[]) => {
     const dateString = newDates?.map((date) => {
       return date?.format("DD/MM/YYYY");
