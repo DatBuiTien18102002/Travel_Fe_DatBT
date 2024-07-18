@@ -32,3 +32,37 @@ export const useGetAllTour = () => {
     queryFn: () => tourApi.getAllTour(),
   });
 };
+
+export const useUpdateTour = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: tourType }) => {
+      return tourApi.updateTour(id, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [tourKeys.GET_ALL_TOUR],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [tourKeys.GET_ALL_TYPE],
+      });
+    },
+  });
+};
+
+export const useDeleteTour = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => {
+      return tourApi.deleteTour(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [tourKeys.GET_ALL_TOUR],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [tourKeys.GET_ALL_TYPE],
+      });
+    },
+  });
+};

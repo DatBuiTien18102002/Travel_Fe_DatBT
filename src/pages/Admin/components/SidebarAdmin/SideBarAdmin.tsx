@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { sideBarAdminProps } from "@/types/types";
 import { useDispatch } from "react-redux";
 import { resetUser } from "@/redux/slice/userSlice";
+import config from "@/config";
 
 const SideBarAdmin = ({
   activeBtn,
@@ -42,7 +43,10 @@ const SideBarAdmin = ({
       <div className="flex flex-col">
         <button
           name="dashboard"
-          onClick={(e) => handleActiveBtnSidebar(e.target)}
+          onClick={(e) => {
+            handleActiveBtnSidebar(e.target);
+            navigate(`/admin/${config.routes.dashboard}`);
+          }}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap ${
             activeBtn === "dashboard" && "active"
           }`}
@@ -57,7 +61,10 @@ const SideBarAdmin = ({
 
         <button
           name="manager-user"
-          onClick={(e) => handleActiveBtnSidebar(e.target)}
+          onClick={(e) => {
+            handleActiveBtnSidebar(e.target);
+            navigate(`/admin/${config.routes.userManage}`);
+          }}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap ${
             activeBtn === "manager-user" && "active"
           }`}
@@ -72,7 +79,10 @@ const SideBarAdmin = ({
 
         <button
           name="manager-tour"
-          onClick={(e) => handleActiveBtnSidebar(e.target)}
+          onClick={(e) => {
+            handleActiveBtnSidebar(e.target);
+            navigate(`/admin/${config.routes.tourManage}`);
+          }}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap ${
             activeBtn === "manager-tour" && "active"
           }`}
@@ -87,7 +97,10 @@ const SideBarAdmin = ({
 
         <button
           name="manager-booking"
-          onClick={(e) => handleActiveBtnSidebar(e.target)}
+          onClick={(e) => {
+            handleActiveBtnSidebar(e.target);
+            navigate(`/admin/${config.routes.bookingManage}`);
+          }}
           className={`admin-sidebar-btn relative flex gap-6 items-center w-full text-white hover:text-sky hover:bg-white py-[10px] rounded-tl-[20px] rounded-bl-[20px] cursor-pointer whitespace-nowrap ${
             activeBtn === "manager-booking" && "active"
           }`}

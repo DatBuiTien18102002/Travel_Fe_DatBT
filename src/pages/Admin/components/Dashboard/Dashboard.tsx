@@ -11,7 +11,11 @@ import { Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { useGetAllUser } from "@/react-query/userQuery";
 import handleDecoded from "@/utils/jwtDecode";
-import { userType } from "@/types/types";
+import { tourType, userType } from "@/types/types";
+import { useGetAllTour } from "@/react-query/tourQuery";
+import currencyFormat from "@/utils/currencyFormat";
+import { Link } from "react-router-dom";
+import config from "@/config";
 
 interface DataType {
   key: string;
@@ -118,6 +122,10 @@ const data: DataType[] = [
 const Dashboard = () => {
   const { storageData } = handleDecoded();
   const { data: allUser } = useGetAllUser(storageData || "");
+  const { data: allTour } = useGetAllTour();
+
+  console.log("allUser", allUser);
+  console.log("allTour", allTour);
 
   function convertVNDToUSD(amountVND: number) {
     const amountUSD = Math.round(amountVND / 25000);
@@ -129,7 +137,9 @@ const Dashboard = () => {
       <div className="flex gap-4 flex-wrap justify-between my-[20px]">
         <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
-            <div className="font-robotoBold text-sky text-3xl">100</div>
+            <div className="font-robotoBold text-sky text-3xl">
+              {allTour?.data.length || "0"}
+            </div>
             <div className="text-grey text-sm">Tour</div>
           </div>
           <FontAwesomeIcon
@@ -199,7 +209,7 @@ const Dashboard = () => {
           <div className="flex justify-between items-center">
             <div className="font-robotoBold text-sky text-2xl">Khách hàng</div>
             <div className="text-sm flex items-center gap-1 text-sky">
-              <div>Xem thêm</div>
+              <Link to={`/admin/${config.routes.userManage}`}>Xem thêm</Link>
               <FontAwesomeIcon icon={faArrowRight} />
             </div>
           </div>
@@ -228,96 +238,28 @@ const Dashboard = () => {
           <div className="flex justify-between items-center">
             <div className="font-robotoBold text-sky text-2xl">Tour</div>
             <div className="text-sm flex items-center gap-1 text-sky">
-              <div>Xem thêm</div>
+              <Link to={`/admin/${config.routes.tourManage}`}>Xem thêm</Link>
               <FontAwesomeIcon icon={faArrowRight} />
             </div>
           </div>
 
           <div className="flex-1 overflow-y-auto flex flex-col gap-2">
-            <div className="flex gap-2 items-center">
-              <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
-                <img src="/tour_img_default.jpg" alt="" />
-              </div>
+            {allTour?.data?.map((item: tourType) => (
+              <div key={item.name} className="flex gap-2 items-center">
+                <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
+                  <img src={item.photo || "/tour_img_default.jpg"} alt="" />
+                </div>
 
-              <div className="overflow-hidden flex-1">
-                <div className="font-robotoBold  text-overflow-1-line">
-                  HCM - Đà lạt - Quảng Nam
-                </div>
-                <div className="text-grey text-xs text-overflow-1-line">
-                  13,000,000 VND
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
-                <img src="/tour_img_default.jpg" alt="" />
-              </div>
-
-              <div className="overflow-hidden flex-1">
-                <div className="font-robotoBold  text-overflow-1-line">
-                  HCM - Đà lạt - Quảng Nam
-                </div>
-                <div className="text-grey text-xs text-overflow-1-line">
-                  13,000,000 VND
+                <div className="overflow-hidden flex-1">
+                  <div className="font-robotoBold  text-overflow-1-line">
+                    {item.name}
+                  </div>
+                  <div className="text-grey text-xs text-overflow-1-line">
+                    {currencyFormat(item.price || 0)}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
-                <img src="/tour_img_default.jpg" alt="" />
-              </div>
-
-              <div className="overflow-hidden flex-1">
-                <div className="font-robotoBold  text-overflow-1-line">
-                  HCM - Đà lạt - Quảng Nam
-                </div>
-                <div className="text-grey text-xs text-overflow-1-line">
-                  13,000,000 VND
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
-                <img src="/tour_img_default.jpg" alt="" />
-              </div>
-
-              <div className="overflow-hidden flex-1">
-                <div className="font-robotoBold  text-overflow-1-line">
-                  HCM - Đà lạt - Quảng Nam
-                </div>
-                <div className="text-grey text-xs text-overflow-1-line">
-                  13,000,000 VND
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
-                <img src="/tour_img_default.jpg" alt="" />
-              </div>
-
-              <div className="overflow-hidden flex-1">
-                <div className="font-robotoBold  text-overflow-1-line">
-                  HCM - Đà lạt - Quảng Nam
-                </div>
-                <div className="text-grey text-xs text-overflow-1-line">
-                  13,000,000 VND
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
-                <img src="/tour_img_default.jpg" alt="" />
-              </div>
-
-              <div className="overflow-hidden flex-1">
-                <div className="font-robotoBold  text-overflow-1-line">
-                  HCM - Đà lạt - Quảng Nam
-                </div>
-                <div className="text-grey text-xs text-overflow-1-line">
-                  13,000,000 VND
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

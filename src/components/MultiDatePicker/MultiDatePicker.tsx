@@ -10,7 +10,6 @@ const convertToDateObject = (dateStrings: string[]): DateObject[] => {
 };
 
 const MultiDatePicker = ({
-  // selectedDates,
   defaultData,
   error,
   onDatesChange,

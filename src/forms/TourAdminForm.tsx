@@ -12,9 +12,13 @@ import { FormItem } from "react-hook-form-antd";
 import TextArea from "antd/es/input/TextArea";
 import NestedDescTourForm from "@/forms/NestedDescTourForm";
 import { MultiDatePicker } from "@/components";
-import { useCreateTour, useGetDetailTour } from "@/react-query/tourQuery";
+import {
+  useCreateTour,
+  useGetDetailTour,
+  useUpdateTour,
+} from "@/react-query/tourQuery";
 import message from "@/utils/message";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 
 interface CustomError extends Error {
@@ -37,8 +41,14 @@ const TourAdminForm = ({ type }: { type: string }) => {
   const {
     mutateAsync: createTour,
     isPending: loadingCreate,
-    error,
+    error: createError,
   } = useCreateTour();
+
+  const {
+    mutateAsync: updateTour,
+    isPending: loadingUpdate,
+    error: updateError,
+  } = useUpdateTour();
 
   const defaultValues = {
     name: tourDetail?.name || "",
@@ -79,7 +89,8 @@ const TourAdminForm = ({ type }: { type: string }) => {
     formState: { errors },
   } = formReactHook;
 
-  const createTourError: CustomError = error as CustomError;
+  const createTourError: CustomError = createError as CustomError;
+  const updateTourError: CustomError = updateError as CustomError;
 
   useEffect(() => {
     setPhoto(tourDetail?.photo || "");
@@ -88,17 +99,21 @@ const TourAdminForm = ({ type }: { type: string }) => {
 
   useEffect(() => {
     if (
-      createTourError &&
-      createTourError?.response?.data?.err?.startsWith(
-        'The value of "offset" is out of range.'
-      )
+      (createTourError &&
+        createTourError?.response?.data?.err?.startsWith(
+          'The value of "offset" is out of range.'
+        )) ||
+      (updateTourError &&
+        updateTourError?.response?.data?.err?.startsWith(
+          'The value of "offset" is out of range.'
+        ))
     ) {
       message(
         "error",
         "Hình ảnh có kích thước quá lớn, vui lòng chọn ảnh khác"
       );
     }
-  }, [error]);
+  }, [createError, updateError]);
 
   const {
     fields: scheduleFields,
@@ -109,7 +124,7 @@ const TourAdminForm = ({ type }: { type: string }) => {
     name: "schedule",
   });
 
-  const handleSubmitForm = async (values: tourAdminForm) => {
+  const handleCreateTour = async (values: tourAdminForm) => {
     const tourInfo = {
       ...values,
       photo,
@@ -126,6 +141,41 @@ const TourAdminForm = ({ type }: { type: string }) => {
       } else {
         message("error", res.message);
       }
+    }
+  };
+
+  const handleUpdateTour = async (values: tourAdminForm) => {
+    const tourInfo = {
+      ...values,
+      photo,
+      transport,
+    } as tourType;
+
+    if (!id) {
+      return;
+    }
+
+    const res: responseType<tourType> = await updateTour({
+      id,
+      data: tourInfo,
+    });
+
+    if (res.message) {
+      const status = res.status.toString();
+      if (status === "200") {
+        message("success", res.message);
+        navigate("/admin/manager-tour");
+      } else {
+        message("error", res.message);
+      }
+    }
+  };
+
+  const handleSubmitForm = async (values: tourAdminForm) => {
+    if (type === "create") {
+      await handleCreateTour(values);
+    } else {
+      await handleUpdateTour(values);
     }
   };
 
@@ -358,7 +408,11 @@ const TourAdminForm = ({ type }: { type: string }) => {
           </div>
 
           <Button type="primary" htmlType="submit" className="w-full">
-            {loadingCreate ? "Loading..." : "Tạo Tour"}
+            {loadingCreate || loadingUpdate
+              ? "Loading..."
+              : type === "create"
+              ? "Tạo Tour"
+              : "Cập nhật Tour"}
           </Button>
         </Form>
       </div>

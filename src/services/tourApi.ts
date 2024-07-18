@@ -13,6 +13,12 @@ const tourApi = {
   getAllTour: () => {
     return axiosClient.get(`${resourceName}/get-tours`);
   },
+  updateTour: (id: string, data: tourType) => {
+    return axiosClient.put(`${resourceName}/update/${id}`, data);
+  },
+  deleteTour: (id: string) => {
+    return axiosClient.delete(`${resourceName}/delete/${id}`);
+  },
 };
 
 export default tourApi;

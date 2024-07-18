@@ -1,9 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { format } from "date-fns";
-import InputIcon from "react-multi-date-picker/components/input_icon";
-import { MultiDatePicker } from "@/components";
-import { Value } from "react-multi-date-picker";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
@@ -12,22 +6,46 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import config from "@/config";
-import { useGetAllTour } from "@/react-query/tourQuery";
+import { useDeleteTour, useGetAllTour } from "@/react-query/tourQuery";
 import useSearchTable from "@/hooks/useSearchTable";
-import { tourAdminColumn, tourType } from "@/types/types";
+import { responseType, tourAdminColumn, tourType } from "@/types/types";
 import { Table, TableProps } from "antd";
 import currencyFormat from "@/utils/currencyFormat";
+import message from "@/utils/message";
+import { useEffect, useState } from "react";
 
 const TourAdmin = () => {
   const navigate = useNavigate();
-  const { data: allTour, isLoading: loadingGetAllTour } = useGetAllTour();
+  const { data: allTour } = useGetAllTour();
+  const [isActionAllowed, setIsActionAllowed] = useState(true);
+  const [idAction, setIdAction] = useState("");
 
   const { getColumnSearchProps } = useSearchTable<tourAdminColumn>();
+  const { mutateAsync: deleteTour, isPending: loadingDelete } = useDeleteTour();
+
   const handleEditTour = (id: string) => {
     navigate(`/admin/manager-tour/update/${id}`);
   };
 
-  const handleDeleteTour = (id: string) => {};
+  useEffect(() => {
+    setIsActionAllowed(true);
+    setIdAction("");
+  }, [allTour]);
+
+  const handleDeleteTour = async (id: string) => {
+    const res: responseType<tourType> = await deleteTour(id);
+
+    if (res.message) {
+      const status = res.status.toString();
+      if (status === "200") {
+        message("success", res.message);
+        setIdAction(id);
+        setIsActionAllowed(false);
+      } else {
+        message("error", res.message);
+      }
+    }
+  };
 
   const columns: TableProps<tourAdminColumn>["columns"] = [
     {
@@ -124,8 +142,13 @@ const TourAdmin = () => {
         return (
           <>
             <button
-              className={"text-sky cursor-allowed"}
+              className={
+                !isActionAllowed && idAction === _id
+                  ? "text-sky cursor-not-allowed"
+                  : "text-sky cursor-allowed"
+              }
               onClick={() => handleEditTour(_id)}
+              disabled={!isActionAllowed && idAction === _id}
             >
               <FontAwesomeIcon
                 icon={faPenToSquare}
