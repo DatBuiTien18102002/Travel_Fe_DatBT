@@ -6,5 +6,6 @@ export const userKeys = {
 export const tourKeys = {
   GET_TOUR_DETAIL: "getTourDetail",
   GET_ALL_TOUR: "getAllTour",
-  GET_ALL_TYPE: "getAllType",
+  GET_TOURS: "getAllTour",
+  GET_UNIQUE_VALUES_BY_ATTR: "getUniqueValuesByAttr",
 };

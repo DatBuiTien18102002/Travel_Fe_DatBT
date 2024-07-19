@@ -223,7 +223,7 @@ interface tourType {
   }[];
   rating?: number;
   numRate?: number;
-  availableSeat?: number;
+  currentSeat?: number;
   review?: {
     reviewId: string;
     userName: string;
@@ -242,6 +242,15 @@ interface responseType<dataType> {
   status: number;
   message?: string;
   data?: dataType;
+}
+
+interface resGetToursType<dataType> {
+  status: number;
+  message?: string;
+  data?: dataType[];
+  currentPage?: number;
+  totalPage?: number;
+  totalTour?: number;
 }
 
 interface signUpResData {
@@ -293,6 +302,49 @@ interface multiDatePickerProps {
   error: string;
 }
 
+interface queryType {
+  limit?: number | string;
+  page?: number;
+  _sort?: string;
+  _order?: string;
+  timeTravel?: string;
+  depart?: string;
+}
+
+interface tourSideBarProps {
+  activeSort: string;
+  activeFindTimeTravel: string | undefined;
+  handleFindByTimeTravelClick: (type: string | undefined) => unknown;
+  activeFindDepart: string | undefined;
+  handleFindByDepartClick: (type: string | undefined) => unknown;
+  handleSortClick: (
+    objectQuery: { nameSort: string; type: string },
+    active: string | undefined
+  ) => unknown;
+  sortList: {
+    title: string;
+    name: string;
+    type: string;
+  }[];
+  headingSort: {
+    title: string;
+    name: string;
+  }[];
+}
+
+interface tourHeadingProps {
+  currentPage: number;
+  totalPage: number;
+  handleNextPage: () => unknown;
+  handlePrevPage: () => unknown;
+  sortList: {
+    title: string;
+    options: { label: string; value: string }[];
+  }[];
+  handleSelectSortClick: (value: string) => unknown;
+  handleSelectFilterClick: (value: string) => unknown;
+}
+
 export type {
   routeProps,
   layoutProps,
@@ -324,4 +376,8 @@ export type {
   booleanSetStateProps,
   multiDatePickerProps,
   tourAdminForm,
+  queryType,
+  resGetToursType,
+  tourSideBarProps,
+  tourHeadingProps,
 };

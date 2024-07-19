@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { TourCard } from "@/components";
 import Slider from "react-slick";
 import "./CustomSlick.css";
+import { useGetTours } from "@/react-query/tourQuery";
+import { tourType } from "@/types/types";
 
 const Discover = () => {
   const settings = {
@@ -40,6 +42,8 @@ const Discover = () => {
     ],
   };
 
+  const { data: tours } = useGetTours({ limit: 6 });
+
   return (
     <section className="py-[40px] w-full ">
       <div
@@ -61,12 +65,18 @@ const Discover = () => {
         </div>
 
         <Slider {...settings}>
+          {tours?.data?.map((tourItem: tourType) => {
+            return (
+              <div key={tourItem.name}>
+                <TourCard tour={tourItem} />
+              </div>
+            );
+          })}
+          {/* <TourCard />
           <TourCard />
           <TourCard />
           <TourCard />
-          <TourCard />
-          <TourCard />
-          <TourCard />
+          <TourCard /> */}
         </Slider>
       </div>
     </section>

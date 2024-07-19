@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { tourKeys } from "./queryKeys";
 import { tourApi } from "@/services";
 import handleDecoded from "@/utils/jwtDecode";
-import { tourType } from "@/types/types";
+import { queryType, tourType } from "@/types/types";
 
 export const useCreateTour = () => {
   const queryClient = useQueryClient();
@@ -33,6 +33,13 @@ export const useGetAllTour = () => {
   });
 };
 
+export const useGetTours = (params: queryType) => {
+  return useQuery({
+    queryKey: [tourKeys.GET_TOURS],
+    queryFn: () => tourApi.getTours(params),
+  });
+};
+
 export const useUpdateTour = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -44,7 +51,7 @@ export const useUpdateTour = () => {
         queryKey: [tourKeys.GET_ALL_TOUR],
       });
       queryClient.invalidateQueries({
-        queryKey: [tourKeys.GET_ALL_TYPE],
+        queryKey: [tourKeys.GET_ALL_TIME_TRAVEL],
       });
     },
   });
@@ -61,8 +68,15 @@ export const useDeleteTour = () => {
         queryKey: [tourKeys.GET_ALL_TOUR],
       });
       queryClient.invalidateQueries({
-        queryKey: [tourKeys.GET_ALL_TYPE],
+        queryKey: [tourKeys.GET_ALL_TIME_TRAVEL],
       });
     },
+  });
+};
+
+export const useGetUniqueValuesByAttr = (attr: string) => {
+  return useQuery({
+    queryKey: [attr],
+    queryFn: () => tourApi.getUnitValueByAttr(attr),
   });
 };
