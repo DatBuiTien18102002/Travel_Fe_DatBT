@@ -11,16 +11,21 @@ import DescribeTour from "@/pages/TourDetail/components/DescribeTour";
 import ScheduleTour from "@/pages/TourDetail/components/ScheduleTour";
 import CommentsTour from "@/pages/TourDetail/components/CommentsTour";
 import BookTourSideBar from "@/pages/TourDetail/components/BookTourSideBar";
+import { useParams } from "react-router-dom";
+import { useGetDetailTour } from "@/react-query/tourQuery";
 
 const TourDetail = () => {
   const [activeInfo, setActiveInfo] = useState("describe");
-
+  const { id } = useParams();
+  const { data: res } = useGetDetailTour(id || "");
+  console.log(res);
+  const tour = res?.data;
   const renderInfoTour = (activeInfo: string) => {
     switch (activeInfo) {
       case "describe":
-        return <DescribeTour />;
+        return <DescribeTour desc={tour?.desc} />;
       case "schedule":
-        return <ScheduleTour />;
+        return <ScheduleTour schedule={tour?.schedule} />;
       case "comments":
         return <CommentsTour />;
       default:
@@ -28,24 +33,27 @@ const TourDetail = () => {
     }
   };
 
+  let availableSeat = 0;
+  if (tour?.maxSeat && tour?.currentSeat >= 0) {
+    availableSeat = tour?.maxSeat - tour?.currentSeat;
+  }
+
   return (
     <div className="pt-[var(--header-height)]">
       <div className="wrapper py-[40px]">
-        <div className="text-3xl font-signikaBold text-sky">
-          Tour Đà Lạt: HCM - Thác Datanla - SamTen Hills - Langbiang
-        </div>
+        <div className="text-3xl font-signikaBold text-sky">{tour?.name}</div>
         <div className="py-3 flex gap-2 items-center">
           <Rate
             disabled
             allowHalf
-            defaultValue={3.7}
+            defaultValue={tour?.rating}
             className="text-xl text-sky mb-[1px]"
           />
           <span className="font-robotoBold leading-none h-fit mt-[1px]">
-            3.7
+            {tour?.rating}
           </span>
           <div className="mt-[2px]">
-            (<span className="font-robotoBold ">5 </span>đánh giá)
+            (<span className="font-robotoBold ">{tour?.numRate} </span>đánh giá)
           </div>
         </div>
 
@@ -60,7 +68,7 @@ const TourDetail = () => {
 
             <div>
               <div className="text-grey text-sm">Khởi hành từ</div>
-              <div className="text-sky text-sm">Hà Nội</div>
+              <div className="text-sky text-sm">{tour?.depart}</div>
             </div>
           </div>
 
@@ -74,7 +82,7 @@ const TourDetail = () => {
 
             <div>
               <div className="text-grey text-sm">Điểm đến</div>
-              <div className="text-sky text-sm">Đà Lạt</div>
+              <div className="text-sky text-sm">{tour?.destination}</div>
             </div>
           </div>
 
@@ -88,7 +96,7 @@ const TourDetail = () => {
 
             <div>
               <div className="text-grey text-sm">Thời gian</div>
-              <div className="text-sky text-sm">5N4Đ</div>
+              <div className="text-sky text-sm">{tour?.timeTravel}</div>
             </div>
           </div>
 
@@ -102,7 +110,7 @@ const TourDetail = () => {
 
             <div>
               <div className="text-grey text-sm">Số chỗ trống</div>
-              <div className="text-sky text-sm">5</div>
+              <div className="text-sky text-sm">{availableSeat}</div>
             </div>
           </div>
 
@@ -116,7 +124,7 @@ const TourDetail = () => {
 
             <div>
               <div className="text-grey text-sm">Di chuyển bằng</div>
-              <div className="text-sky text-sm">Máy bay</div>
+              <div className="text-sky text-sm">{tour?.transport}</div>
             </div>
           </div>
         </div>
@@ -125,7 +133,10 @@ const TourDetail = () => {
           <Row gutter={30} className="gap-y-5">
             <Col span={24} lg={16}>
               <div className="w-full h-[400px] rounded-[20px] overflow-hidden mb-[30px]">
-                <img src="/imgTourDetailDemo.jpg" alt="" />
+                <img
+                  src={tour?.photo ? tour?.photo : "/tour_img_default.jpg"}
+                  alt=""
+                />
               </div>
 
               <div className="flex gap-[20px] w-full border-b-[4px] border-sky">
@@ -157,7 +168,9 @@ const TourDetail = () => {
                     activeInfo === "comments" ? "bg-sky text-white" : ""
                   }`}
                 >
-                  <span className="font-robotoBold">Đánh giá tour (5)</span>
+                  <span className="font-robotoBold">
+                    Đánh giá tour ({tour?.reviews?.length})
+                  </span>
                 </div>
               </div>
 

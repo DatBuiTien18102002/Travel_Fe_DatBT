@@ -38,7 +38,7 @@ const publicRoutes: routeProps[] = [
     title: config.titles.tours,
   },
   {
-    path: `${config.routes.tours}/tourDetail`,
+    path: `${config.routes.tours}/:id`,
     page: TourDetailPage,
     title: config.titles.tourDetail,
   },

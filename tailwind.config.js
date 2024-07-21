@@ -78,10 +78,22 @@ export default {
             opacity: 1,
             zIndex: 5,
           },
+        },
+        loadingDot: {
+          "0%": {
+            transform: 'translateY(0px)'
+          },
+          "50%": {
+            transform: 'translateY(-5px)'
+          },
+          "100%": {
+            transform: 'translateY(0px)'
+          },
         }
       },
       animation: {
-        showForm: `showForm 0.2s ease-in-out`
+        showForm: `showForm 0.2s ease-in-out`,
+        loadingDot: `loadingDot 1s linear infinite`,
       }
     },
   },

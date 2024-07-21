@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPaperPlane,
@@ -7,8 +7,11 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { Select } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const SearchDetail = () => {
+  const navigate = useNavigate();
+
   const [searchInfo, setSearchInfo] = useState({
     department: "",
     destination: "",
@@ -31,7 +34,9 @@ const SearchDetail = () => {
 
   const handleSearch = () => {
     //Check nếu cả 3 trường thông báo dữ liệu không có thì hiện thông báo phải nhập ít nhất 1 trường
-    console.log(searchInfo);
+    //Lấy limit và page hiện tại
+    console.log("search Info", searchInfo);
+    navigate("/tours?limit=7&page=1", { state: { searchInfo } });
   };
 
   return (

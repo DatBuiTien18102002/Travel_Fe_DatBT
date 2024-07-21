@@ -8,7 +8,7 @@ import { headingSort, selectSortList, sortList } from "@/utils/constants";
 import getPriceDiscount from "@/utils/getPriceDiscount";
 import { Pagination } from "antd";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const Tours = () => {
   const [sortBy, setSortBy] = useState({ nameSort: "", type: "" });
@@ -61,9 +61,20 @@ const Tours = () => {
     depart: findByDepart,
   };
 
-  const { data, refetch } = useGetTours(query);
+  const { data, refetch, isFetching: loading } = useGetTours(query);
   const toursRes: resGetToursType<tourType> = data as resGetToursType<tourType>;
   let tours = toursRes?.data;
+  console.log("loading", loading);
+  console.log("data", data);
+
+  const { state } = useLocation();
+  console.log("state", state);
+
+  useEffect(() => {
+    if (state) {
+      console.log("state", state);
+    }
+  }, [state]);
 
   const sortByPriceTour = (allTours: tourType[]) => {
     if (allTours) {
@@ -94,8 +105,6 @@ const Tours = () => {
   if (isSortPrice) {
     tours = sortByPriceTour(tours || []);
   }
-
-  // console.log("res", toursRes);
 
   useEffect(() => {
     const limit = searchParams.get("limit") || "7";
@@ -230,7 +239,13 @@ const Tours = () => {
               handleSelectSortClick={handleSelectSortClick}
               handleSelectFilterClick={handleSelectFilterClick}
             />
-            {toursRes?.data && <TourContent tours={tours || []} />}
+            {toursRes?.data && (
+              <TourContent
+                tours={tours || []}
+                totalPage={toursRes?.totalPage || 0}
+                loading={loading}
+              />
+            )}
 
             <div className="flex-center mt-[20px]">
               <Pagination

@@ -199,6 +199,7 @@ interface userType {
 }
 
 interface tourType {
+  _id?: string;
   name?: string;
   photo?: string;
   price?: number;
