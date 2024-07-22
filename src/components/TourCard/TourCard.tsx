@@ -23,7 +23,13 @@ const TourCard = ({ tour }: { tour: tourType }) => {
       className={`relative rounded-[10px] bg-white shadow-tourCard transition-all will-change-transform cursor-pointer hover:shadow-tourCardHover w-full border-[2px] border-sky ${
         pathname === "/" ? "scale-[0.9] hover:scale-95 " : "hover:scale-105"
       }`}
-      onClick={() => navigate(`${tour?._id}`)}
+      onClick={() => {
+        if (pathname.split("/")[1]) {
+          navigate(`${tour?._id}`);
+          return;
+        }
+        navigate(`tours/${tour?._id}`);
+      }}
     >
       {tour?.discount ? (
         <div className="absolute top-[10px] left-[10px] py-1 px-4 rounded-full bg-sky-dark text-white text-xs">

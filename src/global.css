@@ -123,7 +123,7 @@
   }
 
   .input__search {
-    @apply w-0   lg:group-hover:w-[200px] lg:focus:w-[200px] max-lg:group-hover:w-[120px] max-lg:focus:w-[120px] font-medium transition-all duration-1000 bg-transparent  text-black text-sm focus:pr-[25px] group-hover:pr-[25px];
+    @apply w-0 lg:group-hover:w-[200px] lg:focus:w-[200px] max-lg:group-hover:w-[120px] max-lg:focus:w-[120px] font-medium transition-all duration-1000 bg-transparent  text-black text-sm focus:pr-[25px] group-hover:pr-[25px];
   }
 
   .button__search {

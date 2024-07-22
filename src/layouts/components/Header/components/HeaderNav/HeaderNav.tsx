@@ -73,11 +73,11 @@ const HeaderNav = () => {
             )}
           >
             <Link to={config.routes.home}>
-              <div className="font-cloudy font-bold flex items-center text-orange">
+              <div className="font-cloudy font-bold flex items-center text-sunny">
                 Home
                 <FontAwesomeIcon
                   icon={faChevronDown}
-                  className="pl-1 text-xl text-orange "
+                  className="pl-1 text-xl text-sunny "
                 />
               </div>
             </Link>
@@ -92,7 +92,7 @@ const HeaderNav = () => {
           <Link to={item.href} key={item.href}>
             <div
               className={`font-cloudy font-bold ${
-                item.href === pathname && "text-orange"
+                item.href === pathname && "text-sunny"
               }`}
             >
               {item.title}

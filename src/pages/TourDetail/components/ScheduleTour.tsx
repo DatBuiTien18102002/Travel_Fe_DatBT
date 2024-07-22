@@ -22,10 +22,10 @@ const ScheduleTour = ({
         <div>
           {scheduleItem?.desc?.map((descItem) => {
             return (
-              <>
+              <div key={descItem._id}>
                 <p className="font-robotoBold">{descItem?.timeOfDate}</p>
                 <p>{descItem?.detail}</p>
-              </>
+              </div>
             );
           })}
           {/* <p className="font-robotoBold">Buổi sáng </p>Quý khách tập trung tại

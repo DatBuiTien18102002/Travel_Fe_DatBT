@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPaperPlane,
@@ -7,15 +7,29 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { Select } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import message from "@/utils/message";
+import { useGetUniqueValuesByAttr } from "@/react-query/tourQuery";
+
+interface searchInfoProp {
+  department: string | undefined;
+  destination: string | undefined;
+  duration: string | undefined;
+}
 
 const SearchDetail = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const [searchInfo, setSearchInfo] = useState({
-    department: "",
-    destination: "",
-    duration: "",
+  const [department, setDepartment] = useState<string>("");
+  const [destination, setDestination] = useState<string>("");
+  const [duration, setDuration] = useState<string | undefined>();
+  const { data: allTimeTravel } = useGetUniqueValuesByAttr("timeTravel");
+
+  const [searchInfo, setSearchInfo] = useState<searchInfoProp>({
+    department: undefined,
+    destination: undefined,
+    duration: undefined,
   });
 
   const changeInfo = (info: HTMLInputElement | HTMLSelectElement) => {
@@ -30,27 +44,53 @@ const SearchDetail = () => {
       ...prev,
       duration: value,
     }));
+    setDuration(value);
   };
 
   const handleSearch = () => {
-    //Check nếu cả 3 trường thông báo dữ liệu không có thì hiện thông báo phải nhập ít nhất 1 trường
-    //Lấy limit và page hiện tại
+    let limit = searchParams.get("limit");
+    let page = searchParams.get("page");
+    if (!limit && !page) {
+      limit = "7";
+      page = "1";
+    }
+    if (
+      !searchInfo.department &&
+      !searchInfo.destination &&
+      !searchInfo.duration
+    ) {
+      message("error", "Bạn phải nhập ít nhất 1 thông tin để tìm kiếm !");
+      return;
+    }
+
     console.log("search Info", searchInfo);
-    navigate("/tours?limit=7&page=1", { state: { searchInfo } });
+    navigate(`/tours?limit=${limit}&page=${page}`, { state: { searchInfo } });
+    setSearchInfo({
+      department: undefined,
+      destination: undefined,
+      duration: undefined,
+    });
+    setDepartment("");
+    setDestination("");
+    setDuration(undefined);
   };
 
   return (
     <div className="flex py-3 px-2 shadow-searchDetail rounded-full w-fit max-md:mt-5 border-[1px]  border-sky max-sm:flex-col max-sm:w-full max-sm:rounded-lg max-sm:gap-3">
       <div className="flex-center gap-[11px] px-4 max-sm:justify-start">
         <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5 text-sky" />
-        <div className="sm:max-w-[90px] max-sm:w-full">
+        <div className="sm:max-w-[95px] max-sm:w-full">
           <div className="font-robotoBold text-sm">Điểm khởi hành</div>
           <input
             type="text"
-            placeholder="Nhập điểm đi"
+            placeholder="Vd: HCM, Hà Nội, v.v. "
             className="w-full h-full border-none outline-none text-xs"
             name="department"
-            onChange={(e) => changeInfo(e.target)}
+            value={department}
+            onChange={(e) => {
+              changeInfo(e.target);
+              setDepartment(e.target.value);
+            }}
           />
         </div>
       </div>
@@ -61,10 +101,14 @@ const SearchDetail = () => {
           <div className="font-robotoBold text-sm">Điểm du lịch</div>
           <input
             type="text"
-            placeholder="Nhập nơi du lịch"
+            placeholder="Vd: Đà Lạt, v.v."
             className="w-full h-full border-none outline-none text-xs"
             name="destination"
-            onChange={(e) => changeInfo(e.target)}
+            value={destination}
+            onChange={(e) => {
+              changeInfo(e.target);
+              setDestination(e.target.value);
+            }}
           />
         </div>
       </div>
@@ -77,14 +121,12 @@ const SearchDetail = () => {
           </div>
           <Select
             placeholder="Chọn thời gian"
+            value={duration}
             onChange={handleChangeSelect}
-            options={[
-              { value: "1N", label: "1 ngày" },
-              { value: "2N1D", label: "2 ngày 1 đêm" },
-              { value: "3N2D", label: "3 ngày 2 đêm" },
-              { value: "5N3D", label: "5 ngày 3 đêm" },
-              { value: "1W", label: "1 tuần" },
-            ]}
+            options={allTimeTravel?.data.map((item: string) => ({
+              value: item,
+              label: item,
+            }))}
             className="custom-select-introduce"
           />
         </div>

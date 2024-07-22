@@ -8,9 +8,10 @@ import { headingSort, selectSortList, sortList } from "@/utils/constants";
 import getPriceDiscount from "@/utils/getPriceDiscount";
 import { Pagination } from "antd";
 import { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 const Tours = () => {
+  const navigate = useNavigate();
   const [sortBy, setSortBy] = useState({ nameSort: "", type: "" });
   const [findByTimeTravel, setFindByTimeTravel] = useState<
     string | undefined
@@ -20,6 +21,9 @@ const Tours = () => {
   >();
   const [findByDepart, setFindByDepart] = useState<string | undefined>();
   const [activeFindDepart, setActiveFindDepart] = useState<
+    string | undefined
+  >();
+  const [findByDestination, setFindByDestination] = useState<
     string | undefined
   >();
 
@@ -52,6 +56,8 @@ const Tours = () => {
     setCurrentPage(page);
   };
 
+  const { state } = useLocation();
+
   const query: queryType = {
     limit: searchParams.get("limit") || 7,
     page: currentPage,
@@ -59,22 +65,24 @@ const Tours = () => {
     _order: sortBy.type,
     timeTravel: findByTimeTravel,
     depart: findByDepart,
+    destination: findByDestination,
   };
 
   const { data, refetch, isFetching: loading } = useGetTours(query);
   const toursRes: resGetToursType<tourType> = data as resGetToursType<tourType>;
   let tours = toursRes?.data;
-  console.log("loading", loading);
-  console.log("data", data);
-
-  const { state } = useLocation();
-  console.log("state", state);
 
   useEffect(() => {
-    if (state) {
-      console.log("state", state);
+    if (state?.searchInfo) {
+      setActiveFindDepart(undefined);
+      setActiveFindTimeTravel(undefined);
+      setFindByDepart(state.searchInfo?.department);
+      setFindByTimeTravel(state.searchInfo?.duration);
+      setFindByDestination(state.searchInfo?.destination);
+      refetch();
+      navigate(".", { state: {}, replace: true });
     }
-  }, [state]);
+  }, [state?.searchInfo]);
 
   const sortByPriceTour = (allTours: tourType[]) => {
     if (allTours) {
@@ -124,7 +132,7 @@ const Tours = () => {
     refetch,
   ]);
 
-  //Sort Tour
+  //Sort, Filter Tour
   const handleSortClick = (
     objectQuery: { nameSort: string; type: string },
     active = ""
@@ -158,11 +166,14 @@ const Tours = () => {
 
   const handleSelectFilterClick = (value: string) => {
     const newValue = value.split(",");
+    setFindByDestination(undefined);
     if (newValue[0] === "timeTravel") {
       setFindByTimeTravel(newValue[1]);
+      setFindByDepart(undefined);
       return;
     }
     if (newValue[0] === "depart") {
+      setFindByTimeTravel(undefined);
       setFindByDepart(newValue[1]);
       return;
     }
@@ -172,13 +183,25 @@ const Tours = () => {
   };
 
   const handleFindByTimeTravelClick = (type: string | undefined) => {
+    setFindByDestination(undefined);
+    setFindByDepart(undefined);
+    setActiveFindDepart(undefined);
+
     setActiveFindTimeTravel(type);
     setFindByTimeTravel(type);
   };
 
   const handleFindByDepartClick = (type: string | undefined) => {
+    setFindByDestination(undefined);
+    setFindByTimeTravel(undefined);
+    setActiveFindTimeTravel(undefined);
+
     setActiveFindDepart(type);
     setFindByDepart(type);
+  };
+
+  const handleFindByDestinationClick = (type: string | undefined) => {
+    setFindByDestination(type);
   };
 
   const handlePrevPage = () => {
@@ -224,6 +247,10 @@ const Tours = () => {
               handleFindByTimeTravelClick={handleFindByTimeTravelClick}
               activeFindDepart={activeFindDepart}
               handleFindByDepartClick={handleFindByDepartClick}
+              findByDestination={findByDestination}
+              findByDepart={findByDepart}
+              findByTimeTravel={findByTimeTravel}
+              handleFindByDestinationClick={handleFindByDestinationClick}
               handleSortClick={handleSortClick}
               sortList={sortList}
               headingSort={headingSort}

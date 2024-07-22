@@ -10,6 +10,10 @@ const TourSideBar = ({
   handleFindByDepartClick,
   activeFindDepart,
   handleFindByTimeTravelClick,
+  findByDestination,
+  findByDepart,
+  findByTimeTravel,
+  handleFindByDestinationClick,
   handleSortClick,
   sortList,
   headingSort,
@@ -26,11 +30,16 @@ const TourSideBar = ({
 
         <div
           className={`tours-sidebar-item ${
-            activeFindDepart === undefined ? "active" : ""
+            findByDepart === undefined &&
+            findByTimeTravel === undefined &&
+            findByDestination === undefined
+              ? "active"
+              : ""
           }`}
           onClick={() => {
             handleFindByDepartClick(undefined);
             handleFindByTimeTravelClick(undefined);
+            handleFindByDestinationClick(undefined);
           }}
         >
           Mặc định

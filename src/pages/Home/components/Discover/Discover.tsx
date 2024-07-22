@@ -72,11 +72,6 @@ const Discover = () => {
               </div>
             );
           })}
-          {/* <TourCard />
-          <TourCard />
-          <TourCard />
-          <TourCard />
-          <TourCard /> */}
         </Slider>
       </div>
     </section>

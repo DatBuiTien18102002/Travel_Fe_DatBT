@@ -40,6 +40,14 @@ export const useGetTours = (params: queryType) => {
   });
 };
 
+export const useGetToursByName = (params: queryType) => {
+  return useQuery({
+    queryKey: [tourKeys.GET_TOURS_BY_NAME],
+    queryFn: () => tourApi.getTours(params),
+    enabled: !!params.name,
+  });
+};
+
 export const useUpdateTour = () => {
   const queryClient = useQueryClient();
   return useMutation({

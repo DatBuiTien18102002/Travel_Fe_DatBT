@@ -308,8 +308,10 @@ interface queryType {
   page?: number;
   _sort?: string;
   _order?: string;
+  name?: string;
   timeTravel?: string;
   depart?: string;
+  destination?: string;
 }
 
 interface tourSideBarProps {
@@ -318,6 +320,10 @@ interface tourSideBarProps {
   handleFindByTimeTravelClick: (type: string | undefined) => unknown;
   activeFindDepart: string | undefined;
   handleFindByDepartClick: (type: string | undefined) => unknown;
+  findByDestination: string | undefined;
+  findByDepart: string | undefined;
+  findByTimeTravel: string | undefined;
+  handleFindByDestinationClick: (type: string | undefined) => unknown;
   handleSortClick: (
     objectQuery: { nameSort: string; type: string },
     active: string | undefined
