@@ -10,3 +10,8 @@ export const tourKeys = {
   GET_TOURS_BY_NAME: "getToursByName",
   GET_UNIQUE_VALUES_BY_ATTR: "getUniqueValuesByAttr",
 };
+
+export const bookingKeys = {
+  GET_MY_BOOKING: "getMyOrders",
+  GET_ALL_BOOKING: "getAllBOOKING",
+};

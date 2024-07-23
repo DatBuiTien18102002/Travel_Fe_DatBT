@@ -129,6 +129,7 @@ const TourAdminForm = ({ type }: { type: string }) => {
       ...values,
       photo,
       transport,
+      availableSeat: values.maxSeat,
     } as tourType;
 
     const res: responseType<tourType> = await createTour(tourInfo);

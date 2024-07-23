@@ -7,9 +7,8 @@ const DescribeTour = ({
     topic: string;
   };
 }) => {
-  console.log(desc?.overview);
   const overview = desc?.overview.split(".");
-  console.log("overview", overview);
+
   return (
     <>
       <div>

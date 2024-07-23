@@ -2,22 +2,23 @@ import { Button, Form, Input } from "antd";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormItem } from "react-hook-form-antd";
-import { useState } from "react";
-import { bookingForm } from "@/types/types";
+import { useEffect } from "react";
+import { bookingForm, userType } from "@/types/types";
 import { bookingSchema } from "@/forms/validateSchemas";
+import { useSelector } from "react-redux";
 
 const BookingForm = ({
   handleBookingForm,
 }: {
   handleBookingForm: (values: bookingForm) => void;
 }) => {
-  const [loading, setLoading] = useState(false);
+  const currentUser = useSelector((state: { user: userType }) => state.user);
   const [form] = Form.useForm();
   const defaultValues = {
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
+    name: currentUser?.name,
+    email: currentUser.email,
+    phone: currentUser.phone,
+    address: currentUser.address,
   };
 
   const formReactHook = useForm<bookingForm>({
@@ -25,7 +26,11 @@ const BookingForm = ({
     resolver: zodResolver(bookingSchema),
   });
 
-  const { control, handleSubmit } = formReactHook;
+  const { control, handleSubmit, reset } = formReactHook;
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [currentUser, reset]);
 
   return (
     <Form
@@ -50,7 +55,7 @@ const BookingForm = ({
       </div>
 
       <Button type="primary" htmlType="submit" className="w-full">
-        {loading === true ? "Loading..." : "Đặt tour"}
+        Đặt tour
       </Button>
     </Form>
   );

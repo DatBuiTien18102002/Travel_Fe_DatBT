@@ -4,6 +4,9 @@ import {
   faLocationDot,
   faCalendarDays,
   faPlaneUp,
+  faBus,
+  faTrain,
+  faShip,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -18,7 +21,6 @@ const TourDetail = () => {
   const [activeInfo, setActiveInfo] = useState("describe");
   const { id } = useParams();
   const { data: res } = useGetDetailTour(id || "");
-  console.log(res);
   const tour = res?.data;
   const renderInfoTour = (activeInfo: string) => {
     switch (activeInfo) {
@@ -33,10 +35,20 @@ const TourDetail = () => {
     }
   };
 
-  let availableSeat = 0;
-  if (tour?.maxSeat && tour?.currentSeat >= 0) {
-    availableSeat = tour?.maxSeat - tour?.currentSeat;
-  }
+  const renderTransportIcon = (transport: string) => {
+    switch (transport) {
+      case "Máy bay":
+        return faPlaneUp;
+      case "Tàu hỏa":
+        return faTrain;
+      case "Xe buýt du lịch":
+        return faBus;
+      case "Tàu thủy":
+        return faShip;
+      default:
+        return undefined;
+    }
+  };
 
   return (
     <div className="pt-[var(--header-height)]">
@@ -110,15 +122,19 @@ const TourDetail = () => {
 
             <div>
               <div className="text-grey text-sm">Số chỗ trống</div>
-              <div className="text-sky text-sm">{availableSeat}</div>
+              <div className="text-sky text-sm">
+                {tour?.availableSeat || tour?.maxSeat}
+              </div>
             </div>
           </div>
 
           <div className="flex gap-2">
             <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
               <FontAwesomeIcon
-                icon={faPlaneUp}
-                className="w-[16px] h-[16px] text-sky rotate-45"
+                icon={renderTransportIcon(tour?.transport) || faPlaneUp}
+                className={`w-[16px] h-[16px] text-sky ${
+                  tour?.transport === "Máy bay" ? "rotate-45" : ""
+                }`}
               />
             </div>
 
@@ -179,7 +195,7 @@ const TourDetail = () => {
               </div>
             </Col>
             <Col span={24} lg={8}>
-              <BookTourSideBar />
+              <BookTourSideBar tour={tour} />
             </Col>
           </Row>
         </div>

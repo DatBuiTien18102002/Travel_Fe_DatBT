@@ -182,7 +182,6 @@ interface bookingHistoryColumn extends Record<string, unknown> {
   createAt: string;
 }
 
-//Redux
 interface userType {
   name?: string;
   email?: string;
@@ -225,12 +224,29 @@ interface tourType {
   rating?: number;
   numRate?: number;
   currentSeat?: number;
+  availableSeat?: number;
   review?: {
     reviewId: string;
     userName: string;
     reviewText?: string;
     rating: number;
   };
+}
+
+interface bookingType {
+  userId?: string;
+  tourId?: string;
+  seat?: {
+    adultSeat: number;
+    childSeat: number;
+    babySeat: number;
+    totalSeat: number;
+  };
+  price?: number;
+  dateStart?: string;
+  isRating?: boolean;
+  status?: string;
+  paidAt?: Date;
 }
 
 //API Response
@@ -375,6 +391,7 @@ export type {
   refreshTokenApi,
   userType,
   tourType,
+  bookingType,
   responseType,
   signUpResData,
   signInResData,

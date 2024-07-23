@@ -21,8 +21,6 @@ const Search = () => {
   };
 
   const { data: res, refetch, isFetching: loading } = useGetToursByName(query);
-  console.log("debounce search", debounceSearch);
-  console.log("data search name", res);
 
   useEffect(() => {
     refetch();

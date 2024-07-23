@@ -13,10 +13,6 @@ import getPriceDiscount from "@/utils/getPriceDiscount";
 const TourCard = ({ tour }: { tour: tourType }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  let availableSeat = 0;
-  if (tour?.maxSeat && tour?.currentSeat !== undefined) {
-    availableSeat = tour?.maxSeat - tour?.currentSeat;
-  }
 
   return (
     <div
@@ -92,7 +88,9 @@ const TourCard = ({ tour }: { tour: tourType }) => {
           <FontAwesomeIcon icon={faUsers} />
           <p>
             Số chỗ còn:{" "}
-            <span className="text-sky font-robotoBold">{availableSeat}</span>
+            <span className="text-sky font-robotoBold">
+              {tour?.availableSeat || tour?.maxSeat}
+            </span>
           </p>
         </div>
       </div>
