@@ -7,13 +7,13 @@ import Highlighter from "react-highlight-words";
 
 const useSearchTable = <T extends Record<string, unknown>>() => {
   const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState<string | string[]>("");
   const searchInput = useRef<InputRef>(null);
 
   const handleSearch = (
     selectedKeys: string[],
     confirm: FilterDropdownProps["confirm"],
-    dataIndex: keyof T
+    dataIndex: string | string[]
   ) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -25,7 +25,9 @@ const useSearchTable = <T extends Record<string, unknown>>() => {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (dataIndex: keyof T): TableColumnType<T> => ({
+  const getColumnSearchProps = (
+    dataIndex: string | string[]
+  ): TableColumnType<T> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -84,10 +86,21 @@ const useSearchTable = <T extends Record<string, unknown>>() => {
     filterIcon: (filtered: boolean) => (
       <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
     ),
-    onFilter: (value, record) =>
-      String(record[dataIndex])
+    onFilter: (value, record) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const getNestedValue = (obj: any, keys: string[]) =>
+        keys.reduce((acc, key) => acc?.[key], obj);
+
+      if (Array.isArray(dataIndex)) {
+        return getNestedValue(record, dataIndex)
+          ?.toString()
+          .toLowerCase()
+          .includes((value as string).toLowerCase());
+      }
+      return String(record[dataIndex])
         .toLowerCase()
-        .includes((value as string).toLowerCase()),
+        .includes((value as string).toLowerCase());
+    },
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);

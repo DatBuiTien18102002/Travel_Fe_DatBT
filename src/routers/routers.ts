@@ -63,7 +63,7 @@ const publicRoutes: routeProps[] = [
     title: config.titles.bookingHistory,
   },
   {
-    path: config.routes.bookingHistoryDetail,
+    path: `${config.routes.bookingHistoryDetail}/:id`,
     page: BookingHistoryDetailPage,
     title: config.titles.bookingHistoryDetail,
   },

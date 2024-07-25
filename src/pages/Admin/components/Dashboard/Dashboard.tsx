@@ -9,123 +9,105 @@ import {
 
 import { Table, Tag } from "antd";
 import type { TableProps } from "antd";
-import { useGetAllUser } from "@/react-query/userQuery";
+import { useGetAllUsers } from "@/react-query/userQuery";
 import handleDecoded from "@/utils/jwtDecode";
-import { tourType, userType } from "@/types/types";
+import {
+  allBookingsRes,
+  bookingAdminColumn,
+  bookingType,
+  tourType,
+  userType,
+} from "@/types/types";
 import { useGetAllTour } from "@/react-query/tourQuery";
 import currencyFormat from "@/utils/currencyFormat";
 import { Link } from "react-router-dom";
 import config from "@/config";
-
-interface DataType {
-  key: string;
-  email: string;
-  tour: string;
-  totalPrice: number;
-  status: string;
-}
-const columns: TableProps<DataType>["columns"] = [
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-    render: (text) => <a>{text}</a>,
-    sorter: (a, b) => a.email.localeCompare(b.email),
-    ellipsis: true,
-  },
-  {
-    title: "Tour",
-    dataIndex: "tour",
-    key: "tour",
-    sorter: (a, b) => a.tour.localeCompare(b.tour),
-    ellipsis: true,
-  },
-  {
-    title: "Tổng tiền",
-    dataIndex: "totalPrice",
-    key: "totalPrice",
-    render: (text) => <a>{text + " VND"}</a>,
-    sorter: (a, b) => a.totalPrice - b.totalPrice,
-    ellipsis: true,
-  },
-  {
-    title: "Trạng thái",
-    key: "status",
-    dataIndex: "status",
-    sorter: (a, b) => a.status.localeCompare(b.status),
-    render: (_, { status }) => {
-      let color;
-
-      if (status === "Đã Thanh Toán") {
-        color = "green";
-      }
-
-      if (status === "Chưa Thanh Toán") {
-        color = "red";
-      }
-
-      return (
-        <Tag color={color} className="w-[100px] text-center">
-          {status}
-        </Tag>
-      );
-    },
-    ellipsis: true,
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: "1",
-    email: "tatBui@gmail.com.vn",
-    tour: "HCM-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 6240000,
-    status: "Đã Thanh Toán",
-  },
-  {
-    key: "2",
-    email: "datBui@gmail.com.vn",
-    tour: "ĐN-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 7240000,
-    status: "Chưa Thanh Toán",
-  },
-  {
-    key: "3",
-    email: "catBui@gmail.com.vn",
-    tour: "HN-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 4240000,
-    status: "Đã Thanh Toán",
-  },
-  {
-    key: "4",
-    email: "zatBui@gmail.com.vn",
-    tour: "HN-Đà Lạt-Kì Co-Hội An",
-    totalPrice: 2240000,
-    status: "Chưa Thanh Toán",
-  },
-  {
-    key: "5",
-    email: "iatBui@gmail.com.vn",
-    tour: "HCM-Đà Lạt - Kì Co - Hội An",
-    totalPrice: 8240000,
-    status: "Đã Thanh Toán",
-  },
-  {
-    key: "6",
-    email: "patBui@gmail.com.vn",
-    tour: "ĐN-Đà Lạt - Kì Co  -Hội An",
-    totalPrice: 7240000,
-    status: "Đã Thanh Toán",
-  },
-];
+import { useGetAllBookings } from "@/react-query/bookingQuery";
+import useSearchTable from "@/hooks/useSearchTable";
 
 const Dashboard = () => {
-  const { storageData } = handleDecoded();
-  const { data: allUser } = useGetAllUser(storageData || "");
-  const { data: allTour } = useGetAllTour();
+  const { data: allUsers } = useGetAllUsers();
+  const { data: allTours } = useGetAllTour();
+  const { data: allBookings } = useGetAllBookings();
+  const { getColumnSearchProps } = useSearchTable<bookingAdminColumn>();
 
-  console.log("allUser", allUser);
-  console.log("allTour", allTour);
+  const columns: TableProps<bookingAdminColumn>["columns"] = [
+    {
+      title: "Email khách hàng",
+      dataIndex: ["userInfo", "email"],
+      key: "email",
+      render: (text) => <a>{text}</a>,
+      ellipsis: true,
+      ...getColumnSearchProps(["userInfo", "email"]),
+    },
+    {
+      title: "Tên tour",
+      dataIndex: ["tourInfo", "name"],
+      key: "nameTour",
+      render: (text) => <a>{text}</a>,
+      ellipsis: true,
+      ...getColumnSearchProps(["tourInfo", "name"]),
+    },
+    {
+      title: "Tổng tiền",
+      dataIndex: "price",
+      key: "totalPrice",
+      render: (text) => <a>{currencyFormat(text)}</a>,
+      sorter: (a, b) => a.price - b.price,
+      ellipsis: true,
+    },
+    {
+      title: "Trạng thái",
+      key: "status",
+      dataIndex: "status",
+      sorter: (a, b) => a.status.localeCompare(b.status),
+      fixed: "right",
+      render: (_, { status }) => {
+        let color;
+
+        if (status === "booking_success") {
+          color = "green";
+          status = "Đã thanh toán";
+        }
+
+        if (status === "confirm_booking") {
+          color = "red";
+          status = "Chưa thanh toán";
+        }
+
+        if (status === "waiting_confirm") {
+          color = "yellow";
+          status = "Chờ xác nhận";
+        }
+
+        return (
+          <Tag color={color} className="w-[100px] text-center">
+            {status}
+          </Tag>
+        );
+      },
+      ellipsis: true,
+    },
+  ];
+
+  const newAllBookings = (allBookings?.data || []).map(
+    (item: allBookingsRes, index: number) => ({
+      key: index,
+      ...item,
+    })
+  );
+
+  console.log(newAllBookings);
+
+  const revenue = Array.from((allBookings?.data as bookingType[]) || []).reduce(
+    (total: number, item: bookingType) => {
+      if (item?.price && typeof item.price === "number") {
+        return total + item?.price;
+      }
+      return total;
+    },
+    0
+  );
 
   function convertVNDToUSD(amountVND: number) {
     const amountUSD = Math.round(amountVND / 25000);
@@ -138,7 +120,7 @@ const Dashboard = () => {
         <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">
-              {allTour?.data.length || "0"}
+              {allTours?.data.length || "0"}
             </div>
             <div className="text-grey text-sm">Tour</div>
           </div>
@@ -151,7 +133,7 @@ const Dashboard = () => {
         <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">
-              {allUser?.data.length || "0"}
+              {allUsers?.data.length || "0"}
             </div>
             <div className="text-grey text-sm">Khách hàng</div>
           </div>
@@ -163,7 +145,9 @@ const Dashboard = () => {
 
         <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
-            <div className="font-robotoBold text-sky text-3xl">600</div>
+            <div className="font-robotoBold text-sky text-3xl">
+              {allBookings?.data.length || "0"}
+            </div>
             <div className="text-grey text-sm">Đơn đặt Tour</div>
           </div>
           <FontAwesomeIcon
@@ -175,7 +159,7 @@ const Dashboard = () => {
         <div className="flex-1 min-w-[171px] border-[2px] border-sky p-5 bg-white shadow-card rounded-[10px] flex justify-between items-center gap-[30px]">
           <div>
             <div className="font-robotoBold text-sky text-3xl">
-              ${convertVNDToUSD(125500000)}
+              ${convertVNDToUSD(revenue)}
             </div>
             <div className="text-grey text-sm">Doanh thu</div>
           </div>
@@ -199,7 +183,7 @@ const Dashboard = () => {
           </div>
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={newAllBookings || []}
             pagination={{ pageSize: 4 }}
             scroll={{ x: "max-content" }}
           />
@@ -215,7 +199,7 @@ const Dashboard = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto flex flex-col gap-2">
-            {allUser?.data.map((item: userType) => (
+            {allUsers?.data.map((item: userType) => (
               <div key={item._id} className="flex gap-2 items-center">
                 <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
                   <img src={item.avatar ? item.avatar : "/avatar.jpg"} alt="" />
@@ -244,7 +228,7 @@ const Dashboard = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto flex flex-col gap-2">
-            {allTour?.data?.map((item: tourType) => (
+            {allTours?.data?.map((item: tourType) => (
               <div key={item.name} className="flex gap-2 items-center">
                 <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
                   <img src={item.photo || "/tour_img_default.jpg"} alt="" />

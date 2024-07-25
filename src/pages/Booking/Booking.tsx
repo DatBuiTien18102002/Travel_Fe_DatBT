@@ -12,6 +12,7 @@ import {
   tourType,
   userType,
 } from "@/types/types";
+import currencyFormat from "@/utils/currencyFormat";
 import message from "@/utils/message";
 import { Button } from "antd";
 import { useState } from "react";
@@ -81,8 +82,8 @@ const Booking = () => {
     const numBaby = state?.seatBookingInfo.numBaby || 0;
     const totalSeat = numAdult + numChild + numBaby;
     const dataBooking = {
-      userId: currentUser._id,
-      tourId: state?.tourId,
+      userInfo: currentUser._id,
+      tourInfo: state?.tourId,
       seat: {
         adultSeat: numAdult,
         childSeat: numChild,
@@ -138,7 +139,9 @@ const Booking = () => {
             <div className="font-robotoBold text-lg ">Xác nhận đặt tour</div>
             <div>
               Xác nhận thanh toán:{" "}
-              <span className="text-sky font-robotoBold">5.000.000đ</span>
+              <span className="text-sky font-robotoBold">
+                {currencyFormat(state?.totalPrice)}
+              </span>
             </div>
 
             <div className="flex justify-end w-full gap-2 font-robotoBold">

@@ -11,6 +11,36 @@ const bookingApi = {
       },
     });
   },
+  getMyBookings: (data: { token: string; userId: string }) => {
+    const { token, userId } = data;
+    return axiosAuthClient.get(`${resourceName}/bookings-user/${userId}`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+  },
+  getAllBookings: (token: string) => {
+    return axiosAuthClient.get(`${resourceName}/bookings-all`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+  },
+  getBookingDetail: (data: { token: string; bookingId: string }) => {
+    const { token, bookingId } = data;
+    return axiosAuthClient.get(`${resourceName}/booking-detail/${bookingId}`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+  },
+  updateBooking: (id: string, data: bookingType, token: string) => {
+    return axiosClient.put(`${resourceName}/update/${id}`, data, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default bookingApi;

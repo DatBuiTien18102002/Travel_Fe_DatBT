@@ -1,93 +1,121 @@
 import useSearchTable from "@/hooks/useSearchTable";
-import { bookingHistoryColumn } from "@/types/types";
+import { useGetMyBookings } from "@/react-query/bookingQuery";
+import {
+  bookingHistoryColumn,
+  bookingHistoryRes,
+  userType,
+} from "@/types/types";
 import { Button, Table, TableProps, Tag } from "antd";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import currencyFormat from "@/utils/currencyFormat";
 
-const data: bookingHistoryColumn[] = [
-  {
-    key: "1",
-    id: "1",
-    nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
-    status: "Đã Thanh Toán",
-    totalPrice: 6240000,
-    createAt: "18:19:00 18-10-2024",
-  },
-  {
-    key: "2",
-    id: "2",
-    nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
-    status: "Đã Thanh Toán",
-    totalPrice: 6240000,
-    createAt: "18:19:00 18-10-2024",
-  },
-  {
-    key: "3",
-    id: "3",
-    nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
-    status: "Đã Thanh Toán",
-    totalPrice: 6240000,
-    createAt: "18:19:00 18-10-2024",
-  },
-  {
-    key: "4",
-    id: "4",
-    nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
-    status: "Đã Thanh Toán",
-    totalPrice: 6240000,
-    createAt: "18:19:00 18-10-2024",
-  },
-  {
-    key: "5",
-    id: "5",
-    nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
-    status: "Đã Thanh Toán",
-    totalPrice: 6240000,
-    createAt: "18:19:00 18-10-2024",
-  },
-  {
-    key: "6",
-    id: "6",
-    nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
-    status: "Đã Thanh Toán",
-    totalPrice: 6240000,
-    createAt: "18:19:00 18-10-2024",
-  },
-];
+// const data: bookingHistoryColumn[] = [
+//   {
+//     key: "1",
+//     id: "1",
+//     nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
+//     status: "Đã Thanh Toán",
+//     totalPrice: 6240000,
+//     createAt: "18:19:00 18-10-2024",
+//   },
+//   {
+//     key: "2",
+//     id: "2",
+//     nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
+//     status: "Đã Thanh Toán",
+//     totalPrice: 6240000,
+//     createAt: "18:19:00 18-10-2024",
+//   },
+//   {
+//     key: "3",
+//     id: "3",
+//     nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
+//     status: "Đã Thanh Toán",
+//     totalPrice: 6240000,
+//     createAt: "18:19:00 18-10-2024",
+//   },
+//   {
+//     key: "4",
+//     id: "4",
+//     nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
+//     status: "Đã Thanh Toán",
+//     totalPrice: 6240000,
+//     createAt: "18:19:00 18-10-2024",
+//   },
+//   {
+//     key: "5",
+//     id: "5",
+//     nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
+//     status: "Đã Thanh Toán",
+//     totalPrice: 6240000,
+//     createAt: "18:19:00 18-10-2024",
+//   },
+//   {
+//     key: "6",
+//     id: "6",
+//     nameTour: "HCM-Đà Lạt-Kì Co-Hội An",
+//     status: "Đã Thanh Toán",
+//     totalPrice: 6240000,
+//     createAt: "18:19:00 18-10-2024",
+//   },
+// ];
 
 const BookingHistory = () => {
   const { getColumnSearchProps } = useSearchTable<bookingHistoryColumn>();
   const navigate = useNavigate();
+  const currentUser = useSelector((state: { user: userType }) => state.user);
+  const { data: res } = useGetMyBookings(currentUser._id || "");
+  const myBookingTours = (res?.data || []).map(
+    (item: bookingHistoryRes, index: number) => ({
+      key: index,
+      ...item,
+    })
+  );
 
   const handleOpenHistoryDetail = (id: string) => {
-    console.log("history booking", id);
-    navigate("/bookingHistoryDetail");
+    navigate(`/bookingHistoryDetail/${id}`);
   };
 
   const columns: TableProps<bookingHistoryColumn>["columns"] = [
     {
       title: "Tên tour",
-      dataIndex: "nameTour",
+      dataIndex: ["tourInfo", "name"],
       key: "nameTour",
       render: (text) => <a>{text}</a>,
-      sorter: (a, b) => a.nameTour.localeCompare(b.nameTour),
       ellipsis: true,
-      ...getColumnSearchProps("nameTour"),
+      ...getColumnSearchProps(["tourInfo", "name"]),
     },
     {
       title: "Tổng tiền",
-      dataIndex: "totalPrice",
+      dataIndex: "price",
       key: "totalPrice",
-      render: (text) => <a>{text + " VND"}</a>,
-      sorter: (a, b) => a.totalPrice - b.totalPrice,
+      render: (text) => <a>{currencyFormat(text)}</a>,
+      sorter: (a, b) => a.price - b.price,
+      ellipsis: true,
+    },
+    {
+      title: "Số người",
+      dataIndex: ["seat", "totalSeat"],
+      key: "numSeat",
+      render: (text) => <a>{text}</a>,
       ellipsis: true,
     },
     {
       title: "Thời gian đặt tour",
-      dataIndex: "createAt",
-      key: "createAt",
-      render: (text) => <a>{text}</a>,
-      // sorter: (a, b) => a.createAt - b.createAt,
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text) => {
+        const formattedDateBooking = format(
+          new Date(text),
+          "HH:mm:ss dd/MM/yyyy"
+        );
+        return <a>{formattedDateBooking}</a>;
+      },
+      sorter: (a, b) =>
+        new Date(a?.createdAt).getTime() - new Date(b?.createdAt).getTime(),
       ellipsis: true,
     },
     {
@@ -95,15 +123,23 @@ const BookingHistory = () => {
       key: "status",
       dataIndex: "status",
       sorter: (a, b) => a.status.localeCompare(b.status),
+      fixed: "right",
       render: (_, { status }) => {
         let color;
 
-        if (status === "Đã Thanh Toán") {
+        if (status === "booking_success") {
           color = "green";
+          status = "Đã thanh toán";
         }
 
-        if (status === "Chưa Thanh Toán") {
+        if (status === "confirm_booking") {
           color = "red";
+          status = "Chưa thanh toán";
+        }
+
+        if (status === "waiting_confirm") {
+          color = "yellow";
+          status = "Chờ xác nhận";
         }
 
         return (
@@ -115,20 +151,20 @@ const BookingHistory = () => {
       ellipsis: true,
     },
     {
-      title: "Action",
+      title: "",
       key: "action",
-      dataIndex: "id",
+      dataIndex: "_id",
       fixed: "right",
       width: 100,
-      render: (id) => {
+      render: (_id) => {
         return (
           <>
             <Button
               type="primary"
               className="!bg-sky cursor-pointer"
-              onClick={() => handleOpenHistoryDetail(id)}
+              onClick={() => handleOpenHistoryDetail(_id)}
             >
-              Chi tiết đặt tour
+              Chi tiết
             </Button>
           </>
         );
@@ -146,7 +182,7 @@ const BookingHistory = () => {
         <div className="border-[2px] border-sky rounded-[10px]">
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={myBookingTours}
             pagination={{ pageSize: 4 }}
             scroll={{ x: "max-content" }}
           />

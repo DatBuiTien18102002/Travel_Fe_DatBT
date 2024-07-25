@@ -4,9 +4,6 @@ import {
   faLocationDot,
   faCalendarDays,
   faPlaneUp,
-  faBus,
-  faTrain,
-  faShip,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -16,6 +13,7 @@ import CommentsTour from "@/pages/TourDetail/components/CommentsTour";
 import BookTourSideBar from "@/pages/TourDetail/components/BookTourSideBar";
 import { useParams } from "react-router-dom";
 import { useGetDetailTour } from "@/react-query/tourQuery";
+import renderTransportIcon from "@/utils/renderTransportIcon";
 
 const TourDetail = () => {
   const [activeInfo, setActiveInfo] = useState("describe");
@@ -32,21 +30,6 @@ const TourDetail = () => {
         return <CommentsTour />;
       default:
         return <></>;
-    }
-  };
-
-  const renderTransportIcon = (transport: string) => {
-    switch (transport) {
-      case "Máy bay":
-        return faPlaneUp;
-      case "Tàu hỏa":
-        return faTrain;
-      case "Xe buýt du lịch":
-        return faBus;
-      case "Tàu thủy":
-        return faShip;
-      default:
-        return undefined;
     }
   };
 

@@ -27,8 +27,8 @@ const HeaderUser = () => {
       to: "/profile",
     },
     {
-      title: "My orders",
-      to: "/my-orders",
+      title: "My bookings",
+      to: "/bookingHistory",
     },
     {
       title: "Log out",

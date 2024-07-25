@@ -3,18 +3,14 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
-import { Table, Tag } from "antd";
+import { Table } from "antd";
 import type { TableProps } from "antd";
 import useSearchTable from "@/hooks/useSearchTable";
 import { responseType, userAdminColumn, userType } from "@/types/types";
 import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import UserAdminForm from "@/forms/UserAdminForm";
 import { useEffect, useState } from "react";
-import {
-  useDeleteUser,
-  useGetAllUser,
-  useGetDetailUser,
-} from "@/react-query/userQuery";
+import { useDeleteUser, useGetAllUsers } from "@/react-query/userQuery";
 import handleDecoded from "@/utils/jwtDecode";
 import { userApi } from "@/services";
 import { useSelector } from "react-redux";
@@ -22,7 +18,7 @@ import message from "@/utils/message";
 
 const UserAdmin = () => {
   const { storageData } = handleDecoded();
-  const { data: allUser } = useGetAllUser(storageData || "");
+  const { data: allUser } = useGetAllUsers();
   const [typeForm, setTypeForm] = useState("create");
   const [userDetailSelect, setUserDetailSelect] = useState({});
   const [isActionAllowed, setIsActionAllowed] = useState(true);

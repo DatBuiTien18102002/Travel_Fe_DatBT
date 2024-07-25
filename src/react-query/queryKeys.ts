@@ -12,6 +12,7 @@ export const tourKeys = {
 };
 
 export const bookingKeys = {
-  GET_MY_BOOKING: "getMyOrders",
-  GET_ALL_BOOKING: "getAllBOOKING",
+  GET_MY_BOOKINGS: "getMyBookings",
+  GET_ALL_BOOKINGS: "getAllBooking",
+  GET_BOOKING_DETAIL: "getBookingDetail",
 };

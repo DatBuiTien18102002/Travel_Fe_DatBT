@@ -32,7 +32,7 @@ const userApi = {
     });
   },
 
-  getAllUser: (access_token: string) => {
+  getAllUsers: (access_token: string) => {
     return axiosClient.get(`${resourceName}/get-all`, {
       headers: {
         token: `Bearer ${access_token}`,

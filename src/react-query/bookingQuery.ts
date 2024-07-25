@@ -16,7 +16,51 @@ export const useCreateBooking = () => {
     onSuccess: () => {
       const { storageData } = handleDecoded();
       queryClient.invalidateQueries({
-        queryKey: [bookingKeys.GET_ALL_BOOKING, storageData],
+        queryKey: [bookingKeys.GET_ALL_BOOKINGS, storageData],
+      });
+    },
+  });
+};
+
+export const useGetMyBookings = (userId: string) => {
+  const { storageData } = handleDecoded();
+  const data = { token: storageData || "", userId: userId };
+  return useQuery({
+    queryKey: [bookingKeys.GET_MY_BOOKINGS, data],
+    queryFn: () => bookingApi.getMyBookings(data),
+    enabled: !!userId,
+  });
+};
+export const useGetAllBookings = () => {
+  const { storageData } = handleDecoded();
+
+  return useQuery({
+    queryKey: [bookingKeys.GET_ALL_BOOKINGS, storageData],
+    queryFn: () => bookingApi.getAllBookings(storageData || ""),
+    enabled: !!storageData,
+  });
+};
+
+export const useGetBookingDetail = (bookingId: string) => {
+  const { storageData } = handleDecoded();
+  const data = { token: storageData || "", bookingId: bookingId };
+  return useQuery({
+    queryKey: [bookingKeys.GET_BOOKING_DETAIL, data],
+    queryFn: () => bookingApi.getBookingDetail(data),
+    enabled: !!bookingId,
+  });
+};
+
+export const useUpdateBooking = () => {
+  const queryClient = useQueryClient();
+  const { storageData } = handleDecoded();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: bookingType }) => {
+      return bookingApi.updateBooking(id, data, storageData || "");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [bookingKeys.GET_ALL_BOOKINGS],
       });
     },
   });

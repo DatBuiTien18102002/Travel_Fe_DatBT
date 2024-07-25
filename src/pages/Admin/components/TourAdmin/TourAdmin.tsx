@@ -21,7 +21,7 @@ const TourAdmin = () => {
   const [idAction, setIdAction] = useState("");
 
   const { getColumnSearchProps } = useSearchTable<tourAdminColumn>();
-  const { mutateAsync: deleteTour, isPending: loadingDelete } = useDeleteTour();
+  const { mutateAsync: deleteTour } = useDeleteTour();
 
   const handleEditTour = (id: string) => {
     navigate(`/admin/manager-tour/update/${id}`);
@@ -52,6 +52,7 @@ const TourAdmin = () => {
       title: "Photo",
       dataIndex: "photo",
       key: "photo",
+      width: "70px",
       render: (params) => {
         return (
           <img
@@ -69,6 +70,7 @@ const TourAdmin = () => {
       title: "Tên",
       dataIndex: "name",
       key: "name",
+      width: "200px",
       sorter: (a, b) => a.name.localeCompare(b.name),
       ellipsis: true,
       ...getColumnSearchProps("name"),
@@ -101,6 +103,7 @@ const TourAdmin = () => {
       title: "Phương tiện",
       dataIndex: "transport",
       key: "transport",
+      width: "120px",
       sorter: (a, b) => a.transport.localeCompare(b.transport),
       ellipsis: true,
     },
@@ -108,6 +111,7 @@ const TourAdmin = () => {
       title: "Thời gian",
       dataIndex: "timeTravel",
       key: "timeTravel",
+      width: "100px",
       sorter: (a, b) => a.timeTravel.localeCompare(b.timeTravel),
       ellipsis: true,
     },
@@ -115,6 +119,7 @@ const TourAdmin = () => {
       title: "Số khách tối đa",
       dataIndex: "maxSeat",
       key: "maxSeat",
+      width: "140px",
       sorter: (a, b) => a.maxSeat - b.maxSeat,
       ellipsis: true,
     },
@@ -122,6 +127,7 @@ const TourAdmin = () => {
       title: "Số khách tham gia",
       dataIndex: "currentSeat",
       key: "currentSeat",
+      width: "150px",
       sorter: (a, b) => a.currentSeat - b.currentSeat,
       ellipsis: true,
     },
@@ -129,6 +135,7 @@ const TourAdmin = () => {
       title: "Ngày khởi hành",
       dataIndex: "dateStart",
       key: "dateStart",
+      width: "250px",
       render: (params) => <a>{params.join(", ")}</a>,
       ellipsis: true,
     },
@@ -137,7 +144,7 @@ const TourAdmin = () => {
       key: "edit",
       dataIndex: "_id",
       fixed: "right",
-      width: 50,
+      width: 70,
       render: (_id) => {
         return (
           <>
@@ -164,7 +171,7 @@ const TourAdmin = () => {
       key: "delete",
       dataIndex: "_id",
       fixed: "right",
-      width: 50,
+      width: 70,
       render: (_id) => {
         return (
           <>
@@ -220,7 +227,7 @@ const TourAdmin = () => {
           columns={columns}
           dataSource={newAllTours || []}
           pagination={{ pageSize: 4 }}
-          scroll={{ x: "max-content" }}
+          scroll={{ x: "1200px" }}
         />
       </div>
     </div>

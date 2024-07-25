@@ -100,6 +100,30 @@ interface tourAdminColumn extends Record<string, unknown> {
   dateStart: string[];
 }
 
+interface bookingAdminColumn extends Record<string, unknown> {
+  key: string;
+  _id: string;
+  userInfo: {
+    email: string;
+    phone: string;
+  };
+  tourInfo: {
+    discount?: number;
+    name?: string;
+    price?: number;
+    _id?: string;
+  };
+  price: number;
+  seat: {
+    adultSeat: number;
+    babySeat: number;
+    childSeat: number;
+    totalSeat: number;
+  };
+  createdAt: string;
+  status: string;
+}
+
 interface userCreateAdminForm {
   name: string;
   email: string;
@@ -175,11 +199,74 @@ interface bookingForm {
 
 interface bookingHistoryColumn extends Record<string, unknown> {
   key: string;
-  id: string;
-  nameTour: string;
+  _id: string;
+  tourInfo: {
+    discount?: number;
+    name?: string;
+    price?: number;
+    _id?: string;
+  };
+  price: number;
+  seat: {
+    adultSeat: number;
+    babySeat: number;
+    childSeat: number;
+    totalSeat: number;
+  };
+  createdAt: string;
   status: string;
-  totalPrice: number;
-  createAt: string;
+}
+
+interface bookingHistoryRes {
+  createAt?: string;
+  dateStart?: string;
+  isRating?: boolean;
+  price?: number;
+  seat?: {
+    adultSeat: number;
+    babySeat: number;
+    childSeat: number;
+    totalSeat: number;
+  };
+  status?: string;
+  tourInfo?: {
+    discount?: number;
+    name?: string;
+    price?: number;
+    _id?: string;
+  };
+  updatedAt?: string;
+  userInfo?: string;
+  _v: number;
+  _id: string;
+}
+
+interface allBookingsRes {
+  createAt?: string;
+  dateStart?: string;
+  isRating?: boolean;
+  price?: number;
+  userInfo?: {
+    email: string;
+    phone: string;
+    _id: string;
+  };
+  seat?: {
+    adultSeat: number;
+    babySeat: number;
+    childSeat: number;
+    totalSeat: number;
+  };
+  status?: string;
+  tourInfo?: {
+    discount?: number;
+    name?: string;
+    price?: number;
+    _id?: string;
+  };
+  updatedAt?: string;
+  _v: number;
+  _id: string;
 }
 
 interface userType {
@@ -404,4 +491,7 @@ export type {
   resGetToursType,
   tourSideBarProps,
   tourHeadingProps,
+  bookingHistoryRes,
+  bookingAdminColumn,
+  allBookingsRes,
 };

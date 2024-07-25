@@ -5,11 +5,12 @@ import userApi from "@/services/userApi";
 import handleDecoded from "@/utils/jwtDecode";
 import { signInValueForm, signUpValueForm, userType } from "@/types/types";
 
-export const useGetAllUser = (storageData: string) => {
+export const useGetAllUsers = () => {
+  const { storageData } = handleDecoded();
   return useQuery({
     queryKey: [userKeys.GET_ALL_USER, storageData],
     queryFn: () => {
-      return userApi.getAllUser(storageData || "");
+      return userApi.getAllUsers(storageData || "");
     },
     enabled: !!storageData,
   });
