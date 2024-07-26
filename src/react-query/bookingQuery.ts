@@ -59,9 +59,14 @@ export const useUpdateBooking = () => {
     mutationFn: ({ id, data }: { id: string; data: bookingType }) => {
       return bookingApi.updateBooking(id, data, storageData || "");
     },
-    onSuccess: () => {
+    onSuccess: (_, { id }) => {
+      const { storageData } = handleDecoded();
+      const dataGetDetail = { token: storageData || "", bookingId: id };
       queryClient.invalidateQueries({
         queryKey: [bookingKeys.GET_ALL_BOOKINGS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [bookingKeys.GET_BOOKING_DETAIL, dataGetDetail],
       });
     },
   });

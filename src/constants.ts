@@ -65,3 +65,34 @@ export const whyUs = [
     desc: "Đa dạng các loại hình tour du lịch với nhiều mức giá khác nhau.",
   },
 ];
+
+export const highlightComment = [
+  {
+    commentDesc:
+      "Dịch vụ rất tuyệt vời. Mình đã có một chuyến đi cực kì đáng nhớ. Rất may mắn khi lựa chọn DAT Travel cho chuyến đi lần này.",
+    commentRating: 5,
+    commentAvatar: "/comment/user.jpg",
+    commentName: "Phan Tấn Trung",
+  },
+  {
+    commentDesc:
+      "Chuyến đi của chúng tôi thật sự đáng nhớ. Chúng tôi rất hài lòng với sự lựa chọn DAT Travel cho kỳ nghỉ lần này. Cảm ơn DAT Travel đã mang đến trải nghiệm tuyệt vời!.",
+    commentRating: 4,
+    commentAvatar: "/comment/user2.jpg",
+    commentName: "Lê Kim Thư",
+  },
+  {
+    commentDesc:
+      "Cảm ơn DAT Travel đã mang đến cho chúng tôi một chuyến đi thật tuyệt vời. Dịch vụ của bạn thật sự xuất sắc và đã giúp chuyến đi trở nên đặc biệt",
+    commentRating: 5,
+    commentAvatar: "/comment/user3.jpg",
+    commentName: "Trần Hoài Nhung",
+  },
+  {
+    commentDesc:
+      "Một chuyến đi không thể quên với dịch vụ hoàn hảo từ DAT Travel. Chúng tôi rất vui vì đã chọn DAT Travel cho chuyến đi của mình. ",
+    commentRating: 5,
+    commentAvatar: "/comment/user4.jpg",
+    commentName: "Nguyễn Tuấn Anh",
+  },
+];

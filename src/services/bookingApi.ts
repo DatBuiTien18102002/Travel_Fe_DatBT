@@ -6,15 +6,11 @@ const resourceName = "/booking";
 const bookingApi = {
   createBooking: (data: bookingType, token: string) => {
     console.log(data);
-    return axiosAuthClient.post(
-      `${resourceName}/create/${data.userInfo}`,
-      data,
-      {
-        headers: {
-          token: `Bearer ${token}`,
-        },
-      }
-    );
+    return axiosAuthClient.post(`${resourceName}/create`, data, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
   },
   getMyBookings: (data: { token: string; userId: string }) => {
     const { token, userId } = data;

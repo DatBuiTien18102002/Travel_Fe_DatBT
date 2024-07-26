@@ -14,6 +14,7 @@ import BookTourSideBar from "@/pages/TourDetail/components/BookTourSideBar";
 import { useParams } from "react-router-dom";
 import { useGetDetailTour } from "@/react-query/tourQuery";
 import renderTransportIcon from "@/utils/renderTransportIcon";
+import getAverageRating from "@/utils/getAverageRating";
 
 const TourDetail = () => {
   const [activeInfo, setActiveInfo] = useState("describe");
@@ -27,11 +28,13 @@ const TourDetail = () => {
       case "schedule":
         return <ScheduleTour schedule={tour?.schedule} />;
       case "comments":
-        return <CommentsTour />;
+        return <CommentsTour reviews={tour?.reviews} />;
       default:
         return <></>;
     }
   };
+
+  console.log("review", tour?.reviews);
 
   return (
     <div className="pt-[var(--header-height)]">
@@ -41,14 +44,18 @@ const TourDetail = () => {
           <Rate
             disabled
             allowHalf
-            defaultValue={tour?.rating}
+            value={getAverageRating(tour?.reviews || [])}
             className="text-xl text-sky mb-[1px]"
           />
           <span className="font-robotoBold leading-none h-fit mt-[1px]">
-            {tour?.rating}
+            {getAverageRating(tour?.reviews || [])}
           </span>
           <div className="mt-[2px]">
-            (<span className="font-robotoBold ">{tour?.numRate} </span>đánh giá)
+            (
+            <span className="font-robotoBold ">
+              {tour?.reviews?.length || 0}{" "}
+            </span>
+            đánh giá)
           </div>
         </div>
 

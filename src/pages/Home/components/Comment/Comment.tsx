@@ -2,6 +2,7 @@ import "./CustomSlick.css";
 import Slider from "react-slick";
 import CommentItem from "./CommentItem/CommentItem.tsx";
 import "./Comment";
+import { highlightComment } from "@/constants.ts";
 
 const Comment = () => {
   const settings = {
@@ -46,11 +47,16 @@ const Comment = () => {
         <div className="mt-5">
           <div className="slider-container">
             <Slider {...settings}>
-              <CommentItem />
-              <CommentItem />
-              <CommentItem />
-              <CommentItem />
-              <CommentItem />
+              {highlightComment.map(
+                (comment: {
+                  commentDesc: string;
+                  commentRating: number;
+                  commentAvatar: string;
+                  commentName: string;
+                }) => (
+                  <CommentItem key={comment.commentName} comment={comment} />
+                )
+              )}
             </Slider>
           </div>
         </div>

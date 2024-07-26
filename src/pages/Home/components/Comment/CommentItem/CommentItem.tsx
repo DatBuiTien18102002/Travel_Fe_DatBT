@@ -1,23 +1,33 @@
 import { Rate } from "antd";
 import "../Comment";
 
-const CommentItem = () => {
+const CommentItem = ({
+  comment,
+}: {
+  comment: {
+    commentDesc: string;
+    commentRating: number;
+    commentAvatar: string;
+    commentName: string;
+  };
+}) => {
   return (
     <div>
       <div className="bg-white border-[3px] border-grey rounded-[20px] py-3 px-4 flex flex-col items-center gap-2 w-full scale-90 customComment">
-        <p className="text-center text-sm">
-          "Dịch vụ rất tuyệt vời. Mình đã có một chuyến đi cực kì đáng nhớ. Rất
-          may mắn khi lựa chọn ND Travel cho chuyến đi lần này."
-        </p>
+        <p className="text-center text-sm h-[120px] ">{comment.commentDesc}</p>
 
         <div className="flex flex-col items-center gap-2 mt-auto">
-          <Rate disabled defaultValue={4} className="text-sm text-sky" />
+          <Rate
+            disabled
+            defaultValue={comment.commentRating}
+            className="text-sm text-sky"
+          />
 
           <div className="w-[65px] h-[65px] rounded-full overflow-hidden">
-            <img src="/user.jpg" alt="" />
+            <img src={comment.commentAvatar} alt="" />
           </div>
 
-          <div className="font-robotoBold">Phan Tấn Trung</div>
+          <div className="font-robotoBold">{comment.commentName}</div>
         </div>
       </div>
     </div>

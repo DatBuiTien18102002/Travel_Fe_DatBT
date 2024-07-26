@@ -58,9 +58,6 @@ export const useUpdateTour = () => {
       queryClient.invalidateQueries({
         queryKey: [tourKeys.GET_ALL_TOUR],
       });
-      queryClient.invalidateQueries({
-        queryKey: [tourKeys.GET_ALL_TIME_TRAVEL],
-      });
     },
   });
 };

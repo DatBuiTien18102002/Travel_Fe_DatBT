@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "./CustomSlick.css";
 import { useGetTours } from "@/react-query/tourQuery";
 import { tourType } from "@/types/types";
+import getAverageRating from "@/utils/getAverageRating";
 
 const Discover = () => {
   const settings = {
@@ -43,6 +44,7 @@ const Discover = () => {
   };
 
   const { data: tours } = useGetTours({ limit: 6 });
+  console.log("tours", tours);
 
   return (
     <section className="py-[40px] w-full ">

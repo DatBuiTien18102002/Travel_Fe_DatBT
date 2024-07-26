@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { tourType } from "@/types/types";
 import currencyFormat from "@/utils/currencyFormat";
 import getPriceDiscount from "@/utils/getPriceDiscount";
+import getAverageRating from "@/utils/getAverageRating";
 
 const TourCard = ({ tour }: { tour: tourType }) => {
   const { pathname } = useLocation();
@@ -55,7 +56,8 @@ const TourCard = ({ tour }: { tour: tourType }) => {
 
         <Rate
           disabled
-          defaultValue={tour?.rating}
+          allowHalf
+          defaultValue={getAverageRating(tour?.reviews || [])}
           className="text-sm text-sky"
         />
 

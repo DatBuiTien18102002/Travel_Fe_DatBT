@@ -312,12 +312,7 @@ interface tourType {
   numRate?: number;
   currentSeat?: number;
   availableSeat?: number;
-  review?: {
-    reviewId: string;
-    userName: string;
-    reviewText?: string;
-    rating: number;
-  };
+  reviews?: reviewType[];
 }
 
 interface bookingType {
@@ -334,6 +329,17 @@ interface bookingType {
   isRating?: boolean;
   status?: string;
   paidAt?: Date;
+}
+
+interface reviewType {
+  tourId?: string;
+  userId?: string;
+  avatar?: string;
+  username?: string;
+  reviewText?: string;
+  rating?: number;
+  _id?: string;
+  createdAt?: string;
 }
 
 //API Response
@@ -479,6 +485,7 @@ export type {
   userType,
   tourType,
   bookingType,
+  reviewType,
   responseType,
   signUpResData,
   signInResData,
