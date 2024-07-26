@@ -6,17 +6,24 @@ import {
   faPlaneUp,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
-import { useGetBookingDetail } from "@/react-query/bookingQuery";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useDeleteBooking,
+  useGetBookingDetail,
+} from "@/react-query/bookingQuery";
 import { useGetDetailTour } from "@/react-query/tourQuery";
 import { format } from "date-fns";
 import renderTransportIcon from "@/utils/renderTransportIcon";
 import currencyFormat from "@/utils/currencyFormat";
+import { responseType, tourType } from "@/types/types";
+import message from "@/utils/message";
 
 const BookingHistoryDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   console.log("id booking detail", id);
   const { data: resBooking } = useGetBookingDetail(id || "");
+  const { mutateAsync: deleteBooking } = useDeleteBooking();
   console.log("booking detail", resBooking);
 
   const { data: resTour } = useGetDetailTour(resBooking?.data?.tourInfo || "");
@@ -28,25 +35,39 @@ const BookingHistoryDetail = () => {
     );
   }
 
+  const handleDeleteBooking = async () => {
+    const res: responseType<tourType> = await deleteBooking(id || "");
+    if (res.message) {
+      const status = res.status.toString();
+      if (status === "200") {
+        message("success", res.message);
+        navigate("/bookingHistory");
+      } else {
+        message("error", res.message);
+      }
+    }
+  };
+
   const renderButtonStatus = (status: string) => {
     switch (status) {
       case "waiting_confirm":
-        // return (
-        //   <Button
-        //     type="primary"
-        //     className="!bg-sky text-white border-transparent border-[2px] hover:!bg-white hover:!text-sky hover:!border-sky hover:!border-[2px]"
-        //   >
-        //     Hủy đơn hàng
-        //   </Button>
-        // );
+        return (
+          <Button
+            type="primary"
+            className="!bg-sky text-white border-transparent border-[2px] hover:!bg-white hover:!text-sky hover:!border-sky hover:!border-[2px]"
+            onClick={() => handleDeleteBooking()}
+          >
+            Hủy đơn hàng
+          </Button>
+        );
+
+      case "confirm_booking":
         return (
           <div className="flex gap-1">
             <span className="font-robotoBold">Trạng thái:</span>
             <div className="text-sky font-robotoBold">Chờ thanh toán</div>
           </div>
         );
-      case "confirm_booking":
-        return <div>Chờ thanh toán</div>;
       case "booking_success":
         return (
           <Button

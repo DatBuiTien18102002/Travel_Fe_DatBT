@@ -4,12 +4,11 @@ import {
   useGetAllBookings,
   useUpdateBooking,
 } from "@/react-query/bookingQuery";
-import { useUpdateTour } from "@/react-query/tourQuery";
 import { allBookingsRes, bookingAdminColumn } from "@/types/types";
 import currencyFormat from "@/utils/currencyFormat";
-import { Button, Table, TableProps, Tag } from "antd";
+import { Button, Table, TableProps } from "antd";
 import { format } from "date-fns";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const BookingAdmin = () => {
   const { data: res } = useGetAllBookings();
@@ -26,8 +25,7 @@ const BookingAdmin = () => {
   );
 
   const changeStatus = (status: string, id: string) => {
-    const res = updateBooking({ id, data: { status } });
-    console.log(res);
+    updateBooking({ id, data: { status } });
   };
 
   const renderStatusButton = (status: string, id: string) => {

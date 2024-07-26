@@ -19,6 +19,7 @@ const BookTourSideBar = ({ tour }: { tour: tourType }) => {
   const [numBaby, setNumBaby] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [dateTravel, setDateTravel] = useState("");
+  console.log("tourType", tour);
 
   let adultPrice = 0;
   let childPrice = 0;
@@ -73,7 +74,6 @@ const BookTourSideBar = ({ tour }: { tour: tourType }) => {
   };
 
   const handleBookingTour = () => {
-    console.log(dateTravel);
     if (dateTravel === "") {
       message("error", "Bạn cần chọn lịch trình trước khi đặt tour !");
       return;
@@ -82,6 +82,15 @@ const BookTourSideBar = ({ tour }: { tour: tourType }) => {
     if (totalPrice === 0) {
       message("error", "Bạn cần chọn số người tham gia trước khi đặt tour !");
       return;
+    }
+
+    const totalBookingSeat = numAdult + numChild + numBaby;
+
+    if (tour?.maxSeat && tour?.currentSeat) {
+      if (tour?.maxSeat < tour?.currentSeat + totalBookingSeat) {
+        message("error", "Số lượng người vượt quá số lượng cho phép !");
+        return;
+      }
     }
 
     const bookingInfo = {
@@ -241,6 +250,7 @@ const BookTourSideBar = ({ tour }: { tour: tourType }) => {
         <Button
           onClick={() => handleBookingTour()}
           className="px-2 py-5 flex-1 font-robotoBold border-[2px] border-transparent bg-sky text-white hover:!bg"
+          disabled={tour?.availableSeat === 0}
         >
           Đặt Tour ngay
         </Button>

@@ -105,9 +105,7 @@ const TourDetail = () => {
 
             <div>
               <div className="text-grey text-sm">Số chỗ trống</div>
-              <div className="text-sky text-sm">
-                {tour?.availableSeat || tour?.maxSeat}
-              </div>
+              <div className="text-sky text-sm">{tour?.availableSeat || 0}</div>
             </div>
           </div>
 
@@ -131,11 +129,20 @@ const TourDetail = () => {
         <div className="py-5">
           <Row gutter={30} className="gap-y-5">
             <Col span={24} lg={16}>
-              <div className="w-full h-[400px] rounded-[20px] overflow-hidden mb-[30px]">
+              <div className="relative w-full h-[400px] rounded-[20px] overflow-hidden mb-[30px] flex-center">
                 <img
                   src={tour?.photo ? tour?.photo : "/tour_img_default.jpg"}
                   alt=""
                 />
+
+                {tour?.availableSeat === 0 && (
+                  <>
+                    <div className="absolute inset-0 bg-black opacity-[0.7]" />
+                    <div className="absolute z-10 w-[150px] h-[150px] flex-center font-robotoBold text-xl text-white bg-sky rounded-full">
+                      Hết chỗ trống
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="flex gap-[20px] w-full border-b-[4px] border-sky">

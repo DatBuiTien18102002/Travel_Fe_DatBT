@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { bookingKeys } from "./queryKeys";
 import { bookingApi } from "@/services";
 import handleDecoded from "@/utils/jwtDecode";
-import { bookingType, queryType } from "@/types/types";
+import { bookingType } from "@/types/types";
 
 export const useCreateBooking = () => {
   const queryClient = useQueryClient();
@@ -31,6 +31,7 @@ export const useGetMyBookings = (userId: string) => {
     enabled: !!userId,
   });
 };
+
 export const useGetAllBookings = () => {
   const { storageData } = handleDecoded();
 
@@ -61,6 +62,24 @@ export const useUpdateBooking = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [bookingKeys.GET_ALL_BOOKINGS],
+      });
+    },
+  });
+};
+
+export const useDeleteBooking = () => {
+  const queryClient = useQueryClient();
+  const { storageData } = handleDecoded();
+  return useMutation({
+    mutationFn: (id: string) => {
+      return bookingApi.deleteBooking(storageData || "", id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [bookingKeys.GET_ALL_BOOKINGS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [bookingKeys.GET_MY_BOOKINGS],
       });
     },
   });

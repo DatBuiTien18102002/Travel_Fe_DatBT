@@ -5,11 +5,16 @@ const resourceName = "/booking";
 
 const bookingApi = {
   createBooking: (data: bookingType, token: string) => {
-    return axiosAuthClient.post(`${resourceName}/create/${data.userId}`, data, {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
+    console.log(data);
+    return axiosAuthClient.post(
+      `${resourceName}/create/${data.userInfo}`,
+      data,
+      {
+        headers: {
+          token: `Bearer ${token}`,
+        },
+      }
+    );
   },
   getMyBookings: (data: { token: string; userId: string }) => {
     const { token, userId } = data;
@@ -36,6 +41,13 @@ const bookingApi = {
   },
   updateBooking: (id: string, data: bookingType, token: string) => {
     return axiosClient.put(`${resourceName}/update/${id}`, data, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+  },
+  deleteBooking: (token: string, id: string) => {
+    return axiosClient.delete(`${resourceName}/delete/${id}`, {
       headers: {
         token: `Bearer ${token}`,
       },

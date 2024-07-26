@@ -321,8 +321,8 @@ interface tourType {
 }
 
 interface bookingType {
-  userId?: string;
-  tourId?: string;
+  userInfo?: string;
+  tourInfo?: string;
   seat?: {
     adultSeat: number;
     childSeat: number;

@@ -159,7 +159,6 @@ const UserAdmin = () => {
   };
 
   const handleDeleteUser = async (id: string) => {
-    console.log("Delete", id);
     const res: responseType<object> = await deleteUser({
       id,
       token: storageData || "",
