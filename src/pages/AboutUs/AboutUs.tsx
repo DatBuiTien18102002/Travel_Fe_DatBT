@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlane,
@@ -11,8 +11,64 @@ import {
   faUsers,
   faTag,
 } from "@fortawesome/free-solid-svg-icons";
+import { statisticsAboutUs } from "@/constants";
 
 const AboutUs = () => {
+  const aboutNumRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([]);
+  const aboutCountRef = useRef();
+
+  aboutNumRefs.current = Array.from(Array(4)).map(
+    (_, index) => aboutNumRefs.current[index] || React.createRef()
+  );
+
+  function nCount() {
+    aboutNumRefs.current.map((elementRef) => {
+      const element = elementRef.current;
+      const start = 0;
+      let end = 0;
+      const duration = 1000;
+      let startTime = 0;
+      if (element) {
+        end = parseInt(element.textContent || "0");
+      }
+      function animateNumber(timeStamp: number) {
+        if (!startTime) startTime = timeStamp;
+        const progress = timeStamp - startTime;
+
+        const percentage = Math.min(progress / duration, 1);
+
+        const currentCount = Math.ceil(percentage * (end - start));
+
+        if (elementRef.current) {
+          elementRef.current.textContent = currentCount.toString();
+        }
+
+        if (progress < duration) {
+          requestAnimationFrame(animateNumber);
+        }
+      }
+
+      requestAnimationFrame(animateNumber);
+    });
+  }
+
+  function handleIntersection(
+    entries: IntersectionObserverEntry[],
+    observer: IntersectionObserver
+  ) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.target === aboutCountRef.current) {
+        nCount();
+        observer.disconnect();
+      }
+    });
+  }
+
+  const observer = new IntersectionObserver(handleIntersection);
+
+  useEffect(() => {
+    observer.observe(aboutCountRef.current);
+  }, []);
   return (
     <div className="pt-[var(--header-height)]">
       <div className="wrapper">
@@ -35,7 +91,7 @@ const AboutUs = () => {
             </div>
 
             <div className="text-grey text-sm">
-              DAT Travel được thành lập vào năm 2019 bởi một nhóm đam mê du lịch
+              DAT Travel được thành lập vào năm 2014 bởi một nhóm đam mê du lịch
               với mục tiêu mang đến những trải nghiệm du lịch độc đáo và phong
               phú. Bắt đầu với các tour trong nước, công ty nhanh chóng mở rộng
               ra quốc tế, đa dạng hóa các tour từ mạo hiểm, nghỉ dưỡng đến gia
@@ -44,27 +100,22 @@ const AboutUs = () => {
               đáng nhớ với đội ngũ nhân viên chuyên nghiệp và nhiệt huyết.
             </div>
 
-            <div className="flex flex-col gap-4">
-              <div className="flex gap-2 items-center">
-                <div className="font-robotoBold text-3xl text-sky">05</div>
-                <div className="h-[35px] w-[4px] bg-sky opacity-40 rounded-full" />
-                <div>Năm hình thành và phát triển</div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <div className="font-robotoBold text-3xl text-sky">30</div>
-                <div className="h-[35px] w-[4px] bg-sky opacity-40 rounded-full" />
-                <div>Điểm đến nổi bật</div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <div className="font-robotoBold text-3xl text-sky">20</div>
-                <div className="h-[35px] w-[4px] bg-sky opacity-40 rounded-full" />
-                <div>Đối tác chiến lược</div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <div className="font-robotoBold text-3xl text-sky">50</div>
-                <div className="h-[35px] w-[4px] bg-sky opacity-40 rounded-full" />
-                <div>Hướng dẫn viên giàu kinh nghiệm</div>
-              </div>
+            <div className="flex flex-col gap-4" ref={aboutCountRef}>
+              {statisticsAboutUs.map((statisticItem, index) => (
+                <div
+                  key={statisticItem.desc}
+                  className="flex gap-2 items-center"
+                >
+                  <div
+                    className="font-robotoBold text-3xl text-sky"
+                    ref={aboutNumRefs.current[index]}
+                  >
+                    {statisticItem.number}
+                  </div>
+                  <div className="h-[35px] w-[4px] bg-sky opacity-40 rounded-full" />
+                  <div>{statisticItem.desc}</div>
+                </div>
+              ))}
             </div>
           </div>
 

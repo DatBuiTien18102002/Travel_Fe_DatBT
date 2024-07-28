@@ -66,6 +66,13 @@ export const whyUs = [
   },
 ];
 
+export const statisticsAboutUs = [
+  { number: 10, desc: "Năm hình thành và phát triển" },
+  { number: 30, desc: "Điểm đến nổi bật" },
+  { number: 20, desc: "Đối tác chiến lược" },
+  { number: 50, desc: "Hướng dẫn viên giàu kinh nghiệm" },
+];
+
 export const highlightComment = [
   {
     commentDesc:
