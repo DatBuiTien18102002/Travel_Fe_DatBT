@@ -2,7 +2,10 @@ import { SearchDetail } from "@/components";
 
 const Introduce = () => {
   return (
-    <section className="relative h-fit flex flex-col wrapper max-md:py-5 max-md:items-center py-[30px]">
+    <section
+      id="Introduce"
+      className="relative h-fit flex flex-col wrapper max-md:py-5 max-md:items-center py-[30px]"
+    >
       <div className="flex md:gap-10 max-md:gap-5 w-full md:h-full max-md:h-fit max-md:flex-col ">
         <div className="md:w-[40%] flex flex-col justify-start gap-5 ">
           <div className="text- font-logo px-3 py-2 bg-sky rounded-full w-fit text-white">

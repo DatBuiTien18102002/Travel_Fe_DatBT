@@ -26,20 +26,20 @@ export const sectionMenu = [
     title: "Giới thiệu",
   },
   {
-    href: "#DiscoverMenu",
-    title: "Khám phá menu",
+    href: "#WhyUs",
+    title: "Về chúng tôi",
+  },
+  {
+    href: "#Discover",
+    title: "Khám phá",
   },
   {
     href: "#Comment",
     title: "Bình luận",
   },
   {
-    href: "#ServiceTime",
-    title: "Thời gian hoạt động",
-  },
-  {
-    href: "#ImageShop",
-    title: "Hình ảnh quán",
+    href: "#Gallery",
+    title: "Hình ảnh chuyến đi",
   },
 ];
 

@@ -67,28 +67,3 @@ export const slideToRight = (duration = 0, delay = 0) => {
     },
   };
 };
-
-export const fadeInTest = () => {
-  return {
-    show: {
-      opacity: 1,
-      zIndex: 5,
-    },
-    hidden: {
-      opacity: 0,
-      zIndex: 1,
-    },
-  };
-};
-export const fadeOutTest = () => {
-  return {
-    show: {
-      opacity: 1,
-      x: 0,
-    },
-    hidden: {
-      opacity: 0,
-      x: 50,
-    },
-  };
-};

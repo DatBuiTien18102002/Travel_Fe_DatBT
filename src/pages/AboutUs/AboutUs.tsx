@@ -139,7 +139,7 @@ const AboutUs = () => {
       {/* More Info */}
       <div className="bg-bgSection pb-[40px] pt-[70px] clip-path-around">
         <div className="wrapper flex justify-between gap-[30px] max-md:flex-col max-md:w-[370px] max-md:max-w-full">
-          <div className=" relative p-5 text-center bg-white border-sky border-[2px] rounded-[10px]">
+          <div className="flex flex-col relative p-5 text-center bg-white border-sky border-[2px] rounded-[10px]">
             <div className="absolute top-0 left-1/2 translate-x-[-50%] translate-y-[-50%] flex-center bg-white p-2 w-fit h-fit rounded-full border-sky text-sky border-[2px] ">
               <FontAwesomeIcon
                 icon={faEarthAmericas}
@@ -151,13 +151,13 @@ const AboutUs = () => {
               Các Thông Tin Tour Mới Nhất
             </div>
 
-            <div className="text-grey">
+            <div className="text-grey mt-auto">
               Luôn cập nhật các thông tin mới nhất, đầy đủ nhất về các tour tốt
               nhất hiện nay
             </div>
           </div>
 
-          <div className=" relative p-5 text-center bg-white border-sky border-[2px] rounded-[10px]">
+          <div className="flex flex-col relative p-5 text-center bg-white border-sky border-[2px] rounded-[10px]">
             <div className="absolute top-0 left-1/2 translate-x-[-50%] translate-y-[-50%] flex-center bg-white p-2 w-fit h-fit rounded-full border-sky text-sky border-[2px] ">
               <FontAwesomeIcon icon={faUsers} className="w-[20px] h-[20px]" />
             </div>
@@ -166,13 +166,13 @@ const AboutUs = () => {
               Chuyên gia tư vấn chi tiết nhất
             </div>
 
-            <div className="text-grey">
+            <div className="text-grey mt-auto">
               Các tư vấn chuyên gia luôn sẵn sàng tư vấn tận tâm, chi tiết và
               tốt nhất
             </div>
           </div>
 
-          <div className=" relative p-5 text-center bg-white border-sky border-[2px] rounded-[10px]">
+          <div className="flex flex-col relative p-5 text-center bg-white border-sky border-[2px] rounded-[10px]">
             <div className="absolute top-0 left-1/2 translate-x-[-50%] translate-y-[-50%] flex-center bg-white p-2 w-fit h-fit rounded-full border-sky text-sky border-[2px] ">
               <FontAwesomeIcon icon={faTag} className="w-[20px] h-[20px]" />
             </div>
@@ -181,7 +181,7 @@ const AboutUs = () => {
               Khuyến mãi & Giá cả luôn tốt nhất
             </div>
 
-            <div className="text-grey">
+            <div className="text-grey mt-auto">
               Các ưu đãi luôn được cập nhật mới nhất và giá cả tốt nhất cho bạn
             </div>
           </div>

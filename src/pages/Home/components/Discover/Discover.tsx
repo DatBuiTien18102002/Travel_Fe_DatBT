@@ -45,7 +45,7 @@ const Discover = () => {
 
   const { data: tours } = useGetTours({ limit: 6 });
   return (
-    <section className="py-[40px] w-full ">
+    <section id="Discover" className="py-[40px] w-full ">
       <div
         className="wrapper bg-center bg-cover"
         style={{ backgroundImage: "url(/background-discover.webp)" }}

@@ -2,7 +2,7 @@ import React from "react";
 
 const Partner = () => {
   return (
-    <section className="py-[40px] bg-bgSection">
+    <section id="Partner" className="py-[40px] bg-bgSection">
       <div className="wrapper">
         <div className="text-center mb-[30px]">
           <h2 className="title text-white">

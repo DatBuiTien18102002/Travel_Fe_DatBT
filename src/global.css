@@ -24,7 +24,7 @@
   }
 
   * {
-    @apply box-border list-none p-0 m-0 scroll-smooth font-robotoRegular snap-y;
+    @apply box-border list-none p-0 m-0 scroll-smooth font-robotoRegular;
   }
 
   body {
@@ -38,7 +38,7 @@
   }
 
   section {
-    @apply scroll-mt-[var(--header-height)] snap-start;
+    @apply scroll-mt-[var(--header-height)];
   }
 
   img {

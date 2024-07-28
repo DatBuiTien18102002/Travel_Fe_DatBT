@@ -4,3 +4,5 @@ export { default as TourCard } from "./TourCard/TourCard.tsx";
 export { default as MultiDatePicker } from "./MultiDatePicker/MultiDatePicker.tsx";
 export { default as TextLoading } from "./TextLoading/TextLoading.tsx";
 export { default as TourItem } from "./TourItem/TourItem.tsx";
+export { default as LoadingPage } from "./LoadingPage/LoadingPage.tsx";
+export { default as ScrollToTop } from "./ScrollToTop/ScrollToTop.tsx";

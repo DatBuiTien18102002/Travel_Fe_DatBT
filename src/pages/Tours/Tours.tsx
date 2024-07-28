@@ -71,7 +71,6 @@ const Tours = () => {
   const { data, refetch, isFetching: loading } = useGetTours(query);
   const toursRes: resGetToursType<tourType> = data as resGetToursType<tourType>;
   let tours = toursRes?.data;
-
   useEffect(() => {
     if (state?.searchInfo) {
       setActiveFindDepart(undefined);

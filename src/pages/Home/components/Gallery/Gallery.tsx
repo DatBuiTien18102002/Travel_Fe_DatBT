@@ -2,7 +2,7 @@ import React from "react";
 
 const Gallery = () => {
   return (
-    <section className="py-[40px]">
+    <section id="Gallery" className="py-[40px]">
       <div className="wrapper ">
         <div className="text-center">
           <h2 className="title">Hình ảnh chuyến đi</h2>

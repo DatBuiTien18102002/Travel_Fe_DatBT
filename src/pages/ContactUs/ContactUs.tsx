@@ -70,7 +70,7 @@ const ContactUs = () => {
           </div>
 
           <div className="relative z-20 rounded-[10px] w-[500px] max-w-full overflow-hidden">
-            <img src="/Contact-1.png" alt="" />
+            <img src="/Contact.png" alt="" />
           </div>
         </div>
 

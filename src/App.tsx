@@ -13,6 +13,8 @@ import handleDecoded from "@/utils/jwtDecode";
 import { useGetDetailUser } from "@/react-query/userQuery";
 import { updateUser } from "@/redux/slice/userSlice";
 import TourAdminForm from "@/forms/TourAdminForm";
+import { LoadingPage, ScrollToTop } from "@/components";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +44,8 @@ function App() {
           element={
             route.layout === null ? (
               <Fragment>
+                <ScrollToTop />
+
                 <Helmet>
                   <title>{route.title}</title>
                 </Helmet>
@@ -49,6 +53,7 @@ function App() {
               </Fragment>
             ) : (
               <Layout>
+                <ScrollToTop />
                 <Helmet>
                   <title>{route.title}</title>
                 </Helmet>
@@ -84,7 +89,6 @@ function App() {
       >
         <Routes>
           <Route path="/home" element={<Navigate to="/" />} />
-          {/* <Route path="/admin" element={<Navigate to="/admin/dashboard" />} /> */}
 
           {[...handleRenderRoute(publicRoutes)]}
 
@@ -102,6 +106,7 @@ function App() {
                 path={config.routes.newTourAdmin}
                 element={
                   <Fragment>
+                    <ScrollToTop />
                     <Helmet>
                       <title>{config.titles.newTourAdmin}</title>
                     </Helmet>
@@ -114,6 +119,7 @@ function App() {
                 path={config.routes.updateTourAdmin}
                 element={
                   <Fragment>
+                    <ScrollToTop />
                     <Helmet>
                       <title>{config.titles.updateTourAdmin}</title>
                     </Helmet>
@@ -125,6 +131,8 @@ function App() {
           )}
         </Routes>
       </div>
+
+      <AnimatePresence>{loadingUser && <LoadingPage />}</AnimatePresence>
     </div>
   );
 }

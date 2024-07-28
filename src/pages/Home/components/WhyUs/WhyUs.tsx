@@ -3,7 +3,7 @@ import { whyUs } from "@/constants";
 
 const WhyUs = () => {
   return (
-    <section className="bg-bgSection py-[40px]">
+    <section id="WhyUs" className="bg-bgSection py-[40px]">
       <div className="wrapper">
         <h2 className="title text-white text-center">
           Lý do bạn nên chọn <br className="sm:hidden" />
