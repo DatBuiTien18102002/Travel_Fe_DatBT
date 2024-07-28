@@ -47,7 +47,6 @@ const ContactForm = () => {
         (error) => {
           setLoading(false);
           message("error", error.text);
-          console.log("false", error);
         }
       );
   };

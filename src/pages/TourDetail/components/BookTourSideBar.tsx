@@ -19,8 +19,6 @@ const BookTourSideBar = ({ tour }: { tour: tourType }) => {
   const [numBaby, setNumBaby] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [dateTravel, setDateTravel] = useState("");
-  console.log("tourType", tour);
-
   let adultPrice = 0;
   let childPrice = 0;
   let babyPrice = 0;

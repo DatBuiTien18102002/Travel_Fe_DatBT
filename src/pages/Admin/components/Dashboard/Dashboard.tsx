@@ -97,8 +97,6 @@ const Dashboard = () => {
     })
   );
 
-  console.log(newAllBookings);
-
   const revenue = Array.from((allBookings?.data as bookingType[]) || []).reduce(
     (total: number, item: bookingType) => {
       if (item?.price && typeof item.price === "number") {

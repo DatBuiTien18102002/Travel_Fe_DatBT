@@ -6,7 +6,6 @@ import { userApi } from "@/services";
 import { refreshTokenApi } from "@/types/types";
 
 const handleCreateAxios = () => {
-  console.log(import.meta.env.VITE_REACT_API_URL);
   return axios.create({
     baseURL: import.meta.env.VITE_REACT_API_URL,
     headers: {

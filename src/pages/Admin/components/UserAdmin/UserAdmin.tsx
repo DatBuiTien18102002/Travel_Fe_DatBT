@@ -28,8 +28,6 @@ const UserAdmin = () => {
   const { mutateAsync: deleteUser, isPending: isLoadingDelete } =
     useDeleteUser();
 
-  console.log("all user nè", allUser);
-
   useEffect(() => {
     setIsActionAllowed(true);
     setIdAction("");
@@ -145,8 +143,6 @@ const UserAdmin = () => {
   ];
 
   const handleEditUser = async (id: string) => {
-    console.log("Edit", id);
-    console.log("Token", loginUser.access_token);
     const userDetail = await userApi.getDetailUser(
       id,
       loginUser.access_token || ""

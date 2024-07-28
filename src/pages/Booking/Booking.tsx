@@ -97,7 +97,7 @@ const Booking = () => {
     const resBooking: responseType<bookingType> = await createBooking(
       dataBooking
     );
-    console.log("res booking", resBooking);
+
     if (resBooking.message) {
       const status = resBooking.status.toString();
       if (status === "200" && resBooking.data) {

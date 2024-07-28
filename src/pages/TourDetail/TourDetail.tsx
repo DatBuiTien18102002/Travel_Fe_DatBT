@@ -34,8 +34,6 @@ const TourDetail = () => {
     }
   };
 
-  console.log("review", tour?.reviews);
-
   return (
     <div className="pt-[var(--header-height)]">
       <div className="wrapper py-[40px]">

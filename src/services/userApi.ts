@@ -15,8 +15,6 @@ const userApi = {
   updateUser: (data: userType) => {
     const { access_token, _id, ...detailUser } = data;
 
-    console.log("api id", _id);
-
     return axiosAuthClient.put(`${resourceName}/update/${_id}`, detailUser, {
       headers: {
         token: `Bearer ${access_token}`,

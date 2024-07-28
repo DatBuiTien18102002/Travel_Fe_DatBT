@@ -50,8 +50,6 @@ const UserAdminForm: React.FC<userAdminFormProps> = ({
   };
 
   const handleUpdate = async (values: userUpdateAdminForm) => {
-    console.log("update admin", defaultValue);
-
     const { storageData } = handleDecoded();
 
     const res: responseType<userResData> = await updateUser({
@@ -74,15 +72,12 @@ const UserAdminForm: React.FC<userAdminFormProps> = ({
   };
 
   const handleCreate = async (values: userCreateAdminForm) => {
-    console.log("create admin", values);
-
     try {
       const res: responseType<signUpResData> = await createUser({
         ...values,
         avatar,
       });
 
-      console.log("Update user", res);
       if (res.message) {
         const status = res.status.toString();
         if (status === "200") {

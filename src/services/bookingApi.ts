@@ -5,7 +5,6 @@ const resourceName = "/booking";
 
 const bookingApi = {
   createBooking: (data: bookingType, token: string) => {
-    console.log(data);
     return axiosAuthClient.post(`${resourceName}/create`, data, {
       headers: {
         token: `Bearer ${token}`,

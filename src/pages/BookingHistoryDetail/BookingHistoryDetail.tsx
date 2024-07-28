@@ -27,7 +27,6 @@ import { useSelector } from "react-redux";
 const BookingHistoryDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log("id booking detail", id);
   const { data: resBooking } = useGetBookingDetail(id || "");
   const currentUser = useSelector((state: { user: userType }) => state.user);
   const { mutateAsync: deleteBooking } = useDeleteBooking();
@@ -131,8 +130,6 @@ const BookingHistoryDetail = () => {
         message("error", reviewRes.message);
       }
     }
-
-    console.log("reviewRes", reviewRes);
   };
 
   return (

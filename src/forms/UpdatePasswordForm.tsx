@@ -37,7 +37,6 @@ const UpdatePasswordForm: React.FC<booleanSetStateProps> = ({
   const { control, handleSubmit } = formReactHook;
 
   const handleSubmitForm = async (values: updatePasswordForm) => {
-    console.log("Cập nhật mật khẩu", values);
     const { storageData } = handleDecoded();
 
     const res: responseType<userResData> = await updateProfile({
@@ -45,8 +44,6 @@ const UpdatePasswordForm: React.FC<booleanSetStateProps> = ({
       _id: loginUser?._id,
       access_token: storageData || "",
     });
-
-    console.log(res);
 
     if (res.message) {
       const status = res.status.toString();

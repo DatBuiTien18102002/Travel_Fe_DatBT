@@ -63,7 +63,6 @@ const SearchDetail = () => {
       return;
     }
 
-    console.log("search Info", searchInfo);
     navigate(`/tours?limit=${limit}&page=${page}`, { state: { searchInfo } });
     setSearchInfo({
       department: undefined,

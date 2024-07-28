@@ -13,7 +13,6 @@ const ScheduleTour = ({
     _id: string;
   }[];
 }) => {
-  console.log("schedule", schedule);
   const items: CollapseProps["items"] = schedule?.map((scheduleItem, index) => {
     return {
       key: index + 1,

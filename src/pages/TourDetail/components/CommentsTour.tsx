@@ -74,13 +74,6 @@ const CommentsTour = ({ reviews }: { reviews: reviewType[] }) => {
 
       {currentLimit === limit || currentLimit >= reviews.length ? (
         <div className="flex-center mt-4">
-          {/* <Pagination
-                    count={totalPage}
-                    color="primary"
-                    page={currentPage}
-                    size="large"
-                    onChange={handleChangePaginate}
-                  /> */}
           <Pagination
             onChange={handleChangePaginate}
             defaultCurrent={1}

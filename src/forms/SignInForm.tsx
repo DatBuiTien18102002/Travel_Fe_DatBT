@@ -43,7 +43,6 @@ const SignInForm = () => {
       const res: responseType<signInResData> = await loginUser({
         ...values,
       });
-      console.log("login", res);
 
       if (res.message) {
         const status = res.status.toString();
@@ -52,14 +51,10 @@ const SignInForm = () => {
           const decoded: decodedType = jwtDecode(res.data.access_token);
 
           if (decoded.payload?.id) {
-            console.log("id", decoded.payload.id);
-            console.log("token", res.data?.access_token);
-
             const userDetail = await userApi.getDetailUser(
               decoded.payload.id,
               res.data?.access_token
             );
-            console.log("user detail", userDetail);
             if (userDetail.data) {
               dispatch(
                 updateUser({
