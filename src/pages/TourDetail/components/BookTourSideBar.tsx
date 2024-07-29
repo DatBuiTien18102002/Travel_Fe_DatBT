@@ -26,6 +26,10 @@ const BookTourSideBar = ({ tour = {} }: { tour?: tourType }) => {
     adultPrice = getPriceDiscount(tour?.price, tour?.discount);
     childPrice = adultPrice - (adultPrice * 50) / 100;
     babyPrice = adultPrice - (adultPrice * 90) / 100;
+  } else if (tour?.price) {
+    adultPrice = tour?.price;
+    childPrice = adultPrice - (adultPrice * 50) / 100;
+    babyPrice = adultPrice - (adultPrice * 90) / 100;
   }
 
   const handleMinus = (typeMinus: string) => {

@@ -8,6 +8,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { queryType, tourType } from "@/types/types";
 import { useGetToursByName } from "@/react-query/tourQuery";
 import { TourItem } from "@/components";
+import { Spin } from "antd";
 
 const Search = () => {
   const [headerInput, setHeaderInput] = useState("");
@@ -29,6 +30,7 @@ const Search = () => {
   const handleOutsideClick = () => {
     setVisibleCloseBtn(false);
   };
+
   const wrapperSearch = useOutsideClick<HTMLDivElement>(handleOutsideClick);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,18 +88,19 @@ const Search = () => {
               className="absolute top-[50%] translate-y-[-50%] flex-center bg-transparent right-[10px] text-sky-dark"
               onClick={handleClear}
             >
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                className="w-[14px] h-[14px]"
-              />
+              {loading ? (
+                <Spin size="small" />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  className="w-[14px] h-[14px]"
+                />
+              )}
             </button>
           )}
         </div>
 
-        <button
-          className="button__search "
-          onClick={() => console.log(headerInput)}
-        >
+        <button className="button__search ">
           <FontAwesomeIcon icon={faSearch} className="w-[14px] h-[14px]" />
         </button>
       </div>

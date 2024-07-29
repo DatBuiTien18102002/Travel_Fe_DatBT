@@ -32,14 +32,16 @@ const BookingHistoryDetail = () => {
     id || ""
   );
   const currentUser = useSelector((state: { user: userType }) => state.user);
-  const { mutateAsync: deleteBooking } = useDeleteBooking();
+  const { mutateAsync: deleteBooking, isPending: loadingDelete } =
+    useDeleteBooking();
   const [isOpenReviewForm, setIsOpenReviewForm] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
   const { data: resTour, isLoading: loadingTour } = useGetDetailTour(
     resBooking?.data?.tourInfo || ""
   );
-  const { mutateAsync: createReview } = useCreateReview();
+  const { mutateAsync: createReview, isPending: loadingReviewTour } =
+    useCreateReview();
   const { mutateAsync: updateBooking } = useUpdateBooking();
   const { mutateAsync: updateTour } = useUpdateTour();
 
@@ -74,6 +76,7 @@ const BookingHistoryDetail = () => {
             type="primary"
             className="!bg-sky text-white border-transparent border-[2px] hover:!bg-white hover:!text-sky hover:!border-sky hover:!border-[2px]"
             onClick={() => handleDeleteBooking()}
+            disabled={loadingDelete}
           >
             Hủy đơn hàng
           </Button>
@@ -93,6 +96,7 @@ const BookingHistoryDetail = () => {
               type="primary"
               className="!bg-sky text-white border-transparent border-[2px] hover:!bg-white hover:!text-sky hover:!border-sky hover:!border-[2px]"
               onClick={() => setIsOpenReviewForm(true)}
+              disabled={loadingReviewTour}
             >
               Đánh giá tour
             </Button>

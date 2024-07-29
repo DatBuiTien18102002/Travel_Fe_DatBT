@@ -146,7 +146,12 @@ const Profile = () => {
                 <span className="text-sky cursor-pointer">Nhấn vào đây !</span>
               </div>
 
-              <Button type="primary" htmlType="submit" className="w-full">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="w-full"
+                disabled={loadingUpdate}
+              >
                 {loadingUpdate === true ? "Loading..." : "Cập nhật thông tin"}
               </Button>
             </Form>

@@ -45,7 +45,6 @@ const Discover = () => {
   };
 
   const { data: tours, isLoading } = useGetTours({ limit: 6 });
-  console.log("data discover", isLoading);
   return (
     <section id="Discover" className="py-[40px] w-full ">
       <div

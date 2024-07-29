@@ -43,11 +43,9 @@ export const useGetAllBookings = () => {
 };
 
 export const useGetBookingDetail = (bookingId: string) => {
-  const { storageData } = handleDecoded();
-  const data = { token: storageData || "", bookingId: bookingId };
   return useQuery({
-    queryKey: [bookingKeys.GET_BOOKING_DETAIL, data],
-    queryFn: () => bookingApi.getBookingDetail(data),
+    queryKey: [bookingKeys.GET_BOOKING_DETAIL, bookingId],
+    queryFn: () => bookingApi.getBookingDetail(bookingId),
     enabled: !!bookingId,
   });
 };
@@ -60,13 +58,11 @@ export const useUpdateBooking = () => {
       return bookingApi.updateBooking(id, data, storageData || "");
     },
     onSuccess: (_, { id }) => {
-      const { storageData } = handleDecoded();
-      const dataGetDetail = { token: storageData || "", bookingId: id };
       queryClient.invalidateQueries({
         queryKey: [bookingKeys.GET_ALL_BOOKINGS],
       });
       queryClient.invalidateQueries({
-        queryKey: [bookingKeys.GET_BOOKING_DETAIL, dataGetDetail],
+        queryKey: [bookingKeys.GET_BOOKING_DETAIL, id],
       });
     },
   });
@@ -74,10 +70,9 @@ export const useUpdateBooking = () => {
 
 export const useDeleteBooking = () => {
   const queryClient = useQueryClient();
-  const { storageData } = handleDecoded();
   return useMutation({
     mutationFn: (id: string) => {
-      return bookingApi.deleteBooking(storageData || "", id);
+      return bookingApi.deleteBooking(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

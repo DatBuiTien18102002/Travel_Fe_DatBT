@@ -26,13 +26,8 @@ const bookingApi = {
       },
     });
   },
-  getBookingDetail: (data: { token: string; bookingId: string }) => {
-    const { token, bookingId } = data;
-    return axiosAuthClient.get(`${resourceName}/booking-detail/${bookingId}`, {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
+  getBookingDetail: (bookingId: string) => {
+    return axiosAuthClient.get(`${resourceName}/booking-detail/${bookingId}`);
   },
   updateBooking: (id: string, data: bookingType, token: string) => {
     return axiosClient.put(`${resourceName}/update/${id}`, data, {
@@ -41,12 +36,8 @@ const bookingApi = {
       },
     });
   },
-  deleteBooking: (token: string, id: string) => {
-    return axiosClient.delete(`${resourceName}/delete/${id}`, {
-      headers: {
-        token: `Bearer ${token}`,
-      },
-    });
+  deleteBooking: (id: string) => {
+    return axiosClient.delete(`${resourceName}/delete/${id}`);
   },
 };
 
