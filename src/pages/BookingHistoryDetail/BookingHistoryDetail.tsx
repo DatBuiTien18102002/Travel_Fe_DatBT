@@ -23,17 +23,22 @@ import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import TextArea from "antd/es/input/TextArea";
 import { useCreateReview } from "@/react-query/reviewQuery";
 import { useSelector } from "react-redux";
+import { BookingHistoryDetailSkeleton } from "@/components/Skeleton";
 
 const BookingHistoryDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: resBooking } = useGetBookingDetail(id || "");
+  const { data: resBooking, isLoading: loadingBooking } = useGetBookingDetail(
+    id || ""
+  );
   const currentUser = useSelector((state: { user: userType }) => state.user);
   const { mutateAsync: deleteBooking } = useDeleteBooking();
   const [isOpenReviewForm, setIsOpenReviewForm] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
-  const { data: resTour } = useGetDetailTour(resBooking?.data?.tourInfo || "");
+  const { data: resTour, isLoading: loadingTour } = useGetDetailTour(
+    resBooking?.data?.tourInfo || ""
+  );
   const { mutateAsync: createReview } = useCreateReview();
   const { mutateAsync: updateBooking } = useUpdateBooking();
   const { mutateAsync: updateTour } = useUpdateTour();
@@ -140,135 +145,139 @@ const BookingHistoryDetail = () => {
             Chi tiết đặt tour
           </div>
 
-          <div className="mx-auto p-[20px] rounded-[10px] border-sky border-[2px] flex flex-col gap-5 max-w-[1000px] w-full">
-            <div className="flex justify-between items-center gap-2 max-md:flex-col-reverse max-md:items-start">
-              <div className="text-xl font-robotoBold max-w-[350px] text-overflow-2-line ">
-                {resTour?.data?.name}
-              </div>
-              <div className="flex gap-1 text-sm">
-                <div className="font-robotoBold">Thời gian đặt tour:</div>
-                <div className="text-grey">{formattedDateBooking}</div>
-              </div>
-            </div>
-
-            <div className="flex max-md:flex-col justify-between items-center gap-5 py-4 border-t-[2px] border-b-[2px] border-sky">
-              <div className="max-md:w-full w-[40%]">
-                <div className="max-md:h-[300px] h-[200px] overflow-hidden rounded-[10px]">
-                  <img
-                    src={
-                      resTour?.data?.photo
-                        ? resTour?.data?.photo
-                        : "/tour_img_default.jpg"
-                    }
-                    alt=""
-                  />
+          {!loadingBooking && !loadingTour ? (
+            <div className="mx-auto p-[20px] rounded-[10px] border-sky border-[2px] flex flex-col gap-5 max-w-[1000px] w-full">
+              <div className="flex justify-between items-center gap-2 max-md:flex-col-reverse max-md:items-start">
+                <div className="text-xl font-robotoBold max-w-[350px] text-overflow-2-line ">
+                  {resTour?.data?.name}
+                </div>
+                <div className="flex gap-1 text-sm">
+                  <div className="font-robotoBold">Thời gian đặt tour:</div>
+                  <div className="text-grey">{formattedDateBooking}</div>
                 </div>
               </div>
 
-              <div className="max-md:w-full w-[60%]">
-                <div className="grid grid-cols-2 gap-5">
-                  <div className="flex gap-2">
-                    <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
-                      <FontAwesomeIcon
-                        icon={faLocationDot}
-                        className="w-[15px] h-[15px] text-sky"
-                      />
-                    </div>
+              <div className="flex max-md:flex-col justify-between items-center gap-5 py-4 border-t-[2px] border-b-[2px] border-sky">
+                <div className="max-md:w-full w-[40%]">
+                  <div className="max-md:h-[300px] h-[200px] overflow-hidden rounded-[10px]">
+                    <img
+                      src={
+                        resTour?.data?.photo
+                          ? resTour?.data?.photo
+                          : "/tour_img_default.jpg"
+                      }
+                      alt=""
+                    />
+                  </div>
+                </div>
 
-                    <div>
-                      <div className="text-grey text-sm">Khởi hành từ</div>
-                      <div className="text-sky text-sm">
-                        {resTour?.data?.depart}
+                <div className="max-md:w-full w-[60%]">
+                  <div className="grid grid-cols-2 gap-5">
+                    <div className="flex gap-2">
+                      <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
+                        <FontAwesomeIcon
+                          icon={faLocationDot}
+                          className="w-[15px] h-[15px] text-sky"
+                        />
+                      </div>
+
+                      <div>
+                        <div className="text-grey text-sm">Khởi hành từ</div>
+                        <div className="text-sky text-sm">
+                          {resTour?.data?.depart}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex gap-2">
-                    <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
-                      <FontAwesomeIcon
-                        icon={faLocationDot}
-                        className="w-[15px] h-[15px] text-sky"
-                      />
-                    </div>
+                    <div className="flex gap-2">
+                      <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
+                        <FontAwesomeIcon
+                          icon={faLocationDot}
+                          className="w-[15px] h-[15px] text-sky"
+                        />
+                      </div>
 
-                    <div>
-                      <div className="text-grey text-sm">Điểm đến</div>
-                      <div className="text-sky text-sm">
-                        {resTour?.data?.destination}
+                      <div>
+                        <div className="text-grey text-sm">Điểm đến</div>
+                        <div className="text-sky text-sm">
+                          {resTour?.data?.destination}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex gap-2">
-                    <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
-                      <FontAwesomeIcon
-                        icon={faCalendarDays}
-                        className="w-[15px] h-[15px] text-sky"
-                      />
-                    </div>
+                    <div className="flex gap-2">
+                      <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
+                        <FontAwesomeIcon
+                          icon={faCalendarDays}
+                          className="w-[15px] h-[15px] text-sky"
+                        />
+                      </div>
 
-                    <div>
-                      <div className="text-grey text-sm">Thời gian</div>
-                      <div className="text-sky text-sm">
-                        {resTour?.data?.timeTravel}
+                      <div>
+                        <div className="text-grey text-sm">Thời gian</div>
+                        <div className="text-sky text-sm">
+                          {resTour?.data?.timeTravel}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex gap-2">
-                    <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        className="w-[15px] h-[15px] text-sky"
-                      />
-                    </div>
+                    <div className="flex gap-2">
+                      <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className="w-[15px] h-[15px] text-sky"
+                        />
+                      </div>
 
-                    <div>
-                      <div className="text-grey text-sm">Số người</div>
-                      <div className="text-sky text-sm">
-                        {resBooking?.data?.seat?.totalSeat}{" "}
-                        <span className="text-black">{`(${resBooking?.data?.seat?.adultSeat} người lớn, ${resBooking?.data?.seat?.childSeat} trẻ em, ${resBooking?.data?.seat?.babySeat} trẻ nhỏ)`}</span>
+                      <div>
+                        <div className="text-grey text-sm">Số người</div>
+                        <div className="text-sky text-sm">
+                          {resBooking?.data?.seat?.totalSeat}{" "}
+                          <span className="text-black">{`(${resBooking?.data?.seat?.adultSeat} người lớn, ${resBooking?.data?.seat?.childSeat} trẻ em, ${resBooking?.data?.seat?.babySeat} trẻ nhỏ)`}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex gap-2">
-                    <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
-                      <FontAwesomeIcon
-                        icon={
-                          renderTransportIcon(resTour?.data?.transport) ||
-                          faPlaneUp
-                        }
-                        className={`w-[16px] h-[16px] text-sky ${
-                          resTour?.data?.transport === "Máy bay"
-                            ? "rotate-45"
-                            : ""
-                        }`}
-                      />
-                    </div>
+                    <div className="flex gap-2">
+                      <div className="py-2 px-3 rounded-[10px] bg-bgSection h-fit">
+                        <FontAwesomeIcon
+                          icon={
+                            renderTransportIcon(resTour?.data?.transport) ||
+                            faPlaneUp
+                          }
+                          className={`w-[16px] h-[16px] text-sky ${
+                            resTour?.data?.transport === "Máy bay"
+                              ? "rotate-45"
+                              : ""
+                          }`}
+                        />
+                      </div>
 
-                    <div>
-                      <div className="text-grey text-sm">Di chuyển bằng</div>
-                      <div className="text-sky text-sm">
-                        {resTour?.data?.transport}
+                      <div>
+                        <div className="text-grey text-sm">Di chuyển bằng</div>
+                        <div className="text-sky text-sm">
+                          {resTour?.data?.transport}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex justify-between items-center gap-2 max-sm:flex-col max-sm:items-start">
-              <div className="text-lg font-robotoBold">
-                Thành tiền:{" "}
-                <span className="text-sky font-robotoBold">
-                  {currencyFormat(resBooking?.data?.price || 0)}
-                </span>
+              <div className="flex justify-between items-center gap-2 max-sm:flex-col max-sm:items-start">
+                <div className="text-lg font-robotoBold">
+                  Thành tiền:{" "}
+                  <span className="text-sky font-robotoBold">
+                    {currencyFormat(resBooking?.data?.price || 0)}
+                  </span>
+                </div>
+
+                {renderButtonStatus(resBooking?.data?.status)}
               </div>
-
-              {renderButtonStatus(resBooking?.data?.status)}
             </div>
-          </div>
+          ) : (
+            <BookingHistoryDetailSkeleton />
+          )}
         </div>
       </div>
 

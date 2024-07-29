@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <section
       id="Hero"
@@ -20,7 +22,10 @@ const Hero = () => {
           Khám phá vẻ đẹp thiên nhiên, văn hóa đa dạng và trải nghiệm không thể
           quên. <br /> Bắt đầu hành trình của bạn ngay hôm nay.
         </p>
-        <button className="md:px-4 md:py-3 max-md:px-3 max-md:py-2 bg-sky text-white rounded-full hover:scale-110 transition-transform">
+        <button
+          className="md:px-4 md:py-3 max-md:px-3 max-md:py-2 bg-sky text-white rounded-full hover:scale-110 transition-transform"
+          onClick={() => navigate("/about-us")}
+        >
           Tìm hiểu ngay
         </button>
       </div>

@@ -7,6 +7,7 @@ import "./CustomSlick.css";
 import { useGetTours } from "@/react-query/tourQuery";
 import { tourType } from "@/types/types";
 import getAverageRating from "@/utils/getAverageRating";
+import { TourCardSkeleton } from "@/components/Skeleton";
 
 const Discover = () => {
   const settings = {
@@ -43,7 +44,8 @@ const Discover = () => {
     ],
   };
 
-  const { data: tours } = useGetTours({ limit: 6 });
+  const { data: tours, isLoading } = useGetTours({ limit: 6 });
+  console.log("data discover", isLoading);
   return (
     <section id="Discover" className="py-[40px] w-full ">
       <div
@@ -65,13 +67,21 @@ const Discover = () => {
         </div>
 
         <Slider {...settings}>
-          {tours?.data?.map((tourItem: tourType) => {
-            return (
-              <div key={tourItem.name}>
-                <TourCard tour={tourItem} />
-              </div>
-            );
-          })}
+          {!isLoading
+            ? tours?.data?.map((tourItem: tourType) => {
+                return (
+                  <div key={tourItem.name}>
+                    <TourCard tour={tourItem} />
+                  </div>
+                );
+              })
+            : Array.from(Array(7))?.map((_, index) => {
+                return (
+                  <div key={index}>
+                    <TourCardSkeleton />
+                  </div>
+                );
+              })}
         </Slider>
       </div>
     </section>

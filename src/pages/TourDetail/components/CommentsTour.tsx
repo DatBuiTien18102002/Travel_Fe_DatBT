@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import getAverageRating from "@/utils/getAverageRating";
 import { Pagination } from "antd";
 
-const CommentsTour = ({ reviews }: { reviews: reviewType[] }) => {
+const CommentsTour = ({ reviews = [] }: { reviews?: reviewType[] }) => {
   const limit = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentLimit, setCurrentLimit] = useState(2);
@@ -72,7 +72,7 @@ const CommentsTour = ({ reviews }: { reviews: reviewType[] }) => {
         })}
       </div>
 
-      {currentLimit === limit || currentLimit >= reviews.length ? (
+      {currentLimit === limit || currentLimit >= reviews?.length ? (
         <div className="flex-center mt-4">
           <Pagination
             onChange={handleChangePaginate}

@@ -3,7 +3,7 @@ import { Collapse, CollapseProps } from "antd";
 const ScheduleTour = ({
   schedule,
 }: {
-  schedule: {
+  schedule?: {
     desc: {
       detail: string;
       timeOfDate: string;

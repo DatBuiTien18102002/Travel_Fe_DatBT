@@ -1,0 +1,39 @@
+.custom-skeleton .ant-skeleton-paragraph {
+  margin-block-start: 0 !important;
+}
+
+.custom-tour-name .ant-skeleton-title {
+  height: 47px !important;
+}
+
+.custom-history-name .ant-skeleton-title {
+  height: 56px !important;
+}
+
+.custom-h-xs .ant-skeleton-title {
+  height: 12px !important;
+}
+
+.custom-h-sm .ant-skeleton-title {
+  height: 14px !important;
+}
+
+.custom-h-lg .ant-skeleton-title {
+  height: 18px !important;
+}
+.custom-h-xl .ant-skeleton-title {
+  height: 20px !important;
+}
+
+.custom-history-price .ant-skeleton-title {
+  height: 32px !important;
+}
+
+.custom-h-4xl .ant-skeleton-title {
+  height: 36px !important;
+}
+
+.custom-tour-image .ant-skeleton-image {
+  width: 100% !important;
+  height: 100% !important;
+}

@@ -1,7 +1,7 @@
 const DescribeTour = ({
   desc,
 }: {
-  desc: {
+  desc?: {
     introduce: string;
     overview: string;
     topic: string;
@@ -12,7 +12,7 @@ const DescribeTour = ({
   return (
     <>
       <div>
-        <p className="font-robotoBold text-lg">Giới thiệu</p>
+        <p className="font-robotoBold text-lg">Giới thiệu:</p>
         <p>{desc?.introduce}</p>
       </div>
 

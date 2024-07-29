@@ -12,7 +12,7 @@ import getPriceDiscount from "@/utils/getPriceDiscount";
 import currencyFormat from "@/utils/currencyFormat";
 import message from "@/utils/message";
 
-const BookTourSideBar = ({ tour }: { tour: tourType }) => {
+const BookTourSideBar = ({ tour = {} }: { tour?: tourType }) => {
   const navigate = useNavigate();
   const [numAdult, setNumAdult] = useState(0);
   const [numChild, setNumChild] = useState(0);
@@ -248,7 +248,7 @@ const BookTourSideBar = ({ tour }: { tour: tourType }) => {
         <Button
           onClick={() => handleBookingTour()}
           className="px-2 py-5 flex-1 font-robotoBold border-[2px] border-transparent bg-sky text-white hover:!bg"
-          disabled={tour?.availableSeat === 0}
+          disabled={tour?.availableSeat === 0 || !tour?._id}
         >
           Đặt Tour ngay
         </Button>
