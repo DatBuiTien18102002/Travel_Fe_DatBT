@@ -15,7 +15,7 @@ const AuthLayout = () => {
         <>
           <div className="w-full h-[100vh] flex items-center justify-center bg-gradient-to-b from-sky-dark  to-sky">
             {pathname === "/sign-in" ? <div /> : <div className="showSignUp" />}
-            <div className="authForm relative w-[750px] h-[500px] max-w-full mx-[10px] bg-white rounded-[13px] overflow-hidden shadow-searchDetail">
+            <div className="authForm relative w-[750px] min-h-[500px] max-w-full mx-[10px] bg-white rounded-[13px] overflow-hidden shadow-searchDetail">
               <SignUpForm />
               <SignInForm />
 
