@@ -65,5 +65,5 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   },
-  "proxy": "https://localhost:3005"
+  "proxy": "https://travel-be-datbt.onrender.com"
 }
