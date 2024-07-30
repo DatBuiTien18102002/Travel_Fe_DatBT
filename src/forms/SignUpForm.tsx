@@ -53,10 +53,12 @@ const SignUpForm = () => {
   return (
     <div className="sign-up-container md:sign-up-transform  absolute w-full md:w-[60%] h-full px-[40px] opacity-0 z-100 md:transition-form">
       <div className="flex flex-col items-center justify-center gap-4 w-full h-full px-[40px]">
-        <h2 className="text-3xl text-sky font-signikaBold">
+        <h2 className="text-3xl text-sky text-center font-signikaBold">
           Đăng ký tài khoản
         </h2>
-        <p className="text-sm text-grey">Chọn phương thức đăng ký</p>
+        <p className="text-sm text-grey text-center">
+          Chọn phương thức đăng ký
+        </p>
 
         <div className="flex gap-2 w-full">
           <div className="flex w-[50%] h-[40px] items-center justify-center gap-[3px] rounded-[10px] border-[3px] border-greyLight border-solid hover:bg-greyHover cursor-pointer">

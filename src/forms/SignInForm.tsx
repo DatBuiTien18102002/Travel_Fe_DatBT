@@ -86,10 +86,12 @@ const SignInForm = () => {
   return (
     <div className="sign-in-container md:sign-in-transform absolute w-full md:w-[60%] h-full md:px-[40px] max-md:px-[15px] z-[2] md:transition-form">
       <div className="flex flex-col items-center justify-center gap-4 w-full h-full md:px-[40px] max-md:px-[15px]">
-        <h2 className="text-3xl text-sky font-signikaBold">
+        <h2 className="text-3xl text-sky text-center font-signikaBold">
           Đăng nhập tài khoản
         </h2>
-        <p className="text-sm text-grey">Chọn phương thức đăng nhập</p>
+        <p className="text-sm text-grey text-center">
+          Chọn phương thức đăng nhập
+        </p>
 
         <div className="flex gap-2 w-full">
           <div className="flex w-[50%] h-[40px] items-center justify-center gap-[3px] rounded-[10px] border-[2px] border-greyLight border-solid hover:bg-greyHover cursor-pointer">

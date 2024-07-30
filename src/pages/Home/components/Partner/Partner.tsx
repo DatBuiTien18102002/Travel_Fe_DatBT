@@ -3,7 +3,7 @@ const Partner = () => {
     <section id="Partner" className="py-[40px] bg-bgSection">
       <div className="wrapper">
         <div className="text-center mb-[30px]">
-          <h2 className="flex flex-wrap title text-white">
+          <h2 className="flex flex-wrap justify-center title text-white">
             Đồng hành cùng
             <div className="font-logo text-sunny"> DAT Travel</div>
           </h2>
