@@ -14,7 +14,7 @@ const Hero = () => {
         <p className="font-logo font-bold max-md:text-xl md:text-2xl">
           DAT Travel
         </p>
-        <h1 className="max-md:text-3xl md:text-5xl font-signikaBold font-bold ">
+        <h1 className="max-md:text-3xl md:text-5xl font-signikaBold font-bold text-center">
           Thế Giới Trong Tầm Tay
         </h1>
         <p className="text-center w-[570px]  max-sm:w-[300px] max-md:text-base md:text-lg">
