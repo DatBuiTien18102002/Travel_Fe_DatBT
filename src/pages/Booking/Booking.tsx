@@ -9,7 +9,6 @@ import {
   bookingForm,
   bookingType,
   responseType,
-  tourType,
   userType,
 } from "@/types/types";
 import currencyFormat from "@/utils/currencyFormat";

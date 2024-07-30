@@ -1,5 +1,5 @@
 import { multiDatePickerProps } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker, { DateObject, Value } from "react-multi-date-picker";
 
 const convertToDateObject = (dateStrings: string[]): DateObject[] => {

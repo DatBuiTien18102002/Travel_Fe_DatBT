@@ -1,4 +1,4 @@
-import { TextLoading, TourCard } from "@/components";
+import { TourCard } from "@/components";
 import { TourCardSkeleton } from "@/components/Skeleton";
 
 import { tourType } from "@/types/types";

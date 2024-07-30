@@ -1,14 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import SideBarAdmin from "@/pages/Admin/components/SidebarAdmin/SideBarAdmin";
 import { useSelector } from "react-redux";
 import { userType } from "@/types/types";
 
 const Admin = () => {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const currentPath = pathname.split("/")[2];
   const [activeBtn, setActiveBtn] = useState(currentPath);
   const [openSidebar, setOpenSidebar] = useState(true);

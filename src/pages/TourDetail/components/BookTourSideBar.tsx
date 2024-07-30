@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinus,
@@ -11,6 +11,7 @@ import { tourType } from "@/types/types";
 import getPriceDiscount from "@/utils/getPriceDiscount";
 import currencyFormat from "@/utils/currencyFormat";
 import message from "@/utils/message";
+import convertStringToDate from "@/utils/convertStringToDate";
 
 const BookTourSideBar = ({ tour = {} }: { tour?: tourType }) => {
   const navigate = useNavigate();
@@ -76,6 +77,8 @@ const BookTourSideBar = ({ tour = {} }: { tour?: tourType }) => {
   };
 
   const handleBookingTour = () => {
+    const currentDate = new Date();
+
     if (dateTravel === "") {
       message("error", "Bạn cần chọn lịch trình trước khi đặt tour !");
       return;
@@ -91,6 +94,13 @@ const BookTourSideBar = ({ tour = {} }: { tour?: tourType }) => {
     if (tour?.maxSeat && tour?.currentSeat) {
       if (tour?.maxSeat < tour?.currentSeat + totalBookingSeat) {
         message("error", "Số lượng người vượt quá số lượng cho phép !");
+        return;
+      }
+    }
+    const dateTravelConvert = convertStringToDate(dateTravel);
+    if (dateTravelConvert) {
+      if (dateTravelConvert < currentDate) {
+        message("error", "Tour đã khởi hành, vui lòng chọn ngày khác !");
         return;
       }
     }

@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 import { adminRoutes, publicRoutes } from "@/routers/routers";
 import { routeProps, userType } from "@/types/types";
 import AuthLayout from "@/layouts/AuthLayout/AuthLayout";
-import { AdminPage, HomePage } from "@/pages";
+import { AdminPage } from "@/pages";
 import config from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import handleDecoded from "@/utils/jwtDecode";

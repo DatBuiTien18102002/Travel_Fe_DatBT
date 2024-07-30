@@ -1,6 +1,5 @@
 import { tourType } from "@/types/types";
 import currencyFormat from "@/utils/currencyFormat";
-import React from "react";
 
 const BookingSideBar = ({
   tour,

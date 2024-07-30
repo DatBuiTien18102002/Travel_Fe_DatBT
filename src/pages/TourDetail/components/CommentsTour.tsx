@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { reviewType } from "@/types/types";
 import { format } from "date-fns";
-import getAverageRating from "@/utils/getAverageRating";
 import { Pagination } from "antd";
 
 const CommentsTour = ({ reviews = [] }: { reviews?: reviewType[] }) => {

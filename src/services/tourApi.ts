@@ -1,5 +1,5 @@
 import { queryType, tourType } from "@/types/types";
-import { axiosClient, axiosAuthClient } from "@/utils/httpRequest";
+import { axiosClient } from "@/utils/httpRequest";
 
 const resourceName = "/tour";
 

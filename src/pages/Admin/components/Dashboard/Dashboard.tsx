@@ -10,7 +10,6 @@ import {
 import { Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import { useGetAllUsers } from "@/react-query/userQuery";
-import handleDecoded from "@/utils/jwtDecode";
 import {
   allBookingsRes,
   bookingAdminColumn,

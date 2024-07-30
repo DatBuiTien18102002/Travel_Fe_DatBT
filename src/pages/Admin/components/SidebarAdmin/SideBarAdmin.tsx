@@ -6,7 +6,7 @@ import {
   faTicket,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { sideBarAdminProps } from "@/types/types";
 import { useDispatch } from "react-redux";
 import { resetUser } from "@/redux/slice/userSlice";

@@ -15,7 +15,7 @@ import { statisticsAboutUs } from "@/constants";
 
 const AboutUs = () => {
   const aboutNumRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([]);
-  const aboutCountRef = useRef();
+  const aboutCountRef = useRef<HTMLDivElement | null>(null);
 
   aboutNumRefs.current = Array.from(Array(4)).map(
     (_, index) => aboutNumRefs.current[index] || React.createRef()
@@ -67,7 +67,9 @@ const AboutUs = () => {
   const observer = new IntersectionObserver(handleIntersection);
 
   useEffect(() => {
-    observer.observe(aboutCountRef.current);
+    if (aboutCountRef.current) {
+      observer.observe(aboutCountRef.current);
+    }
   }, []);
   return (
     <div className="pt-[var(--header-height)]">

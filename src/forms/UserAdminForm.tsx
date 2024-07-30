@@ -5,7 +5,6 @@ import { FormItem } from "react-hook-form-antd";
 import { useState } from "react";
 import {
   responseType,
-  signInResData,
   signUpResData,
   userAdminFormProps,
   userCreateAdminForm,

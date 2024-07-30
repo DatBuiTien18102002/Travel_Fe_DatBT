@@ -1,5 +1,3 @@
-import React from "react";
-
 const Partner = () => {
   return (
     <section id="Partner" className="py-[40px] bg-bgSection">

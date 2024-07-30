@@ -25,8 +25,7 @@ const UserAdmin = () => {
   const [idAction, setIdAction] = useState("");
   const loginUser = useSelector((state: { user: userType }) => state.user);
 
-  const { mutateAsync: deleteUser, isPending: isLoadingDelete } =
-    useDeleteUser();
+  const { mutateAsync: deleteUser } = useDeleteUser();
 
   useEffect(() => {
     setIsActionAllowed(true);

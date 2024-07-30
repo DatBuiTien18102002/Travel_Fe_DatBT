@@ -1,7 +1,6 @@
 import { tourType } from "@/types/types";
 import currencyFormat from "@/utils/currencyFormat";
 import getPriceDiscount from "@/utils/getPriceDiscount";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const TourItem = ({ tour }: { tour: tourType }) => {

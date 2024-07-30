@@ -6,7 +6,6 @@ import Slider from "react-slick";
 import "./CustomSlick.css";
 import { useGetTours } from "@/react-query/tourQuery";
 import { tourType } from "@/types/types";
-import getAverageRating from "@/utils/getAverageRating";
 import { TourCardSkeleton } from "@/components/Skeleton";
 
 const Discover = () => {

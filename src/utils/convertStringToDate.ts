@@ -1,5 +1,4 @@
 const convertStringToDate = (dateString: string) => {
-  // const parts = selectedDates[0]?.format("DD/MM/YYYY").split("/");
   const parts = dateString.split("/");
   if (parts) {
     const day = parseInt(parts[0], 10);
