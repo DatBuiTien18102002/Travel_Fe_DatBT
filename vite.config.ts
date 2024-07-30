@@ -6,7 +6,8 @@ import path from "path";
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "http://localhost:3005",
+      // "/api": "http://localhost:3005",
+      "/api": "https://travel-be-datbt.onrender.com",
     },
   },
   resolve: {
