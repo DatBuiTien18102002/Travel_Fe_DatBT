@@ -6,7 +6,6 @@ import {
   userType,
 } from "@/types/types";
 import { Button, Table, TableProps, Tag } from "antd";
-import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
