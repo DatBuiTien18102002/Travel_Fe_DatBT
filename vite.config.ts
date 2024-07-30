@@ -10,18 +10,13 @@ export default defineConfig({
       "/api": "https://travel-be-datbt.onrender.com",
     },
   },
-  // resolve: {
-  //   alias: {
-  //     "@": path.resolve(__dirname, "./src/"),
-  //     components: `${path.resolve(__dirname, "./src/components/")}`,
-  //     public: `${path.resolve(__dirname, "./public/")}`,
-  //     pages: path.resolve(__dirname, "./src/pages"),
-  //     types: `${path.resolve(__dirname, "./src/@types")}`,
-  //   },
-  // },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@": path.resolve(__dirname, "./src/"),
+      components: `${path.resolve(__dirname, "./src/components/")}`,
+      public: `${path.resolve(__dirname, "./public/")}`,
+      pages: path.resolve(__dirname, "./src/pages"),
+      types: `${path.resolve(__dirname, "./src/@types")}`,
     },
   },
   plugins: [react()],

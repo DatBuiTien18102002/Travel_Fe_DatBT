@@ -19,7 +19,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile } from "antd";
 import { RcFile } from "antd/es/upload";
 import getBase64 from "@/utils/getBase64";
-import { useCreateUser, useUpdateUser } from "../react-query/userQuery";
+import { useCreateUser, useUpdateUser } from "@/react-query/userQuery";
 import message from "@/utils/message";
 import handleDecoded from "@/utils/jwtDecode";
 

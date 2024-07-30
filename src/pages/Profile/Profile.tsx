@@ -14,7 +14,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import { UpdatePassWordForm } from "@/forms";
 import { useDispatch, useSelector } from "react-redux";
-import { useUpdateUser } from "../../react-query/userQuery";
+import { useUpdateUser } from "@/react-query/userQuery";
 import handleDecoded from "@/utils/jwtDecode";
 import message from "@/utils/message";
 import { updateUser } from "@/redux/slice/userSlice";

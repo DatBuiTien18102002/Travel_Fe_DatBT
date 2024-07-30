@@ -13,7 +13,7 @@ import { signInSchema } from "@/forms/validateSchemas";
 import { Button, Form, Input } from "antd";
 import { FormItem } from "react-hook-form-antd";
 import { Link, useNavigate } from "react-router-dom";
-import { useLoginUser } from "../react-query/userQuery";
+import { useLoginUser } from "@/react-query/userQuery";
 import message from "@/utils/message";
 import { jwtDecode } from "jwt-decode";
 import { userApi } from "@/services";

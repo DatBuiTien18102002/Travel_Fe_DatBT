@@ -10,7 +10,7 @@ import {
   userType,
 } from "@/types/types";
 import { updatePasswordSchema } from "@/forms/validateSchemas";
-import { useUpdateUser } from "../react-query/userQuery";
+import { useUpdateUser } from "@/react-query/userQuery";
 import { useSelector } from "react-redux";
 import handleDecoded from "@/utils/jwtDecode";
 import message from "@/utils/message";

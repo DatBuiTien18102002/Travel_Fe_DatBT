@@ -9,7 +9,7 @@ import {
 
 import { Table, Tag } from "antd";
 import type { TableProps } from "antd";
-import { useGetAllUsers } from "../../../../react-query/userQuery";
+import { useGetAllUsers } from "@/react-query/userQuery";
 import {
   allBookingsRes,
   bookingAdminColumn,
