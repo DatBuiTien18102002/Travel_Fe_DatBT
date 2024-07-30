@@ -58,7 +58,10 @@ const Discover = () => {
             </div>
           </div>
 
-          <Link to="/tours" className="text-sky flex items-center gap-3">
+          <Link
+            to="/tours"
+            className="text-sky flex items-center gap-3 max-md:hidden"
+          >
             <span>Xem thêm</span>
             <FontAwesomeIcon icon={faArrowRight} />
           </Link>

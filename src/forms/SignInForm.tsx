@@ -84,8 +84,8 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="sign-in-container md:sign-in-transform absolute w-full md:w-[60%] h-full px-[40px] z-[2] md:transition-form">
-      <div className="flex flex-col items-center justify-center gap-4 w-full h-full px-[40px]">
+    <div className="sign-in-container md:sign-in-transform absolute w-full md:w-[60%] h-full md:px-[40px] max-md:px-[15px] z-[2] md:transition-form">
+      <div className="flex flex-col items-center justify-center gap-4 w-full h-full md:px-[40px] max-md:px-[15px]">
         <h2 className="text-3xl text-sky font-signikaBold">
           Đăng nhập tài khoản
         </h2>
