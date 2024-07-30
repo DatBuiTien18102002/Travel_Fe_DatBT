@@ -51,8 +51,8 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-container md:sign-up-transform  absolute w-full md:w-[60%] h-full px-[40px] opacity-0 z-100 md:transition-form">
-      <div className="flex flex-col items-center justify-center gap-4 w-full h-full px-[40px]">
+    <div className="sign-up-container md:sign-up-transform  absolute w-full md:w-[60%] h-full  md:px-[40px] max-md:px-[15px] opacity-0 z-100 md:transition-form">
+      <div className="flex flex-col items-center justify-center gap-4 w-full h-full md:px-[40px] max-md:px-[15px]">
         <h2 className="text-3xl text-sky text-center font-signikaBold">
           Đăng ký tài khoản
         </h2>
