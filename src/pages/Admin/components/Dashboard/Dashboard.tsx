@@ -167,7 +167,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 grid-rows-4 md:grid-rows-3 xl:grid-rows-4 gap-4 h-[820px] md:h-[660px]  xl:h-[440px]">
+      <div className="grid grid-cols-4 grid-rows-4 md:grid-rows-3 xl:grid-rows-4 gap-4 h-[900px] md:h-[660px]  xl:h-[440px]">
         <div className="col-span-4 row-span-3 md:row-span-2 xl:col-span-3 xl:row-span-4 overflow-hidden admin-wrapper-card">
           <div className="flex justify-between items-center mb-[20px]">
             <div className="font-robotoBold text-sky text-2xl">

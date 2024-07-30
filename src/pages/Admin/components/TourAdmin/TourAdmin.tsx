@@ -144,7 +144,7 @@ const TourAdmin = () => {
       key: "edit",
       dataIndex: "_id",
       fixed: "right",
-      width: 70,
+      width: 65,
       render: (_id) => {
         return (
           <>
