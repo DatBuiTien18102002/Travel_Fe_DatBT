@@ -10,7 +10,7 @@ import { AdminPage } from "@/pages";
 import config from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import handleDecoded from "@/utils/jwtDecode";
-import { useGetDetailUser } from "@/react-query/userQuery";
+import { useGetDetailUser } from "./react-query/userQuery";
 import { updateUser } from "@/redux/slice/userSlice";
 import TourAdminForm from "@/forms/TourAdminForm";
 import { LoadingPage, ScrollToTop } from "@/components";

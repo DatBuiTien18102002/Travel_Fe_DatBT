@@ -3,7 +3,7 @@ import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import BookingSideBar from "@/pages/Booking/component/BookingSideBar";
 import { useCreateBooking } from "@/react-query/bookingQuery";
 import { useGetDetailTour } from "@/react-query/tourQuery";
-import { useUpdateUser } from "@/react-query/userQuery";
+import { useUpdateUser } from "../../react-query/userQuery";
 import { updateUser } from "@/redux/slice/userSlice";
 import {
   bookingForm,

@@ -10,7 +10,10 @@ import { responseType, userAdminColumn, userType } from "@/types/types";
 import ModalFormLayout from "@/layouts/ModalFormLayout/ModalFormLayout";
 import UserAdminForm from "@/forms/UserAdminForm";
 import { useEffect, useState } from "react";
-import { useDeleteUser, useGetAllUsers } from "@/react-query/userQuery";
+import {
+  useDeleteUser,
+  useGetAllUsers,
+} from "../../../../react-query/userQuery";
 import handleDecoded from "@/utils/jwtDecode";
 import { userApi } from "@/services";
 import { useSelector } from "react-redux";

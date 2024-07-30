@@ -8,7 +8,7 @@ import { signUpSchema } from "@/forms/validateSchemas";
 import { Button, Form, Input } from "antd";
 import { FormItem } from "react-hook-form-antd";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateUser } from "@/react-query/userQuery";
+import { useCreateUser } from "../react-query/userQuery";
 import message from "@/utils/message";
 
 const SignUpForm = () => {
