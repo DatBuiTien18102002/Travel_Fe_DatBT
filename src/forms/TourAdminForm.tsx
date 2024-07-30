@@ -232,7 +232,7 @@ const TourAdminForm = ({ type }: { type: string }) => {
                 <InputNumber className="w-full" min={0} />
               </FormItem>
               <FormItem
-                label={<label className="label-form">Giảm giá</label>}
+                label={<label className="label-form">Giảm giá:</label>}
                 control={control}
                 name="discount"
               >
@@ -283,7 +283,7 @@ const TourAdminForm = ({ type }: { type: string }) => {
               >
                 <Input />
               </FormItem>
-              <div className="label-form mb-[8px]">Ngày khởi hành</div>
+              <div className="label-form mb-[8px]">Ngày khởi hành:</div>
 
               <Controller
                 name="dateStart"
@@ -355,7 +355,7 @@ const TourAdminForm = ({ type }: { type: string }) => {
 
           <div className="w-full">
             <div className="mb-[8px] flex justify-between items-center">
-              <label className="label-form">Lịch trình</label>
+              <label className="label-form">Lịch trình:</label>
             </div>
             <Form.Item>
               {scheduleFields.map((scheduleItem, scheduleIndex) => {
