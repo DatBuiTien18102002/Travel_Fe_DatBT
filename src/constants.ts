@@ -5,6 +5,14 @@ import {
   faSuitcase,
 } from "@fortawesome/free-solid-svg-icons";
 
+import {
+  faTwitter,
+  faFacebook,
+  faInstagram,
+  faTiktok,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+
 export const headerPage = [
   {
     title: "AboutUs",
@@ -102,4 +110,38 @@ export const highlightComment = [
     commentAvatar: "/comment/user4.jpg",
     commentName: "Nguyễn Tuấn Anh",
   },
+];
+
+export const addressFooter = [
+  {
+    title: "Cơ sở 1",
+    desc: "128/5 Bùi Quang Là, Phường 12, Q.Gò Vấp, Tp.Hồ Chí Minh, Việt Nam",
+  },
+  {
+    title: "Cơ sở 2",
+    desc: "57/41 Phan Huy Ích, Phường 12, Q.Gò Vấp, Tp.Hồ Chí Minh, Việt Nam",
+  },
+];
+
+export const customerCareFooter = [
+  {
+    title: "Thời gian hỗ trợ",
+    desc: "8H - 23H Hằng ngày",
+  },
+  {
+    title: "Hotline",
+    desc: "0766980574",
+  },
+  {
+    title: "Email",
+    desc: "datbui18102002@gmail.com",
+  },
+];
+
+export const socialFooter = [
+  { icon: faFacebook, name: "Facebook" },
+  { icon: faTwitter, name: "Twitter" },
+  { icon: faInstagram, name: "Instagram" },
+  { icon: faYoutube, name: "Youtube" },
+  { icon: faTiktok, name: "TikTok" },
 ];

@@ -1,13 +1,7 @@
 import { Col, Row } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTwitter,
-  faFacebook,
-  faInstagram,
-  faTiktok,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
+import { addressFooter, customerCareFooter, socialFooter } from "@/constants";
 
 const Footer = () => {
   return (
@@ -29,23 +23,13 @@ const Footer = () => {
               <div className="font-signikaBold text-xl text-sky">Địa chỉ</div>
 
               <div className="pt-4 flex flex-col gap-3">
-                <div>
-                  <div className="font-robotoBold ">Cơ sở 1</div>
+                {addressFooter.map((item) => (
+                  <div key={item.title}>
+                    <div className="font-robotoBold ">{item.title}</div>
 
-                  <div>
-                    128/5 Bùi Quang Là, Phường 12, Q.Gò Vấp, Tp.Hồ Chí Minh,
-                    Việt Nam
+                    <div>{item.desc}</div>
                   </div>
-                </div>
-
-                <div>
-                  <div className="font-robotoBold ">Cơ sở 2</div>
-
-                  <div>
-                    57/41 Phan Huy Ích, Phường 12, Q.Gò Vấp, Tp.Hồ Chí Minh,
-                    Việt Nam
-                  </div>
-                </div>
+                ))}
               </div>
             </Col>
             <Col lg={6} sm={10} xs={24}>
@@ -54,64 +38,29 @@ const Footer = () => {
               </div>
 
               <div className="pt-4 flex flex-col gap-3">
-                <div>
-                  <div className="font-robotoBold ">Thời gian hỗ trợ</div>
+                {customerCareFooter.map((item) => (
+                  <div key={item.title}>
+                    <div className="font-robotoBold ">{item.title}</div>
 
-                  <div>8H - 23H Hằng ngày</div>
-                </div>
-
-                <div>
-                  <div className="font-robotoBold ">Hotline</div>
-
-                  <div>0766980574</div>
-                </div>
-
-                <div>
-                  <div className="font-robotoBold ">Email</div>
-
-                  <div>datbui18102002@gmail.com</div>
-                </div>
+                    <div>{item.desc}</div>
+                  </div>
+                ))}
               </div>
             </Col>
             <Col lg={4} sm={4} xs={24}>
               <div className="font-signikaBold text-xl text-sky">Kết nối</div>
 
               <div className="pt-4 flex flex-col gap-1">
-                <Link
-                  to="https://www.facebook.com/profile.php?id=100011202750667"
-                  className="flex items-center gap-2"
-                >
-                  <FontAwesomeIcon icon={faFacebook} />
-                  <p>Facebook</p>
-                </Link>
-                <Link
-                  to="https://x.com/home?lang=en"
-                  className="flex items-center gap-2"
-                >
-                  <FontAwesomeIcon icon={faTwitter} />
-                  <p>Twitter</p>
-                </Link>
-                <Link
-                  to="https://www.instagram.com/"
-                  className="flex items-center gap-2"
-                >
-                  <FontAwesomeIcon icon={faInstagram} />
-                  <p>Instagram</p>
-                </Link>
-                <Link
-                  to="https://www.youtube.com/"
-                  className="flex items-center gap-2"
-                >
-                  <FontAwesomeIcon icon={faYoutube} />
-                  <p>Youtube</p>
-                </Link>
-                <Link
-                  to="https://www.tiktok.com/"
-                  className="flex items-center gap-2"
-                >
-                  <FontAwesomeIcon icon={faTiktok} />
-                  <p>TikTok</p>
-                </Link>
+                {socialFooter.map((item) => (
+                  <Link
+                    key={item.name}
+                    to="https://www.facebook.com/profile.php?id=100011202750667"
+                    className="flex items-center gap-2"
+                  >
+                    <FontAwesomeIcon icon={item.icon} />
+                    <p>{item.name}</p>
+                  </Link>
+                ))}
               </div>
             </Col>
           </Row>

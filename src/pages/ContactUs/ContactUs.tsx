@@ -1,11 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationDot,
-  faEnvelope,
-  faPhone,
-  faClock,
-} from "@fortawesome/free-solid-svg-icons";
 import { ContactForm } from "@/forms";
+import { contactUsInfo } from "@/utils/constants";
 
 const ContactUs = () => {
   return (
@@ -24,48 +19,18 @@ const ContactUs = () => {
               Thông tin liên lạc
             </div>
             <div className="flex flex-col gap-2">
-              <div className="flex gap-2 items-center">
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  className="w-[20px] h-[20px] text-sky "
-                />
-                <div className="flex flex-col gap-1">
-                  <p className="text-sky font-robotoBold ">Địa chỉ</p>
-                  <p className="text-sm">
-                    128/5 Bùi Quang Là, P.12, Q.Gò Vấp, TP.HCM
-                  </p>
+              {contactUsInfo.map((item) => (
+                <div key={item.title} className="flex gap-2 items-center">
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    className="w-[20px] h-[20px] text-sky "
+                  />
+                  <div className="flex flex-col gap-1">
+                    <p className="text-sky font-robotoBold ">{item.title}</p>
+                    <p className="text-sm">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <FontAwesomeIcon
-                  icon={faClock}
-                  className="w-[20px] h-[20px] text-sky"
-                />
-                <div className="flex flex-col gap-1">
-                  <p className="text-sky font-robotoBold">Thời Gian</p>
-                  <p className="text-sm">8H - 23H Hằng ngày</p>
-                </div>
-              </div>
-              <div className="flex gap-2 items-center ">
-                <FontAwesomeIcon
-                  icon={faEnvelope}
-                  className="w-[20px] h-[20px] text-sky"
-                />
-                <div className="flex flex-col gap-1">
-                  <p className="text-sky font-robotoBold ">Email</p>
-                  <p className="text-sm">datbui18102002@gmail.com</p>
-                </div>
-              </div>
-              <div className="flex gap-2 items-center ">
-                <FontAwesomeIcon
-                  icon={faPhone}
-                  className="w-[20px] h-[20px] text-sky"
-                />
-                <div className="flex flex-col gap-1">
-                  <p className="text-sky font-robotoBold ">Số điện thoại</p>
-                  <p className="text-sm">0766980574</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
