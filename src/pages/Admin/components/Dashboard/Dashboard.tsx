@@ -23,10 +23,14 @@ import { Link } from "react-router-dom";
 import config from "@/config";
 import { useGetAllBookings } from "@/react-query/bookingQuery";
 import useSearchTable from "@/hooks/useSearchTable";
+import {
+  TourDashboardSkeleton,
+  UserDashboardSkeleton,
+} from "@/components/Skeleton";
 
 const Dashboard = () => {
-  const { data: allUsers } = useGetAllUsers();
-  const { data: allTours } = useGetAllTour();
+  const { data: allUsers, isLoading: loadingUser } = useGetAllUsers();
+  const { data: allTours, isLoading: loadingTour } = useGetAllTour();
   const { data: allBookings } = useGetAllBookings();
   const { getColumnSearchProps } = useSearchTable<bookingAdminColumn>();
 
@@ -174,7 +178,7 @@ const Dashboard = () => {
               Đơn Đặt Tour
             </div>
             <div className="text-sm flex items-center gap-1 text-sky">
-              <div>Xem thêm</div>
+              <Link to={`/admin/${config.routes.bookingManage}`}>Xem thêm</Link>
               <FontAwesomeIcon icon={faArrowRight} />
             </div>
           </div>
@@ -196,22 +200,29 @@ const Dashboard = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto flex flex-col gap-2">
-            {allUsers?.data.map((item: userType) => (
-              <div key={item._id} className="flex gap-2 items-center">
-                <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
-                  <img src={item.avatar ? item.avatar : "/avatar.jpg"} alt="" />
-                </div>
+            {!loadingUser
+              ? allUsers?.data.map((item: userType) => (
+                  <div key={item._id} className="flex gap-2 items-center">
+                    <div className="rounded-full w-[30px] h-[30px] overflow-hidden">
+                      <img
+                        src={item.avatar ? item.avatar : "/avatar.jpg"}
+                        alt=""
+                      />
+                    </div>
 
-                <div>
-                  <div className="font-robotoBold text-overflow-1-line">
-                    {item.name}
+                    <div>
+                      <div className="font-robotoBold text-overflow-1-line">
+                        {item.name}
+                      </div>
+                      <div className="text-grey text-xs text-overflow-1-line">
+                        {item.email}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-grey text-xs text-overflow-1-line">
-                    {item.email}
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))
+              : Array.from(Array(7)).map((_, index) => (
+                  <UserDashboardSkeleton key={index} />
+                ))}
           </div>
         </div>
 
@@ -225,22 +236,26 @@ const Dashboard = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto flex flex-col gap-2">
-            {allTours?.data?.map((item: tourType) => (
-              <div key={item.name} className="flex gap-2 items-center">
-                <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
-                  <img src={item.photo || "/tour_img_default.jpg"} alt="" />
-                </div>
+            {!loadingTour
+              ? allTours?.data?.map((item: tourType) => (
+                  <div key={item.name} className="flex gap-2 items-center">
+                    <div className="rounded-[5px] w-[30px] h-[30px] overflow-hidden">
+                      <img src={item.photo || "/tour_img_default.jpg"} alt="" />
+                    </div>
 
-                <div className="overflow-hidden flex-1">
-                  <div className="font-robotoBold  text-overflow-1-line">
-                    {item.name}
+                    <div className="overflow-hidden flex-1">
+                      <div className="font-robotoBold  text-overflow-1-line">
+                        {item.name}
+                      </div>
+                      <div className="text-grey text-xs text-overflow-1-line">
+                        {currencyFormat(item.price || 0)}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-grey text-xs text-overflow-1-line">
-                    {currencyFormat(item.price || 0)}
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))
+              : Array.from(Array(7)).map((_, index) => (
+                  <TourDashboardSkeleton key={index} />
+                ))}
           </div>
         </div>
       </div>
