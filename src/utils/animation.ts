@@ -67,3 +67,42 @@ export const slideToRight = (duration = 0, delay = 0) => {
     },
   };
 };
+
+export const fadeInLeft = (duration = 0, delay = 0, staggerChildren = 1) => {
+  return {
+    hidden: {
+      x: -500,
+      opacity: 0,
+    },
+    show: {
+      x: 0,
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        duration: duration,
+        delay: delay,
+        staggerChildren: staggerChildren,
+      },
+    },
+  };
+};
+
+export const fadeInDown = (duration = 0, delay = 0, staggerChildren = 1) => {
+  return {
+    hidden: {
+      y: -500,
+      opacity: 0,
+    },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        duration: duration,
+        delay: delay,
+        staggerChildren: staggerChildren,
+      },
+    },
+  };
+};

@@ -1,8 +1,21 @@
 import { SearchDetail } from "@/components";
+import { fadeInDown } from "@/utils/animation";
+import { useInView, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const Introduce = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { margin: `-200px` });
+  const [addAnimate, setAddAnimate] = useState(false);
+  useEffect(() => {
+    if (isInView) {
+      setAddAnimate(true);
+    }
+  }, [isInView]);
+
   return (
     <section
+      ref={ref}
       id="Introduce"
       className="relative h-fit flex flex-col wrapper max-md:py-5 max-md:items-center py-[30px]"
     >
@@ -29,15 +42,27 @@ const Introduce = () => {
         </div>
 
         <div className="md:w-[60%] max-md:h-fit flex justify-between items-start">
-          <div className="md:h-[350px] max-md:h-[200px] rounded-3xl border-solid border-2 border-sky w-[30%] overflow-hidden">
-            <img src="/introduce3.jpg" alt="" />
-          </div>
-          <div className="md:h-[350px] max-md:h-[200px] rounded-3xl border-solid border-2 border-sky w-[30%] md:mt-[80px] overflow-hidden">
+          {addAnimate &&
+            Array.from(Array(3)).map((_, index) => (
+              <motion.div
+                key={index}
+                initial="hidden"
+                animate={isInView && "show"}
+                variants={fadeInDown(1, index / 2)}
+                className={`md:h-[350px] max-md:h-[200px] rounded-3xl border-solid border-2 border-sky w-[30%] md:mt-[${
+                  80 * index
+                }px] overflow-hidden 
+              }`}
+              >
+                <img src={`/introduce${3 - index}.jpg`} alt="" />
+              </motion.div>
+            ))}
+          {/* <div className="md:h-[350px] max-md:h-[200px] rounded-3xl border-solid border-2 border-sky w-[30%] md:mt-[80px] overflow-hidden">
             <img src="/introduce2.jpg" alt="" />
           </div>
           <div className="md:h-[350px] max-md:h-[200px] rounded-3xl border-solid border-2 border-sky w-[30%] md:mt-[160px] overflow-hidden">
             <img src="/introduce1.jpg" alt="" />
-          </div>
+          </div> */}
         </div>
       </div>
 

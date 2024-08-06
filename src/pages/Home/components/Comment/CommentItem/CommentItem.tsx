@@ -14,7 +14,9 @@ const CommentItem = ({
   return (
     <div>
       <div className="bg-white border-[3px] border-grey rounded-[20px] py-3 px-4 flex flex-col items-center gap-2 w-full scale-90 customComment">
-        <p className="text-center text-sm h-[120px] ">{comment.commentDesc}</p>
+        <p className="text-center text-sm min-h-[100px] text-overflow-5-line">
+          {comment.commentDesc}
+        </p>
 
         <div className="flex flex-col items-center gap-2 mt-auto">
           <Rate
