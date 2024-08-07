@@ -19,7 +19,7 @@ const Partner = () => {
         <motion.div
           initial="hidden"
           animate={isInView && "show"}
-          variants={fadeIn(1, 1, 0.5)}
+          variants={fadeIn(2, 1, 0)}
           className="flex flex-wrap gap-4 items-center justify-center md:justify-between max-md:w-[500px] max-w-full m-auto"
         >
           <div className=" h-[70px]">

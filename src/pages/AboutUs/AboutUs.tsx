@@ -2,8 +2,17 @@ import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { statisticsAboutUs } from "@/constants";
 import { serviceHighlights, strengthAboutUs } from "@/utils/constants";
+import { useInView, motion } from "framer-motion";
+import { fadeIn, fadeInDown, fadeInLeft } from "@/utils/animation";
 
 const AboutUs = () => {
+  const heroRef = useRef(null);
+  const chooseUsRef = useRef(null);
+  const moreInfoRef = useRef(null);
+  const isHeroInView = useInView(heroRef, { margin: `-200px` });
+  const isChooseUsInView = useInView(chooseUsRef, { margin: `-200px` });
+  const isMoreInfoInView = useInView(moreInfoRef, { margin: `-200px` });
+
   const aboutNumRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([]);
   const aboutCountRef = useRef<HTMLDivElement | null>(null);
 
@@ -111,14 +120,19 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="w-[55%] max-md:w-full ">
-            <div className="w-full h-[400px]">
+          <div ref={heroRef} className="w-[55%] max-md:w-full ">
+            <motion.div
+              initial="hidden"
+              animate={isHeroInView && "show"}
+              variants={fadeIn(2, 1, 0)}
+              className="w-full h-[400px] "
+            >
               <img
                 src="/img-section-about.webp"
                 alt=""
                 className="object-fill"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
         {/* --------------------------------------- */}
@@ -144,26 +158,41 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3  max-md:grid-cols-2 gap-3 py-2 border-t-[2px] border-b-[2px] border-grey m-auto w-fit">
-            {strengthAboutUs.map((item) => (
-              <div key={item.text} className="flex gap-2 items-center">
+          <motion.div
+            ref={chooseUsRef}
+            className="grid grid-cols-3  max-md:grid-cols-2 gap-3 py-2 border-t-[2px] border-b-[2px] border-grey m-auto w-fit"
+          >
+            {strengthAboutUs.map((item, index) => (
+              <motion.div
+                initial="hidden"
+                animate={isChooseUsInView && "show"}
+                variants={fadeInLeft(1, index / 2, 1)}
+                key={item.text}
+                className="flex gap-2 items-center"
+              >
                 <FontAwesomeIcon
                   icon={item.icon}
                   className="w-4 h-4 text-sky"
                 />
                 {item.text}
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
         {/* --------------------------------------- */}
       </div>
       {/* More Info */}
       <div className="bg-bgSection pb-[40px] pt-[70px] clip-path-around">
-        <div className="wrapper flex justify-between gap-[30px] max-md:flex-col max-md:w-[370px] max-md:max-w-full">
-          {serviceHighlights.map((item) => (
-            <div
+        <motion.div
+          ref={moreInfoRef}
+          className="wrapper flex justify-between gap-[30px] max-md:flex-col max-md:w-[370px] max-md:max-w-full"
+        >
+          {serviceHighlights.map((item, index) => (
+            <motion.div
               key={item.title}
+              initial="hidden"
+              animate={isMoreInfoInView && "show"}
+              variants={fadeInDown(1, index / 2, 1)}
               className="flex flex-col relative p-5 text-center bg-white border-sky border-[2px] rounded-[10px]"
             >
               <div className="absolute top-0 left-1/2 translate-x-[-50%] translate-y-[-50%] flex-center bg-white p-2 w-fit h-fit rounded-full border-sky text-sky border-[2px] ">
@@ -176,9 +205,9 @@ const AboutUs = () => {
               <div className="text-sky font-robotoBold">{item.title}</div>
 
               <div className="text-grey mt-auto">{item.description}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
       {/* --------------------------------------- */}
     </div>

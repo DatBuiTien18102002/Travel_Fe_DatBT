@@ -19,7 +19,7 @@ const Gallery = () => {
         <motion.div
           initial="hidden"
           animate={isInView && "show"}
-          variants={fadeIn(1, 1, 0.5)}
+          variants={fadeIn(2, 1, 0)}
           className="mt-[30px]"
         >
           <div className="grid grid-rows-7 grid-cols-4 gap-4 md:w-[80%] max-md:w-full h-[800px] m-auto">
