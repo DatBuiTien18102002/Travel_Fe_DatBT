@@ -1,8 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ContactForm } from "@/forms";
 import { contactUsInfo } from "@/utils/constants";
+import { useEffect, useRef, useState } from "react";
+import { useInView, motion } from "framer-motion";
+import { fadeIn } from "@/utils/animation";
 
 const ContactUs = () => {
+  const commRef = useRef(null);
+  const isCommRefInView = useInView(commRef, { margin: `-200px` });
+  const [addAnimate, setAddAnimate] = useState(false);
+  useEffect(() => {
+    if (isCommRefInView) {
+      setAddAnimate(true);
+    }
+  }, [isCommRefInView]);
+
   return (
     <div className="pt-[var(--header-height)]">
       <div className="wrapper">
@@ -14,7 +26,12 @@ const ContactUs = () => {
         </div>
 
         <div className="flex-center mb-[40px] gap-[40px] max-md:flex-col-reverse">
-          <div className="relative z-30 p-5 bg-white border-[4px] rounded-[10px] border-sky ">
+          <div
+            ref={commRef}
+            className={`relative z-30 p-5 bg-white border-[4px] rounded-[10px] border-sky animate__animated ${
+              addAnimate && "animate__swing"
+            }`}
+          >
             <div className="text-sky text-lg font-robotoBold mb-3">
               Thông tin liên lạc
             </div>
@@ -34,9 +51,14 @@ const ContactUs = () => {
             </div>
           </div>
 
-          <div className="relative z-20 rounded-[10px] w-[500px] max-w-full overflow-hidden">
+          <motion.div
+            initial="hidden"
+            animate={isCommRefInView && "show"}
+            variants={fadeIn(2, 1, 0)}
+            className="relative z-20 rounded-[10px] w-[500px] max-w-full overflow-hidden"
+          >
             <img src="/Contact.png" alt="" />
-          </div>
+          </motion.div>
         </div>
 
         <div className="flex md:items-center gap-[50px] mb-[40px] max-md:flex-col">
