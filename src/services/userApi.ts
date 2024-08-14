@@ -11,6 +11,20 @@ const userApi = {
   loginUser: (data: signInValueForm) => {
     return axiosClient.post(`${resourceName}/sign-in`, data);
   },
+  loginGGUser: (token: string) => {
+    return axiosClient.get(`${resourceName}/gg-login`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+  },
+  loginFBUser: (token: string) => {
+    return axiosClient.get(`${resourceName}/fb-login`, {
+      headers: {
+        token: `Bearer ${token}`,
+      },
+    });
+  },
 
   updateUser: (data: userType) => {
     const { access_token, _id, ...detailUser } = data;

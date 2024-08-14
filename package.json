@@ -26,6 +26,7 @@
     "axios": "^1.6.7",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.2",
+    "firebase": "^10.12.5",
     "framer-motion": "^11.2.10",
     "jwt-decode": "^4.0.0",
     "query-string": "^8.2.0",

@@ -6,3 +6,5 @@ export { default as TextLoading } from "./TextLoading/TextLoading.tsx";
 export { default as TourItem } from "./TourItem/TourItem.tsx";
 export { default as LoadingPage } from "./LoadingPage/LoadingPage.tsx";
 export { default as ScrollToTop } from "./ScrollToTop/ScrollToTop.tsx";
+export { default as GoogleButton } from "./GoogleButton/GoogleButton.tsx";
+export { default as FacebookButton } from "./FacebookButton/FacebookButton.tsx";

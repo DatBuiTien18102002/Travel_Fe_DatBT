@@ -52,10 +52,6 @@ const HeaderUser = () => {
   };
 
   function handleLogOut() {
-    // logoutUser();
-    // if (currentUser?.provider) {
-    //   logoutSocialMedia();
-    // }
     dispatch(resetUser());
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");

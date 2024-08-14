@@ -56,6 +56,18 @@ export const useLoginUser = () => {
   });
 };
 
+export const useAuthGGUser = () => {
+  return useMutation({
+    mutationFn: (token: string) => userApi.loginGGUser(token),
+  });
+};
+
+export const useAuthFBUser = () => {
+  return useMutation({
+    mutationFn: (token: string) => userApi.loginFBUser(token),
+  });
+};
+
 export const useGetDetailUser = (data: { id: string; token: string }) => {
   return useQuery({
     queryKey: [userKeys.GET_USER_DETAIL, data],

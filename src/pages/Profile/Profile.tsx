@@ -137,14 +137,17 @@ const Profile = () => {
                   <Input placeholder="Địa chỉ" />
                 </FormItem>
               </div>
-
-              <div
-                className="w-full text-center mb-[20px]"
-                onClick={() => setIsOpenForm(true)}
-              >
-                Thay đổi mật khẩu ?{" "}
-                <span className="text-sky cursor-pointer">Nhấn vào đây !</span>
-              </div>
+              {!loginUser.ggId && (
+                <div
+                  className="w-full text-center mb-[20px]"
+                  onClick={() => setIsOpenForm(true)}
+                >
+                  Thay đổi mật khẩu ?{" "}
+                  <span className="text-sky cursor-pointer">
+                    Nhấn vào đây !
+                  </span>
+                </div>
+              )}
 
               <Button
                 type="primary"

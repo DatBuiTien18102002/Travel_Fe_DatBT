@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import {
@@ -19,6 +18,7 @@ import { jwtDecode } from "jwt-decode";
 import { userApi } from "@/services";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/redux/slice/userSlice";
+import { FacebookButton, GoogleButton } from "@/components";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -94,19 +94,8 @@ const SignInForm = () => {
         </p>
 
         <div className="flex gap-2 w-full">
-          <div className="flex w-[50%] h-[40px] items-center justify-center gap-[3px] rounded-[10px] border-[2px] border-greyLight border-solid hover:bg-greyHover cursor-pointer">
-            <img src="/logoGG.webp" className="w-[31px] h-[31px]" alt="" />
-
-            <p className="font-robotoBold mt-[2px] leading-[0]">Google</p>
-          </div>
-
-          <div className="flex w-[50%] h-[40px] items-center justify-center  gap-2 rounded-[10px] border-[2px] border-greyLight border-solid hover:bg-greyHover cursor-pointer">
-            <FontAwesomeIcon
-              icon={faFacebook}
-              className="text-sky w-[20px] h-[20px]"
-            />
-            <p className="font-robotoBold  mt-[2px] leading-[0]">Facebook</p>
-          </div>
+          <GoogleButton />
+          <FacebookButton />
         </div>
 
         <div className="flex items-center gap-1 mx-auto w-full">

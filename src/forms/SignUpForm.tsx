@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { responseType, signUpResData, signUpValueForm } from "@/types/types";
@@ -10,6 +9,7 @@ import { FormItem } from "react-hook-form-antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useCreateUser } from "@/react-query/userQuery";
 import message from "@/utils/message";
+import { FacebookButton, GoogleButton } from "@/components";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -61,19 +61,8 @@ const SignUpForm = () => {
         </p>
 
         <div className="flex gap-2 w-full">
-          <div className="flex w-[50%] h-[40px] items-center justify-center gap-[3px] rounded-[10px] border-[3px] border-greyLight border-solid hover:bg-greyHover cursor-pointer">
-            <img src="/logoGG.webp" className="w-[31px] h-[31px]" alt="" />
-
-            <p className="font-robotoBold">Google</p>
-          </div>
-
-          <div className="flex w-[50%] h-[40px] items-center justify-center  gap-2 rounded-[10px] border-[3px] border-greyLight border-solid hover:bg-greyHover cursor-pointer">
-            <FontAwesomeIcon
-              icon={faFacebook}
-              className="text-sky w-[20px] h-[20px]"
-            />
-            <p className="font-robotoBold">Facebook</p>
-          </div>
+          <GoogleButton />
+          <FacebookButton />
         </div>
 
         <div className="flex items-center gap-1 mx-auto w-full">
